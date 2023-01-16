@@ -3,7 +3,7 @@ import classes from '../css-components/FormBtn.module.css';
 const FormBtn = (props) => {
     return(
         <div className={classes.btndiv}>
-            <button>{props.text}</button>
+            <button type={props.type}>{props.text}</button>
         </div>
     );
 }

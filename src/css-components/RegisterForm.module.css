@@ -18,7 +18,30 @@
     margin-bottom: 0.4em;
 }
 
-.registerform input{
+.registerform select{
+    color: white;
+    border: 1px solid white;
+    background: transparent;
+    width: 100%;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 3.125rem;
+    appearance: none;
+}
+
+.inputerror{
+    border: 1px solid yellow;
+    color: white;
+    background: transparent;
+    width: 100%;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 3.125rem;
+    
+}
+
+
+.registerinput{
     color: white;
     border: 1px solid white;
     background: transparent;
@@ -28,12 +51,4 @@
     border-radius: 3.125rem;
 }
 
-.registerform select{
-    color: white;
-    border: 1px solid white;
-    background: transparent;
-    width: 100%;
-    padding: 1em;
-    margin: 0.5em;
-    border-radius: 3.125rem;
-}
+
