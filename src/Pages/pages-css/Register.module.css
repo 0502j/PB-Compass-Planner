@@ -1,7 +1,7 @@
 .introtext{
     color: #E0E0E0;
     width: 50%;
-    padding: 3em 6em;
+    padding: 1.5% 8%;
 }
 
 .introtext h1{
@@ -14,8 +14,13 @@
 
 }
 
+a{
+    color: white;
+}
+
 .registermain{
     background: linear-gradient(#33383D, #1C1D20) no-repeat;
     display: flex;
     justify-content: space-evenly;
+    
 }

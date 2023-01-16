@@ -1,4 +1,5 @@
 import classes from '../css-components/RegisterForm.module.css';
+import FormBtn from '../components/FormBtn';
 
 const Form = () => {
     return(
@@ -21,7 +22,7 @@ const Form = () => {
             <div className={classes.inputdiv}>
                 <label htmlFor='countries'>country</label>
                 <select id="countries">
-                <option value="Your Country" disabled>Your Country</option>
+                <option value="Your Country" selected disabled>Your Country</option>
                     <option value="Brasil">Brasil</option>
                 </select>
             </div>
@@ -45,6 +46,8 @@ const Form = () => {
             <label htmlFor='confirmpass'>password</label>
             <input type="password" id="confirmpass" placeholder="Confirm your password"/>
             </div>
+
+            <FormBtn text="Register Now"></FormBtn>
     
         </form>
     );
