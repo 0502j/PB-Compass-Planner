@@ -1,13 +1,35 @@
-body {
+/*root colors*/
+:root{
+  --gradient-black: linear-gradient(#33383D, #1C1D20);
+  --gradient-red: linear-gradient(#FF2D04, #C13216);
+  --primary-black: #000000;
+  --monday: #FF0024;
+  --tuesday: #FF8000;
+  --wednesday: #FFCE00;
+  --thursday: #FF0024;
+  --friday: #FF8000;
+  --saturday: #FFCE00;
+  --sunday: #FF0024;
+}
+/*end root colors*/
+
+/*reset*/
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  border:none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+}
+body{
+  background-color: var(--primary-white);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+ul{
+  list-style: none;
+}
+
+img{
+  max-width: 100%;
 }
