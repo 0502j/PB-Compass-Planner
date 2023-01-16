@@ -1,0 +1,21 @@
+.introtext{
+    color: #E0E0E0;
+    width: 50%;
+    padding: 4em;
+}
+
+.introtext h1{
+    font-size: 3.75rem;
+
+}
+
+.introtext h2{
+    font-size: 1rem;
+
+}
+
+.registermain{
+    background: linear-gradient(#33383D, #1C1D20) no-repeat;
+    display: flex;
+    justify-content: space-evenly;
+}
