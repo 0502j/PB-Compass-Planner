@@ -15,5 +15,12 @@ export const validatePasword = new RegExp(
     /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 );
 
+export const validateCity = new RegExp(
+    /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/
+    
+);
+
+
+
 
 

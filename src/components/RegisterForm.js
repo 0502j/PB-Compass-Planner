@@ -1,7 +1,7 @@
 import classes from '../css-components/RegisterForm.module.css';
 import FormBtn from '../components/FormBtn';
-import {useState} from 'react';
-import { validateEmail, validateName, validateLastName, validatePasword } from '../utils/Regex';
+import {useEffect, useState} from 'react';
+import { validateEmail, validateName, validateLastName, validatePasword, validateCity } from '../utils/Regex';
 import {useNavigate} from 'react-router-dom';
 
 const Form = () => {
@@ -20,7 +20,6 @@ const Form = () => {
     });
 
     const [inputValid, setInputValid] = useState(true);
-    console.log(inputValid);
 
     const submitHandler = (event) => {
 
@@ -32,7 +31,11 @@ const Form = () => {
         if((!validateName.test(userInput.enteredFirstName)
         || (!validateLastName.test(userInput.enteredLastName))
         || (!validateEmail.test(userInput.enteredEmail))
-        || (!validatePasword.test(userInput.enteredPassword)))){
+        || (!validatePasword.test(userInput.enteredPassword))
+        || (!validateCity.test(userInput.enteredCity))
+        || (userInput.enteredCity === '')
+        || (userInput.enteredBirth === '')
+        || (userInput.enteredCountry === ''))){
             alert("Invalid credentials. Please try again.")
             setInputValid(false);
         }else if(userInput.enteredPassword !== userInput.enteredPasswordConfirm){
@@ -57,7 +60,28 @@ const Form = () => {
         })
     };
 
-    
+    const birthChangeHandler = (event) => {
+        setUserInput({
+            ...userInput,
+            enteredBirth: event.target.value
+        })
+    };
+
+    const countryChangeHandler = (event) => {
+        setUserInput({
+            ...userInput,
+            enteredCountry: event.target.value
+        })
+    };
+
+    const cityChangeHandler = (event) => {
+        setUserInput({
+            ...userInput,
+            enteredCity: event.target.value
+        })
+    };
+
+
     const emailChangeHandler = (event) => {
 
         setUserInput({
@@ -79,8 +103,14 @@ const Form = () => {
             enteredPasswordConfirm: event.target.value
         })
     };
+
+    //Adding data to localstorage
+    useEffect(() => {
+        localStorage.setItem("userdata", JSON.stringify(userInput));
+    },[userInput]);
     
 
+    //Class control
     const inputClasses = inputValid ? classes['registerinput'] : classes['inputerror'];
     const selectClasses = inputValid ? classes['selectform'] : classes['selecterror'];
     
@@ -98,12 +128,12 @@ const Form = () => {
            
             <div className={classes.inputdiv}>
                 <label htmlFor='date'>birth date</label>
-                <input className={inputClasses} type="date" id="date" placeholder="MM/DD/YY"/>     
+                <input onChange={birthChangeHandler} className={inputClasses} type="date" id="date" placeholder="MM/DD/YY"/>     
             </div>
 
             <div className={classes.inputdiv}>
                 <label htmlFor='countries'>country</label>
-                <select id="countries" className={selectClasses}>
+                <select onChange={countryChangeHandler} id="countries" className={selectClasses}>
                 <option value="Your Country" selected disabled>Your Country</option>
                     <option value="Brasil">Brasil</option>
                 </select>
@@ -111,7 +141,7 @@ const Form = () => {
 
             <div className={classes.inputdiv}>
                 <label htmlFor='city'>city</label>
-                <input className={inputClasses} type="text" id='city' placeholder="Your city"/>
+                <input onChange={cityChangeHandler} className={inputClasses} type="text" id='city' placeholder="Your city"/>
             </div>
             
             <div className={classes.inputdiv}>

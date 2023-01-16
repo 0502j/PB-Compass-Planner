@@ -4,7 +4,7 @@
 
 .inputdiv label{
     line-height: 50px;
-    color: white;
+    color: #E0E0E0;
     width: 25%;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .selectform{
-    color: white;
+    color: #E0E0E0;
     border: 1px solid white;
     background: transparent;
     width: 100%;
@@ -31,7 +31,7 @@
 
 .inputerror{
     border: 1px solid yellow;
-    color: white;
+    color: #E0E0E0;
     background: transparent;
     width: 100%;
     padding: 1em;
@@ -42,7 +42,7 @@
 
 
 .registerinput{
-    color: white;
+    color: #E0E0E0;
     border: 1px solid white;
     background: transparent;
     width: 100%;
@@ -52,7 +52,7 @@
 }
 
 .selecterror{
-    color: white;
+    color: #E0E0E0;
     border: 1px solid yellow;
     background: transparent;
     width: 100%;
@@ -60,4 +60,8 @@
     margin: 0.5em;
     border-radius: 3.125rem;
     appearance: none;
+}
+
+::placeholder{
+    color: #E0E0E0;
 }
