@@ -18,7 +18,7 @@
     margin-bottom: 0.4em;
 }
 
-.registerform select{
+.selectform{
     color: white;
     border: 1px solid white;
     background: transparent;
@@ -51,4 +51,13 @@
     border-radius: 3.125rem;
 }
 
-
+.selecterror{
+    color: white;
+    border: 1px solid yellow;
+    background: transparent;
+    width: 100%;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 3.125rem;
+    appearance: none;
+}
