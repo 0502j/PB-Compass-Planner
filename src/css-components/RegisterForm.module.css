@@ -1,0 +1,38 @@
+.inputdiv{
+    display: flex;
+}
+
+.inputdiv label{
+    line-height: 50px;
+    color: white;
+    width: 20%;
+}
+
+.registerform{
+    display: block;
+    margin-top: 2em;
+}
+
+.registerform > *{
+    margin-bottom: 0.4em;
+}
+
+.registerform input{
+    color: white;
+    border: 1px solid white;
+    background: transparent;
+    width: 70%;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 3.125rem;
+}
+
+.registerform select{
+    color: white;
+    border: 1px solid white;
+    background: transparent;
+    width: 70%;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 3.125rem;
+}
