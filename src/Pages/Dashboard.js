@@ -1,3 +1,5 @@
+import classes from './pages-css/Dashboard.module.css';
+
 const Dashboard = () => {
     return(
         <div>

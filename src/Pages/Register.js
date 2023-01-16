@@ -1,3 +1,5 @@
+import classes from './pages-css/Register.module.css';
+
 const Register = () => {
     return(
         <div>
