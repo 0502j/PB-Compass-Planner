@@ -17,8 +17,8 @@ const LoginForm = () => {
     const parsedData = JSON.parse(data);
          
     //storing parsedData into vars
-    const firstName = parsedData.enteredFirstName;
-    const lastName = parsedData.enteredLastName;
+    const firstName = parsedData.enteredFirstName.split(' ').join('');
+    const lastName = parsedData.enteredLastName.split(' ').join('');
     const email = parsedData.enteredEmail;
     const password = parsedData.enteredPassword;
     const fullname = firstName + lastName;
@@ -48,6 +48,7 @@ const LoginForm = () => {
 
     const submitHandler = (event) => {
         event.preventDefault();
+        console.log("Username expected:" + fullname);
         
         if((fullname == usernameParse.enteredUsername ||
             usernameParse.enteredUsername === email) &&
