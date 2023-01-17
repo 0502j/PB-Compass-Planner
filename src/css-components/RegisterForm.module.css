@@ -2,10 +2,10 @@
     display: flex;
 }
 
-.inputdiv label{
+.registerform label{
     line-height: 50px;
     color: #E0E0E0;
-    width: 25%;
+    width: 20%;
 }
 
 .registerform{
@@ -22,7 +22,7 @@
     color: #E0E0E0;
     border: 1px solid white;
     background: transparent;
-    width: 100%;
+    width: 25em;
     padding: 1em;
     margin: 0.5em;
     border-radius: 3.125rem;
@@ -33,7 +33,7 @@
     border: 1px solid yellow;
     color: #E0E0E0;
     background: transparent;
-    width: 100%;
+    width: 25em;
     padding: 1em;
     margin: 0.5em;
     border-radius: 3.125rem;
@@ -45,7 +45,7 @@
     color: #E0E0E0;
     border: 1px solid white;
     background: transparent;
-    width: 100%;
+    width: 25em;
     padding: 1em;
     margin: 0.5em;
     border-radius: 3.125rem;
@@ -55,7 +55,7 @@
     color: #E0E0E0;
     border: 1px solid yellow;
     background: transparent;
-    width: 100%;
+    width: 25em;
     padding: 1em;
     margin: 0.5em;
     border-radius: 3.125rem;

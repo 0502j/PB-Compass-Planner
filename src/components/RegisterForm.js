@@ -3,6 +3,7 @@ import FormBtn from '../components/FormBtn';
 import {useEffect, useState} from 'react';
 import { validateEmail, validateName, validateLastName, validatePasword, validateCity } from '../utils/Regex';
 import {useNavigate} from 'react-router-dom';
+import Input from './Input';
 
 const Form = () => {
 
@@ -122,17 +123,17 @@ const Form = () => {
         <form className={classes.registerform} onSubmit={submitHandler}>
             <div className={classes.inputdiv}>
                 <label htmlFor='firstname'>first name</label>
-                <input onChange={nameChangeHandler} className={inputClasses} type="text" id="firstname" placeholder="Your first name"/>
+                <Input onChange={nameChangeHandler} className={inputClasses} type="text" id="firstname" placeholder="Your first name"/>
             </div>
 
             <div className={classes.inputdiv}>
                 <label htmlFor='lastname'>last name</label>
-                <input onChange={lastNameChangeHandler} className={inputClasses} type="text" id="lastname" placeholder="Your last name"/>
+                <Input onChange={lastNameChangeHandler} className={inputClasses} type="text" id="lastname" placeholder="Your last name"/>
             </div>
            
             <div className={classes.inputdiv}>
                 <label htmlFor='date'>birth date</label>
-                <input onChange={birthChangeHandler} className={inputClasses} type="date" id="date" placeholder="MM/DD/YY"/>     
+                <Input onChange={birthChangeHandler} className={inputClasses} type="date" id="date" placeholder="MM/DD/YY"/>     
             </div>
 
             <div className={classes.inputdiv}>
@@ -145,22 +146,22 @@ const Form = () => {
 
             <div className={classes.inputdiv}>
                 <label htmlFor='city'>city</label>
-                <input onChange={cityChangeHandler} className={inputClasses} type="text" id='city' placeholder="Your city"/>
+                <Input onChange={cityChangeHandler} className={inputClasses} type="text" id='city' placeholder="Your city"/>
             </div>
             
             <div className={classes.inputdiv}>
                 <label htmlFor='email'>e-mail</label>
-                <input onChange={emailChangeHandler} className={inputClasses} type="email" id='email' placeholder="A valid e-mail here"/>
+                <Input onChange={emailChangeHandler} className={inputClasses} type="email" id='email' placeholder="A valid e-mail here"/>
             </div>
 
             <div className={classes.inputdiv}>
                 <label htmlFor='password'>password</label>
-                <input onChange={passwordChangeHandler} className={inputClasses} type="password" id='password' placeholder="Your password"/>
+                <Input onChange={passwordChangeHandler} className={inputClasses} type="password" id='password' placeholder="Your password"/>
             </div>
 
             <div className={classes.inputdiv}>
             <label htmlFor='confirmpass'>password</label>
-            <input onChange={passwordConfirmChangeHandler} className={inputClasses} type="password" id="confirmpass" placeholder="Confirm your password"/>
+            <Input onChange={passwordConfirmChangeHandler} className={inputClasses} type="password" id="confirmpass" placeholder="Confirm your password"/>
             </div>
 
             <FormBtn type="submit">Register Now</FormBtn>
