@@ -1,4 +1,4 @@
-import classes from '../css-components/RegisterForm.module.css';
+import classes from '../css-components/Form.module.css';
 import FormBtn from '../components/FormBtn';
 import {useEffect, useState} from 'react';
 import { validateEmail, validateName, validateLastName, validatePasword, validateCity } from '../utils/Regex';
@@ -116,11 +116,11 @@ const Form = () => {
     
 
     //Class control
-    const inputClasses = inputValid ? classes['registerinput'] : classes['inputerror'];
+    const inputClasses = inputValid ? classes['forminput'] : classes['inputerror'];
     const selectClasses = inputValid ? classes['selectform'] : classes['selecterror'];
     
     return(
-        <form className={classes.registerform} onSubmit={submitHandler}>
+        <form onSubmit={submitHandler}>
             <div className={classes.inputdiv}>
                 <label htmlFor='firstname'>first name</label>
                 <Input onChange={nameChangeHandler} className={inputClasses} type="text" id="firstname" placeholder="Your first name"/>

@@ -2,19 +2,19 @@
     display: flex;
 }
 
-.registerform label{
+form label{
     line-height: 50px;
     color: #E0E0E0;
     width: 20%;
 }
 
-.registerform{
+form{
     display: block;
     margin-top: 2em;
 }
 
 
-.registerform > *{
+form > *{
     margin-bottom: 0.4em;
 }
 
@@ -41,7 +41,7 @@
 }
 
 
-.registerinput{
+.forminput{
     color: #E0E0E0;
     border: 1px solid white;
     background: transparent;
