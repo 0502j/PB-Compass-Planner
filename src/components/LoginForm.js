@@ -1,10 +1,15 @@
-import {Fragment, useState} from 'react';
+import {Fragment, useContext, useEffect, useState} from 'react';
 import Input from '../components/Input';
 import classes from '../css-components/Form.module.css';
 import FormBtn from '../components/FormBtn';
 import btnclasses from '../css-components/FormBtn.module.css';
+import { AuthContext } from '../store/user-context';
+import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+
+    const navigate = useNavigate();
 
     //getting localstorage object data to validate info
     const data = window.localStorage.getItem("userdata");
@@ -31,6 +36,15 @@ const LoginForm = () => {
     const passwordString = JSON.stringify(enteredPassword);
     const passwordParse = JSON.parse(passwordString);
 
+    //useContext validation
+    const {isLogged, setIsLogged} = useContext(AuthContext);
+    useEffect(()=>{
+        if(isLogged === false){
+        }else if(isLogged === true){
+            alert("Logged in succesfully!");
+            navigate('/dashboard');
+        }
+    },[isLogged])
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -38,7 +52,7 @@ const LoginForm = () => {
         if((fullname == usernameParse.enteredUsername ||
             usernameParse.enteredUsername === email) &&
             password == passwordParse.enteredPassword){
-            alert("Data match!");
+            setIsLogged(true);            
         }else{
             alert("Username and/or password does not match registration data...");
             setDataMatch(false);
