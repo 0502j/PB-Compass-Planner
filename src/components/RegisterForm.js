@@ -36,7 +36,11 @@ const Form = () => {
         || (userInput.enteredCity === '')
         || (userInput.enteredBirth === '')
         || (userInput.enteredCountry === ''))){
-            alert("Invalid credentials. Please try again.")
+            alert("Invalid credentials. Please try again." +
+            "\n" +
+            "\n - Name and city must not have numbers" +
+            "\n - E-mail must contain @ and ." +
+            "\n - Password must contain at least 8 chars and 1 number")
             setInputValid(false);
         }else if(userInput.enteredPassword !== userInput.enteredPasswordConfirm){
             alert("Passwords do not match.");
