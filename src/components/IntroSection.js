@@ -1,4 +1,4 @@
-import classes from '../pages/pages-css/Register.module.css';
+import classes from '../pages/pages-css/IntroSection.module.css';
 import img from '../img/background.png';
 
 const IntroSection = (props) => {
