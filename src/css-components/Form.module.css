@@ -65,3 +65,8 @@ form > *{
 ::placeholder{
     color: #E0E0E0;
 }
+
+.logintitle{
+    font-size: 2rem;
+    margin-bottom: 1em;
+}

@@ -1,4 +1,5 @@
 import classes from '../css-components/Form.module.css';
+import btnclasses from '../css-components/FormBtn.module.css';
 import FormBtn from '../components/FormBtn';
 import {useEffect, useState} from 'react';
 import { validateEmail, validateName, validateLastName, validatePasword, validateCity } from '../utils/Regex';
@@ -164,7 +165,7 @@ const Form = () => {
             <Input onChange={passwordConfirmChangeHandler} className={inputClasses} type="password" id="confirmpass" placeholder="Confirm your password"/>
             </div>
 
-            <FormBtn type="submit">Register Now</FormBtn>
+            <FormBtn className={btnclasses.btn} type="submit">Register Now</FormBtn>
     
         </form>
     );
