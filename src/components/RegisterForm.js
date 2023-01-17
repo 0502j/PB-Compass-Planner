@@ -27,8 +27,6 @@ const Form = () => {
 
         event.preventDefault();
 
-        console.log("Entered last name: " + userInput.enteredLastName);
-
         //validation
         if((!validateName.test(userInput.enteredFirstName)
         || (!validateLastName.test(userInput.enteredLastName))
