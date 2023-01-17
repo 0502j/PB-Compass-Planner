@@ -39,6 +39,7 @@ const Form = () => {
             alert("Invalid credentials. Please try again." +
             "\n" +
             "\n - Name and city must not have numbers" +
+            "\n - Date and country must not be empty" +
             "\n - E-mail must contain @ and ." +
             "\n - Password must contain at least 8 chars and 1 number")
             setInputValid(false);

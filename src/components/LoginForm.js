@@ -55,7 +55,9 @@ const LoginForm = () => {
             password == passwordParse.enteredPassword){
             setIsLogged(true);            
         }else{
-            alert("Username and/or password does not match registration data...");
+            alert("Username and/or password does not match registration data." +
+            "\n" +
+            "\nHint: your username can be 'yourfullname' or your e-mail. ");
             setDataMatch(false);
         }
     
