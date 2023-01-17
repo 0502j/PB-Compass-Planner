@@ -163,7 +163,7 @@ const Form = () => {
             <input onChange={passwordConfirmChangeHandler} className={inputClasses} type="password" id="confirmpass" placeholder="Confirm your password"/>
             </div>
 
-            <FormBtn type="submit" text="Register Now"></FormBtn>
+            <FormBtn type="submit">Register Now</FormBtn>
     
         </form>
     );
