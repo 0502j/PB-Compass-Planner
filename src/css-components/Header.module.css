@@ -1,0 +1,22 @@
+.mainct{
+    background-color: white;
+    display: flex;
+    padding: 1em 2em 2em 0em;
+    height: 8rem;
+}
+
+.headertitle{
+    color: white;
+    background-color: black;
+    border-top-right-radius: 0.875rem;
+    border-bottom-right-radius: 0.875rem;
+    padding: 1em;
+    width: 30%;
+}
+
+.datetime{
+    margin-top: 1em;
+    text-align: center;
+    width: 20%;
+}
+
