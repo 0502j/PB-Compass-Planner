@@ -36,7 +36,7 @@ const Form = () => {
         || (userInput.enteredCity === '')
         || (userInput.enteredBirth === '')
         || (userInput.enteredCountry === ''))){
-            alert("Invalid credentials. Please try again." +
+            alert("Hint:" +
             "\n" +
             "\n - Name and city must not have numbers" +
             "\n - Date and country must not be empty" +

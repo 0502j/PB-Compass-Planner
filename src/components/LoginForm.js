@@ -49,7 +49,6 @@ const LoginForm = () => {
     useEffect(()=>{
         if(isLogged === false){
         }else if(isLogged === true){
-            alert("Logged in succesfully!");
             navigate('/dashboard');
         }
     },[isLogged])
@@ -103,7 +102,7 @@ const LoginForm = () => {
                 <div className={classes.loginformdiv}>
                     <h3 className={classes.logintitle}>Login</h3>
                     <div className={classes.inputdiv}>
-                        <Input onBlur={inputInactiveHandler} onFocus={userActiveHandler} onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="yourfullname - example@example.com"/>
+                        <Input onBlur={inputInactiveHandler} onFocus={userActiveHandler} onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="yourfullname or example@example.com"/>
                         <img className={userClasses} src={userIcon}/>
                     </div>
                     <div className={classes.inputdiv}>
