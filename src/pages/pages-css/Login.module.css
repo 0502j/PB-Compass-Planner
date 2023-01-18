@@ -1,3 +1,8 @@
 .loginintrotxt{
     padding-bottom: 5em;
 }
+
+
+.loginintrotxt h2{
+    width: 60%;
+}

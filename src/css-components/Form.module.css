@@ -107,7 +107,7 @@ form > *{
     animation-name: inputOpen;
     animation-duration: 2s;
     position: relative;
-    right: 4em;
+    right: 2.5em;
 
 }
 
