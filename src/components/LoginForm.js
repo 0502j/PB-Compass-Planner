@@ -63,9 +63,6 @@ const LoginForm = () => {
             password == passwordParse.enteredPassword){
             setIsLogged(true);
         }else{
-            alert("Username and/or password does not match registration data." +
-            "\n" +
-            "\nHint: your username can be 'yourfullname' or your e-mail. ");
             setDataMatch(false);
         }
     
@@ -106,13 +103,17 @@ const LoginForm = () => {
                 <div className={classes.loginformdiv}>
                     <h3 className={classes.logintitle}>Login</h3>
                     <div className={classes.inputdiv}>
-                        <Input onBlur={inputInactiveHandler} onFocus={userActiveHandler} onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="user name"/>
+                        <Input onBlur={inputInactiveHandler} onFocus={userActiveHandler} onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="yourfullname - example@example.com"/>
                         <img className={userClasses} src={userIcon}/>
                     </div>
                     <div className={classes.inputdiv}>
                         <Input onBlur={inputInactiveHandler} onFocus={passwordActiveHandler} onChange={passwordChangeHandler} className={inputClasses} type="password" id="password" placeholder="password"/>
                         <img className={passwordClasses} src={passwordIcon}/>
                     </div>
+                    {!dataMatch ? <div className={classes.loginfail}>
+                        <p>Wow, invalid username or password.</p>
+                        <p>Please, try again!</p>
+                    </div> : ''}
                     <FormBtn className={btnclasses.loginbtn} type="submit">Log in</FormBtn>
                 </div>
             </form>

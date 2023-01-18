@@ -112,3 +112,11 @@ form > *{
     animation-duration: 2s;
 
 }
+
+.loginfail {
+    color: yellow;
+    text-align: center;
+    padding-top: 1em;
+    position: relative;
+    right: 2.5em;
+}
