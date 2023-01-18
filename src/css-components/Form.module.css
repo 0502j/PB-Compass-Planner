@@ -10,19 +10,20 @@ form label{
 
 form{
     display: block;
-    margin-top: 2em;
+    margin-top: 1.4em;
 }
 
 
 form > *{
-    margin-bottom: 0.4em;
+    margin-bottom: 0.2em;
 }
 
 .selectform{
     color: #E0E0E0;
     border: 1px solid white;
     background: transparent;
-    width: 25em;
+    width: 22em;
+    height: 3.5em;
     padding: 1em;
     margin: 0.5em;
     border-radius: 3.125rem;
@@ -30,10 +31,11 @@ form > *{
 }
 
 .inputerror{
-    border: 1px solid yellow;
+    border: 1px solid #FFCE00;
     color: #E0E0E0;
     background: transparent;
-    width: 25em;
+    width: 22em;
+    height: 3.5em;
     padding: 1em;
     margin: 0.5em;
     border-radius: 3.125rem;
@@ -45,7 +47,8 @@ form > *{
     color: #E0E0E0;
     border: 1px solid white;
     background: transparent;
-    width: 25em;
+    width: 22em;
+    height: 3.5em;
     padding: 1em;
     margin: 0.5em;
     border-radius: 3.125rem;
@@ -53,9 +56,10 @@ form > *{
 
 .selecterror{
     color: #E0E0E0;
-    border: 1px solid yellow;
+    border: 1px solid #FFCE00;
     background: transparent;
-    width: 25em;
+    width: 22em;
+    height: 3.5em;
     padding: 1em;
     margin: 0.5em;
     border-radius: 3.125rem;
@@ -114,9 +118,17 @@ form > *{
 }
 
 .loginfail {
-    color: yellow;
+    color: #FFCE00;
     text-align: center;
     padding-top: 1em;
     position: relative;
     right: 2.5em;
+}
+
+.inputinvalid{
+    color: #FFCE00;
+    text-align: center;
+    padding-top: 0.20em;
+    padding-bottom: 0.20em;
+
 }

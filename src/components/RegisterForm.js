@@ -164,6 +164,8 @@ const Form = () => {
             <Input onChange={passwordConfirmChangeHandler} className={inputClasses} type="password" id="confirmpass" placeholder="Confirm your password"/>
             </div>
 
+            {!inputValid ? <p className={classes.inputinvalid}>Invalid credentials. Please try again!</p> : ''}
+
             <FormBtn className={btnclasses.btn} type="submit">Register Now</FormBtn>
     
         </form>

@@ -1,6 +1,6 @@
 .introtext{
     color: #E0E0E0;
-    width: 50%;
+    width: 60%;
     padding: 1.5% 8%;
 }
 
@@ -18,9 +18,12 @@ a{
     color: white;
 }
 
-.registermain{
+.maincontent{
     background: linear-gradient(#33383D, #1C1D20) no-repeat;
     display: flex;
     justify-content: space-evenly;
-    
+}
+
+.registerdiv{
+    margin: 0em 4em;
 }

@@ -4,7 +4,7 @@ import img from '../img/background.png';
 const IntroSection = (props) => {
     
     return(
-        <div className={classes.registermain}>
+        <div className={classes.maincontent}>
             <div className={classes.introtext}>
                 {props.children}
             </div>

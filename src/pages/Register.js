@@ -11,11 +11,14 @@ const Register = () => {
         <Fragment>
             
             <IntroSection>
-                <h1>Welcome,</h1>
-                <h2>Please, register to continue</h2>
-                <RegisterForm/>
-                <Link to='/login'>Already have an account? Sign in.</Link>
+                <div className={classes.registerdiv}>
+                    <h1>Welcome,</h1>
+                    <h2>Please, register to continue</h2>
+                    <RegisterForm/>
+                    <Link to='/login'>Already have an account? Sign in.</Link>
+                </div>
             </IntroSection>
+            
 
         </Fragment>
 
