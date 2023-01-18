@@ -91,8 +91,18 @@ const LoginForm = () => {
 
 
     const inputInactiveHandler = () => {
-        setIsUserActive(false);
-        setIsPassActive(false);
+        if(enteredUsername != ''){
+            setIsUserActive(true); 
+        }else{
+            setIsUserActive(false);
+        }
+        
+        if(enteredPassword != ''){
+            setIsPassActive(true); 
+        }else{
+            
+            setIsPassActive(false);
+        }
     }
 
 
