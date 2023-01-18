@@ -70,3 +70,45 @@ form > *{
     font-size: 2rem;
     margin-bottom: 1em;
 }
+
+@keyframes inputOpen{
+    0%{
+        opacity: 0;
+    }
+
+    50%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes inputClose{
+    0%{
+        opacity: 0;
+    }
+
+    50%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+.iconactive{
+    animation-name: inputOpen;
+    animation-duration: 2s;
+    position: relative;
+    right: 4em;
+
+}
+
+.iconinactive{
+    animation-name: inputClose;
+    animation-duration: 2s;
+
+}

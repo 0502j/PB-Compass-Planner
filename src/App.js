@@ -15,6 +15,14 @@ function App() {
     {isLogged, setIsLogged}
   ),[isLogged]);
 
+  useEffect(()=>{
+    if(localStorage.getItem('isLoggedIn')){
+      setIsLogged(localStorage.setItem("isLoggedIn", isLogged));
+    }else{
+      localStorage.getItem("IsLoggedIn");
+    }
+  },[isLogged])
+
 
   return (
     <AuthContext.Provider value={{isLogged, setIsLogged}}>

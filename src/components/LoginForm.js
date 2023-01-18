@@ -6,10 +6,14 @@ import btnclasses from '../css-components/FormBtn.module.css';
 import { AuthContext } from '../store/user-context';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import passwordIcon from '../img/passwordIcon.svg';
+import userIcon from '../img/userIcon.svg';
 
 const LoginForm = () => {
 
     const navigate = useNavigate();
+    const [isUserActive, setIsUserActive] = useState(false);
+    const [isPassActive, setIsPassActive] = useState(false);
 
     //getting localstorage object data to validate info
     const data = window.localStorage.getItem("userdata");
@@ -29,6 +33,8 @@ const LoginForm = () => {
 
     //class control
     const inputClasses = dataMatch ? classes['forminput'] : classes['inputerror'];
+    const userClasses = isUserActive ? classes['iconactive'] : classes['iconinactive'];
+    const passwordClasses = isPassActive ? classes['iconactive'] : classes['iconinactive'];
 
     //get useState data with adequate format
     const usernameString = JSON.stringify(enteredUsername);
@@ -38,6 +44,8 @@ const LoginForm = () => {
 
     //useContext validation
     const {isLogged, setIsLogged} = useContext(AuthContext);
+   
+
     useEffect(()=>{
         if(isLogged === false){
         }else if(isLogged === true){
@@ -53,7 +61,7 @@ const LoginForm = () => {
         if((fullname == usernameParse.enteredUsername ||
             usernameParse.enteredUsername === email) &&
             password == passwordParse.enteredPassword){
-            setIsLogged(true);            
+            setIsLogged(true);
         }else{
             alert("Username and/or password does not match registration data." +
             "\n" +
@@ -77,16 +85,33 @@ const LoginForm = () => {
         })
     };
 
+    const userActiveHandler = () => {
+        setIsUserActive(true);
+    }
+
+    const passwordActiveHandler = () => {
+        setIsPassActive(true);
+    }
+
+
+    const inputInactiveHandler = () => {
+        setIsUserActive(false);
+        setIsPassActive(false);
+    }
+
+
     return(
         <Fragment>
             <form onSubmit={submitHandler}>
                 <div className={classes.loginformdiv}>
                     <h3 className={classes.logintitle}>Login</h3>
                     <div className={classes.inputdiv}>
-                        <Input onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="user name"/>
+                        <Input onBlur={inputInactiveHandler} onFocus={userActiveHandler} onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="user name"/>
+                        <img className={userClasses} src={userIcon}/>
                     </div>
                     <div className={classes.inputdiv}>
-                        <Input onChange={passwordChangeHandler} className={inputClasses} type="password" id="password" placeholder="password"/>
+                        <Input onBlur={inputInactiveHandler} onFocus={passwordActiveHandler} onChange={passwordChangeHandler} className={inputClasses} type="password" id="password" placeholder="password"/>
+                        <img className={passwordClasses} src={passwordIcon}/>
                     </div>
                     <FormBtn className={btnclasses.loginbtn} type="submit">Log in</FormBtn>
                 </div>
