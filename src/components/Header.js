@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import classes from '../css-components/Header.module.css';
 import compassLogo from '../img/compassLogo.svg';
 import arrow from '../img/arrow.svg';
@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../store/user-context';
+import TemperatureLogo from '../img/TemperatureLogo.svg';
 
 const Header = () => {
 
@@ -17,15 +18,25 @@ const Header = () => {
         return monthNames[this.getMonth()];
     }
 
+    //Adding suffix on day number
+    const suffix = (day) => {
+        if(day>3 && day<21){
+            return 'th';
+        }
+        switch(day%10){
+            case 1: return "st";
+            case 2: return "nd";
+            case 3: return "rd";
+            case 4: return "th";
+        }
+    }
 
-   //Update time every 1 minute
-   const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0,-3));
-   let month = new Date().getMonthName();
-   let day = new Date().getDate();
-   let year = new Date().getFullYear();
-   
-   let fulldate = month + " " + day + ", " + year;
-  
+    //Update time every 1 minute
+    const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0,-3));
+    let month = new Date().getMonthName();
+    let day = new Date().getDate();
+    let year = new Date().getFullYear();
+    let fulldate = month + " " + day + suffix(day) + ", " + year;
 
     useEffect(()=>{
         const timer = setInterval(()=>{
@@ -38,20 +49,20 @@ const Header = () => {
     },[]);
 
     //Weather API fetching
-    const [weather, setWeather] = useState();
+    const [weatherData, setWeatherData] = useState();
+    const [weatherIcon, setWeatherIcon] = useState();
     const KEY = process.env.REACT_APP_API_KEY;
    
-
     const weatherAPIData = async () => {     
-        const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Pirassununga&appid=KEY")
-        .then((response)=>response.json());
-
-        setWeather(response);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=pirassununga&mode=json&units=metric&appid=${KEY}`)
+        .then((response)=>response.json().then((data)=>{
+            setWeatherData(data);
+        }));
     }
+
 
     useEffect(()=>{
         weatherAPIData();
-        console.log(weather);
     },[]);
     
     //UseContext 
@@ -81,7 +92,19 @@ const Header = () => {
             </div>
 
             <div className={classes.weatherdiv}>
-                <h3>Dummy weather text</h3>
+                {weatherData && weatherData.weather.map((weather,id)=>{
+                    return(
+                        <div className={classes.fulltemperature}>
+                        <h4>Pirassununga, São Paulo</h4>
+                        <div className={classes.temperature}>
+                            <img src={TemperatureLogo}/>
+                            <h1 key={id}>{weatherData.main?.temp.toFixed(0)}</h1>
+                            <h1>º</h1>
+                        </div>
+                        </div>
+                    );
+                })}
+                
             </div>
 
             <div className={classes.logoutdiv}>

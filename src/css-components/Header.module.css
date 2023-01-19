@@ -20,12 +20,13 @@
 
 .datetime{
     margin-top: 1em;
+    margin-left: 1em;
     text-align: center;
-    width: 20%;
+    width: 30%;
 }
 
 .weatherdiv{
-    margin-right: 20em;
+    margin-right: 10em;
 }
 
 .logoutcontent{
@@ -34,4 +35,18 @@
 
 .logoutdiv{
     float: right;
+}
+
+.temperature{
+    display: flex;
+    text-align: center;
+    margin-left: 2em;
+}
+
+.temperature > * {
+    padding: 0.2em;
+}
+
+.fulltemperature{
+    margin-top: 0.5em;
 }
