@@ -21,3 +21,11 @@
     font-size: 1.1rem;
     border-bottom: 5px solid #1C1D20;
 }
+
+.deleteallbtn{
+    background-color: #FF2D04;
+    color: white;
+    font-weight: bold;
+    padding: 0.30em;
+    border-radius: 0.2em;
+}

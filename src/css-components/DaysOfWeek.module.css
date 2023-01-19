@@ -1,5 +1,8 @@
 .dayscontent{
     display: flex;
+    margin-left: 7em;
+    margin-right: 3em;
+    margin-bottom: 1em;
 }
 
 .dayblock{
