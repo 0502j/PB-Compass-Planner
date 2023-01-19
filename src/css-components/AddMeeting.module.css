@@ -19,3 +19,12 @@
     background: red;
     margin-left: 1em;
 }
+
+.addedtasksdiv{
+    display: flex;
+    padding: 2em 0.1em;
+}
+
+.timecard{
+    background-color: white;
+}

@@ -1,0 +1,22 @@
+.detailcard{
+    padding: 2em;
+    margin-top: 0.8em;
+    background: white;
+    border-top-right-radius: 0.9em;
+    border-bottom-right-radius: 0.9em;
+    width: 32em;
+    height: 5.5em;
+}
+
+.fulldetailcard{
+    display: flex;
+}
+
+.detailcardaccent{
+    width:1em;
+    height: 5.5em;
+    padding: 2em 0.1em;
+    margin-top: 0.8em;
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+}

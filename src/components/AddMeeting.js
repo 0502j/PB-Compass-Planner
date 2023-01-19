@@ -1,10 +1,12 @@
 import classes from '../css-components/Form.module.css';
 import styles from '../css-components/AddMeeting.module.css';
+import colors from '../css-components/Colors.module.css';
 import Input from '../components/Input';
 import FormBtn from '../components/FormBtn';
 import TimeCard from './TimeCard';
 import { Fragment } from 'react';
 import DaysOfWeek from '../components/DaysOfWeek';
+import MeetingDetailCard from './MeetingDetailCard';
 
 const AddMeeting = () => {
     return(
@@ -37,8 +39,11 @@ const AddMeeting = () => {
             </div>
 
             <DaysOfWeek/>
-            <TimeCard>Time</TimeCard>
-
+            <div className={styles.addedtasksdiv}>
+                <TimeCard className={styles.timecard}>Time</TimeCard>
+                <MeetingDetailCard className={colors.lighterred}>Lorem ipsum dolor sit amet</MeetingDetailCard>
+            </div>
+            
         </Fragment>
     );
 }
