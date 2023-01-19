@@ -47,8 +47,7 @@ const LoginForm = () => {
    
 
     useEffect(()=>{
-        if(isLogged === false){
-        }else if(isLogged === true){
+        if(isLogged === true){
             navigate('/dashboard');
         }
     },[isLogged])

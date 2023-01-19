@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import classes from '../css-components/Header.module.css';
 import compassLogo from '../img/compassLogo.svg';
 import arrow from '../img/arrow.svg';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
+import { AuthContext } from '../store/user-context';
 
 const Header = () => {
 
@@ -50,6 +54,20 @@ const Header = () => {
         console.log(weather);
     },[]);
     
+    //UseContext 
+    const navigate = useNavigate();
+    const {isLogged, setIsLogged} = useContext(AuthContext);
+   
+    useEffect(()=>{
+        if(isLogged === false){
+            navigate('/login');
+        }
+    },[isLogged])
+
+    const logoutHandler = () => {
+        setIsLogged(false);
+    }
+
     return(
         <div className={classes.mainct}>
             <div className={classes.headertitle}>
@@ -69,7 +87,7 @@ const Header = () => {
             <div className={classes.logoutdiv}>
                 <div><img src={compassLogo}/></div>
                 <div className={classes.logoutcontent}>
-                    <img src={arrow}/>
+                    <Link onClick={logoutHandler} to='/login'><img src={arrow}/></Link>
                     <h3>Logout</h3>
                 </div>
             </div>
