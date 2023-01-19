@@ -132,3 +132,28 @@ form > *{
     padding-bottom: 0.20em;
 
 }
+
+.taskaddingdiv{
+    padding: 2em;
+    display:flex;
+}
+
+.taskaddingdiv > *{
+    margin: 0.1em;
+}
+
+.taskinput{
+    border: 1px solid #FFCE00;
+    padding: 0.5em;
+    border-radius: 0.6rem;  
+    line-height: 2em;  
+}
+
+.tasknameinput{
+    width: 20em;
+}
+
+.taskdayinput{
+    width: 15em;
+}
+

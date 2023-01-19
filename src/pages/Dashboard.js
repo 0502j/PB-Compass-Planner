@@ -3,17 +3,21 @@ import { AuthContext } from '../store/user-context';
 import { useState, useEffect, useContext } from 'react';
 import Header from '../components/Header';
 import ErrorPage from './ErrorPage';
+import AddMeeting from '../components/AddMeeting';
 
 const Dashboard = () => {
 
     //render different content based on useContext info
     const {isLogged, setIsLogged} = useContext(AuthContext);
-    const loggedcontent = (<div><Header/></div>);
+    const loggedcontent = (<div>
+            <Header/>
+            <AddMeeting/>
+            </div>);
     const errorcontent = (<ErrorPage/>);
     const content = isLogged ? loggedcontent : errorcontent
 
     return(
-        <div>
+        <div className={classes.dashboardcontent}>
             {content}
         </div>
     );

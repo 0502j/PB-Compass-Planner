@@ -1,0 +1,21 @@
+.addtaskbuttons{
+    display: flex;
+    margin-left: 32%;
+}
+
+.taskbtn{
+    border-radius: 0.6rem;
+    padding:0.8em;
+    width: 15em;
+    color: white;
+    font-weight: bolder;
+}
+
+.addtaskbtn{
+    background: #00BA88;
+}
+
+.deletealltasksbtn{
+    background: red;
+    margin-left: 1em;
+}
