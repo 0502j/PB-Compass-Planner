@@ -1,0 +1,25 @@
+.errorcontent{
+    background: linear-gradient(#33383D, #1C1D20) no-repeat;
+    color: white;
+}
+
+.errorimg{
+    width: 100%;
+    text-align: center;
+}
+
+.errorimg img{
+    margin: 5em;
+    width: 10%;
+    text-align: center;
+}
+
+.errortext{
+    width: 100%;
+    text-align: center;
+    margin: 2% 100% 100% 0%;
+}
+
+.errortext > *{
+    margin: 1em;
+}
