@@ -1,0 +1,12 @@
+.cardcontent{
+    background-color: white;
+    padding: 1em;
+    
+}
+
+.timecard{
+    box-shadow: 2px 5px 5px #A8A8A8;
+    padding: 1.5em;
+    width: 5.3rem;
+    border-radius: 0.6rem;
+}
