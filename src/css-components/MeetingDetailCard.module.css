@@ -10,6 +10,7 @@
 
 .fulldetailcard{
     display: flex;
+    filter: drop-shadow(0.2rem 0.3rem 0.3rem rgba(0, 0, 0, 0.2));
 }
 
 .detailcardaccent{

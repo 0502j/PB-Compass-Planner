@@ -39,8 +39,9 @@ const AddMeeting = () => {
             </div>
 
             <DaysOfWeek/>
+            <TimeCard className={styles.timecard}>Time</TimeCard>
             <div className={styles.addedtasksdiv}>
-                <TimeCard className={styles.timecard}>Time</TimeCard>
+            <TimeCard className={styles.timecard}>10:30</TimeCard>
                 <MeetingDetailCard className={colors.lighterred}>Lorem ipsum dolor sit amet</MeetingDetailCard>
             </div>
             
