@@ -11,8 +11,15 @@
   overflow: hidden;
   
 }
+
+html{
+  margin: 0;
+  height: 100%;
+}
+
+
 body{
-  background-color: var(--primary-white);
+  background: linear-gradient(#33383D, #1C1D20) no-repeat;
 }
 
 ul{
