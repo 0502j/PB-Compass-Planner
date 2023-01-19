@@ -54,11 +54,18 @@ const Header = () => {
     const KEY = process.env.REACT_APP_API_KEY;
    
     const weatherAPIData = async () => {     
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=pirassununga&mode=json&units=metric&appid=${KEY}`)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&mode=json&units=metric&appid=${KEY}`)
         .then((response)=>response.json().then((data)=>{
             setWeatherData(data);
         }));
     }
+
+    //displaying city & country name
+    const data = window.localStorage.getItem("userdata");
+    localStorage.setItem("userData", JSON.stringify(data));
+    const parsedData = JSON.parse(data);
+    const city = parsedData.enteredCity;
+    const country = parsedData.enteredCountry;
 
 
     useEffect(()=>{
@@ -78,6 +85,7 @@ const Header = () => {
     const logoutHandler = () => {
         setIsLogged(false);
     }
+    
 
     return(
         <div className={classes.mainct}>
@@ -95,7 +103,7 @@ const Header = () => {
                 {weatherData && weatherData.weather.map((weather,id)=>{
                     return(
                         <div className={classes.fulltemperature}>
-                        <h4>Pirassununga, São Paulo</h4>
+                        {city ? <h4>{city} - {country}</h4> : <h4>City not found.</h4>}
                         <div className={classes.temperature}>
                             <img src={TemperatureLogo}/>
                             <h1 key={id}>{weatherData.main?.temp.toFixed(0)}</h1>
