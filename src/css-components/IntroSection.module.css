@@ -19,7 +19,6 @@ a{
 }
 
 .maincontent{
-    background: linear-gradient(#33383D, #1C1D20) no-repeat;
     display: flex;
     justify-content: space-evenly;
 }
