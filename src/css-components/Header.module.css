@@ -1,8 +1,12 @@
 .mainct{
     background-color: white;
     display: flex;
-    padding: 1em 2em 2em 0em;
+    padding: 1em 0em 1.5em 0em;
     height: 8rem;
+}
+
+.mainct > * {
+    margin-right: 1em;
 }
 
 .headertitle{
@@ -20,3 +24,14 @@
     width: 20%;
 }
 
+.weatherdiv{
+    margin-right: 20em;
+}
+
+.logoutcontent{
+    text-align: right;
+}
+
+.logoutdiv{
+    float: right;
+}
