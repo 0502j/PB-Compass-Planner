@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import Header from '../components/Header';
 import ErrorPage from './ErrorPage';
 import AddMeeting from '../components/AddMeeting';
+import DaysOfWeek from '../components/DaysOfWeek';
 
 const Dashboard = () => {
 
@@ -12,6 +13,7 @@ const Dashboard = () => {
     const loggedcontent = (<div>
             <Header/>
             <AddMeeting/>
+            <DaysOfWeek/>
             </div>);
     const errorcontent = (<ErrorPage/>);
     const content = isLogged ? loggedcontent : errorcontent

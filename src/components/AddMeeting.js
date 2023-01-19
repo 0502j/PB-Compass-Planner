@@ -14,6 +14,7 @@ const AddMeeting = () => {
                 <option>Thursday</option>
                 <option>Friday</option>
                 <option>Saturday</option>
+                <option>Sunday</option>
             </select>
             <select className={`${classes.taskinput} ${classes.taskdateinput}`}>
                 <option>07:00</option>
