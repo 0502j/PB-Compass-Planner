@@ -23,8 +23,23 @@
 .addedtasksdiv{
     display: flex;
     padding: 2em 0.1em;
+    width: max-content;
+    height: max-content;
 }
 
 .timecard{
     background-color: white;
+}
+
+.horizontalscroll{
+    height: 210px;
+    white-space: nowrap;
+    position: relative;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+.verticalscroll{
+    overflow-y: auto;
+    height: 100%;
 }

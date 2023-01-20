@@ -4,15 +4,19 @@
     background: white;
     border-top-right-radius: 0.9em;
     border-bottom-right-radius: 0.9em;
-    width: 32em;
+    min-width: 32em;
     height: 5.5em;
     display: flex;
+
 }
 
 .detailcard > :nth-child(2){
     position: relative;
-    left: 14em;
-    bottom: 1.5em;
+    bottom: 1em;
+}
+
+.detailcard > :nth-child(1){
+    width: 90%;
 }
 
 .fulldetailcard{
