@@ -19,19 +19,25 @@ const AddMeeting = () => {
     });
 
     const [tasks, setTasks] = useState([]);
+    const [filteredTasks, setFilteredTasks] = useState([]);
 
     const addComponent = () => {
 
-        setTaskInput({
-            ...taskInput,
-            id: tasks.length+1,
-        });
-
-        setTasks(prevTasks =>
-            [...prevTasks, taskInput]
-        );
-
-        console.log(taskInput);
+        if(taskInput.enteredTaskDay === '' ||
+        taskInput.enteredTaskTime === ''){
+            alert("Task information invalid. Please try again!");
+        }
+        else{
+            setTaskInput({
+                ...taskInput,
+                id: tasks.length+1,
+            });
+    
+            setTasks(prevTasks =>
+                [...prevTasks, taskInput]
+            );
+            
+        }
 
     }
 
@@ -59,19 +65,62 @@ const AddMeeting = () => {
     //Removing single or all tasks
     const removeAllComponents = () => {
         setTasks([]);
+        setFilteredTasks([]);
     }
 
     const deleteOneTask = (id) => {
         setTasks(tasks.filter((info) => info.id !== id));
+        setFilteredTasks(tasks);
     }
 
     const submitHandler = (event) => {
         event.preventDefault();
+    }
 
-        if(taskInput.enteredTaskDay === 'Task day' ||
-        taskInput.enteredTaskTime === 'Task time'){
-            alert("Task information invalid. Please try again!");
+    //Week days validation
+    const [isMonday, setIsMonday] = useState(false);
+    
+    const WeekDaysHandler = (event) => {
+        console.log("Selected day:");
+        console.log(event.currentTarget.id);
+
+        if(event.currentTarget.id === "Monday"){
+            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Monday'));
+            console.log(filteredTasks);
         }
+
+        
+        if(event.currentTarget.id === "Tuesday"){
+            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Tuesday'));
+            console.log(filteredTasks);
+        }
+
+        if(event.currentTarget.id === "Wednesday"){
+            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Wednesday'));
+            console.log(filteredTasks);
+        }
+
+        if(event.currentTarget.id === "Thursday"){
+            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Thursday'));
+            console.log(filteredTasks);
+        }
+
+        
+        if(event.currentTarget.id === "Friday"){
+            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Friday'));
+            console.log(filteredTasks);
+        }
+
+        if(event.currentTarget.id === "Saturday"){
+            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Saturday'));
+            console.log(filteredTasks);
+        }
+
+        if(event.currentTarget.id === "Sunday"){
+            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Sunday'));
+            console.log(filteredTasks);
+        }
+        
     }
 
 
@@ -100,23 +149,36 @@ const AddMeeting = () => {
                 </div>
             </form>
 
-            <DaysOfWeek/>
+            <div className={styles.weekdaysdiv}>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Monday" className={`${classes.dayblock} ${colors.redblock}`}>Monday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Tuesday" className={`${classes.dayblock} ${colors.orangeblock}`}>Tuesday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Wednesday" className={`${classes.dayblock} ${colors.yellowblock}`}>Wednesday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Thursday" className={`${classes.dayblock} ${colors.lightred}`}>Thursday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Friday" className={`${classes.dayblock} ${colors.lightorange}`}>Friday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Saturday" className={`${classes.dayblock} ${colors.lightyellow}`}>Saturday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Sunday" className={`${classes.dayblock} ${colors.lighterred}`}>Sunday</DaysOfWeek>
+            
+            </div>
+
             <TimeCard className={styles.timecard}>Time</TimeCard>
             <div className={styles.scroll}>
                 <div className={styles.taskscontainer}>
-                {tasks.map((item)=>{
-                        return(
-                            <div className={styles.addedtasksdiv} key={item.id}>
+
+                    {filteredTasks.map((item)=>{
+                            return(
+                                <div className={styles.addedtasksdiv} key={item.id}>
                                 <div>
-                                <TimeCard className={colors.redblock}>{item.enteredTaskTime}</TimeCard>
-                                </div>
-                                <MeetingDetailCard className={colors.redblock}>
-                                <h3>{item.enteredTaskName}</h3>
-                                <FormBtn onClick={()=>deleteOneTask(item.id)} className={btnstyles.deleteallbtn} type="button">Delete</FormBtn>
-                                </MeetingDetailCard>
-                            </div>
-                        );
-                    })}
+                                                <TimeCard className={colors.redblock}>{item.enteredTaskTime}</TimeCard>
+                                                </div>
+                                                <MeetingDetailCard className={colors.redblock}>
+                                                <h3>{item.enteredTaskName}</h3>
+                                                <FormBtn onClick={()=>deleteOneTask(item.id)} className={btnstyles.deleteallbtn} type="button">Delete</FormBtn>
+                                                </MeetingDetailCard>
+                                            </div>
+                                        );
+                                    })
+                    }
+ 
                 </div>
             </div>
         </Fragment>
