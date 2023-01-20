@@ -54,7 +54,6 @@ const LoginForm = () => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        console.log("Username expected:" + fullname);
         
         if((fullname == usernameParse.enteredUsername ||
             usernameParse.enteredUsername === email) &&
@@ -111,7 +110,7 @@ const LoginForm = () => {
                 <div className={classes.loginformdiv}>
                     <h3 className={classes.logintitle}>Login</h3>
                     <div className={classes.inputdiv}>
-                        <Input onBlur={inputInactiveHandler} onFocus={userActiveHandler} onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="yourfullname or example@example.com"/>
+                        <Input onBlur={inputInactiveHandler} onFocus={userActiveHandler} onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="username"/>
                         <img className={userClasses} src={userIcon}/>
                     </div>
                     <div className={classes.inputdiv}>

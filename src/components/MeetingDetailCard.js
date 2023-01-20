@@ -8,7 +8,6 @@ const MeetingDetailCard = (props) => {
             <div className={`${classes.detailcardaccent} ${props.className}`}></div>
             <div className={classes.detailcard}>
                 {props.children}
-                <FormBtn onClick={props.onClick} className={styles.deleteallbtn} type="button">Delete</FormBtn>
             </div>
         </div>
 

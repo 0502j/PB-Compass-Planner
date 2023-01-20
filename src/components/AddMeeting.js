@@ -1,5 +1,6 @@
 import classes from '../css-components/Form.module.css';
 import styles from '../css-components/AddMeeting.module.css';
+import btnstyles from '../css-components/FormBtn.module.css';
 import colors from '../css-components/Colors.module.css';
 import Input from '../components/Input';
 import FormBtn from '../components/FormBtn';
@@ -11,16 +12,27 @@ import MeetingDetailCard from './MeetingDetailCard';
 const AddMeeting = () => {
 
     const [taskInput, setTaskInput] = useState({
+        id:'',
         enteredTaskName:'',
         enteredTaskDay:'',
         enteredTaskTime:''
     });
 
     const [tasks, setTasks] = useState([]);
-    const [shownTasks, setShownTasks] = useState(tasks);
 
     const addComponent = () => {
-        setTasks([...tasks, taskInput]);
+
+        setTaskInput({
+            ...taskInput,
+            id: tasks.length+1,
+        });
+
+        setTasks(prevTasks =>
+            [...prevTasks, taskInput]
+        );
+
+        console.log(taskInput);
+
     }
 
     const taskNameChangeHandler = (event) => {
@@ -44,27 +56,14 @@ const AddMeeting = () => {
         })
     };
 
-    //Adding data to localstorage
-    useEffect(() => {
-        localStorage.setItem("taskdata", JSON.stringify(taskInput));
-    },[taskInput]);
-
-    const data = window.localStorage.getItem("taskdata");
-    localStorage.setItem("taskdata", JSON.stringify(data));
-    const parsedData = JSON.parse(data);
-
     //Removing single or all tasks
     const removeAllComponents = () => {
         setTasks([]);
     }
 
-    const deleteSingleTaskHandler = (event) => {
-        let filtered = tasks.filter(item=>item!==event.target.value)
-        setTasks({tasks: filtered});
-
-        console.log(tasks);
+    const deleteOneTask = (id) => {
+        setTasks(tasks.filter((info) => info.id !== id));
     }
-
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -73,9 +72,8 @@ const AddMeeting = () => {
         taskInput.enteredTaskTime === 'Task time'){
             alert("Task information invalid. Please try again!");
         }
-
     }
-    
+
 
     return(
         <Fragment>
@@ -92,17 +90,9 @@ const AddMeeting = () => {
                         <option>Saturday</option>
                         <option>Sunday</option>
                     </select>
-                    <select onChange={taskTimeChangeHandler} className={`${classes.taskinput} ${classes.taskdateinput}`}>
-                        <option selected disabled>Task time</option>
-                        <option>07:00</option>
-                        <option>07:30</option>
-                        <option>08:00</option>
-                        <option>08:30</option>
-                        <option>09:00</option>
-                        <option>09:30</option>
-                        <option>10:00</option>
-                        <option>10:30</option>
-                    </select>
+
+                    <Input onChange={taskTimeChangeHandler} className={`${classes.taskinput} ${classes.taskdateinput}`} type="time"></Input>
+
                     <div className={styles.addtaskbuttons}>
                         <FormBtn onClick={addComponent} type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>+ Add to calendar</FormBtn>
                         <FormBtn onClick={removeAllComponents} type="submit" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>- Delete All</FormBtn>
@@ -112,24 +102,23 @@ const AddMeeting = () => {
 
             <DaysOfWeek/>
             <TimeCard className={styles.timecard}>Time</TimeCard>
-            <div className={styles.horizontalscroll}>
-                <div className={styles.addedtasksdiv}>
-                {tasks.map((item, id)=>{
+            <div className={styles.scroll}>
+                <div className={styles.taskscontainer}>
+                {tasks.map((item)=>{
                         return(
-                            <Fragment key={id}>
-                                <TimeCard className={colors.lighterred}>{item.enteredTaskTime}</TimeCard>
-                                <MeetingDetailCard onClick={deleteSingleTaskHandler} className={colors.lighterred}>
+                            <div className={styles.addedtasksdiv} key={item.id}>
+                                <div>
+                                <TimeCard className={colors.redblock}>{item.enteredTaskTime}</TimeCard>
+                                </div>
+                                <MeetingDetailCard className={colors.redblock}>
                                 <h3>{item.enteredTaskName}</h3>
+                                <FormBtn onClick={()=>deleteOneTask(item.id)} className={btnstyles.deleteallbtn} type="button">Delete</FormBtn>
                                 </MeetingDetailCard>
-                            </Fragment>
+                            </div>
                         );
-                
                     })}
-
-
                 </div>
             </div>
-            
         </Fragment>
     );
 }

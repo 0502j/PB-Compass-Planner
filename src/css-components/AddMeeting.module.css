@@ -27,19 +27,19 @@
     height: max-content;
 }
 
+.taskscontainer{
+    display: flex;
+    flex-direction: column;
+}
+
 .timecard{
     background-color: white;
 }
 
-.horizontalscroll{
-    height: 210px;
+.scroll{
+    height: 300px;
     white-space: nowrap;
     position: relative;
-    overflow-x: scroll;
-    overflow-y: scroll;
-}
-
-.verticalscroll{
+    overflow-x: auto;
     overflow-y: auto;
-    height: 100%;
 }
