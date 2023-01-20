@@ -70,7 +70,7 @@ const AddMeeting = () => {
 
     const deleteOneTask = (id) => {
         setTasks(tasks.filter((info) => info.id !== id));
-        setFilteredTasks(tasks);
+        // setFilteredTasks(tasks.filter((info) => info.id !== id));
     }
 
     const submitHandler = (event) => {
@@ -78,48 +78,72 @@ const AddMeeting = () => {
     }
 
     //Week days validation
-    const [isMonday, setIsMonday] = useState(false);
-    
-    const WeekDaysHandler = (event) => {
-        console.log("Selected day:");
-        console.log(event.currentTarget.id);
+    const [isMondaySelected, setIsMondaySelected] = useState(false);
+    const [isTuesdaySelected, setIsTuesdaySelected] = useState(false);
+    const [isWednesdaySelected, setIsWednesdaySelected] = useState(false);
+    const [isThursdaySelected, setIsThursdaySelected] = useState(false);
+    const [isFridaySelected, setIsFridaySelected] = useState(false);
+    const [isSaturdaySelected, setIsSaturdaySelected] = useState(false);
+    const [isSundaySelected, setIsSundaySelected] = useState(false);
 
+    let DayClasses = (
+        isMondaySelected ? colors['redblock'] : 
+        isTuesdaySelected ? colors['orangeblock'] : 
+        isWednesdaySelected ? colors['yellowblock'] :
+        isThursdaySelected ? colors['lightred'] :
+        isFridaySelected ? colors['lightorange'] :
+        isSaturdaySelected ? colors['lightyellow'] :
+        isSundaySelected ? colors['lighterred'] : ''
+    )
+          
+
+    const WeekDaysHandler = (event) => {
+
+        setIsMondaySelected(false);
+        setIsTuesdaySelected(false);
+        setIsWednesdaySelected(false);
+        setIsThursdaySelected(false);
+        setIsFridaySelected(false);
+        setIsSaturdaySelected(false);
+        setIsSundaySelected(false);
+        
         if(event.currentTarget.id === "Monday"){
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Monday'));
-            console.log(filteredTasks);
+            setIsMondaySelected(true);
         }
 
-        
         if(event.currentTarget.id === "Tuesday"){
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Tuesday'));
-            console.log(filteredTasks);
+            setIsTuesdaySelected(true);
         }
+        
 
         if(event.currentTarget.id === "Wednesday"){
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Wednesday'));
-            console.log(filteredTasks);
+            setIsWednesdaySelected(true);
         }
 
         if(event.currentTarget.id === "Thursday"){
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Thursday'));
-            console.log(filteredTasks);
+            setIsThursdaySelected(true);
         }
 
         
         if(event.currentTarget.id === "Friday"){
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Friday'));
-            console.log(filteredTasks);
+            setIsFridaySelected(true);
         }
 
         if(event.currentTarget.id === "Saturday"){
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Saturday'));
-            console.log(filteredTasks);
+            setIsSaturdaySelected(true);
         }
 
         if(event.currentTarget.id === "Sunday"){
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Sunday'));
-            console.log(filteredTasks);
+            setIsSundaySelected(true);
         }
+        
         
     }
 
@@ -168,9 +192,9 @@ const AddMeeting = () => {
                             return(
                                 <div className={styles.addedtasksdiv} key={item.id}>
                                 <div>
-                                                <TimeCard className={colors.redblock}>{item.enteredTaskTime}</TimeCard>
+                                                <TimeCard className={DayClasses}>{item.enteredTaskTime}</TimeCard>
                                                 </div>
-                                                <MeetingDetailCard className={colors.redblock}>
+                                                <MeetingDetailCard className={DayClasses}>
                                                 <h3>{item.enteredTaskName}</h3>
                                                 <FormBtn onClick={()=>deleteOneTask(item.id)} className={btnstyles.deleteallbtn} type="button">Delete</FormBtn>
                                                 </MeetingDetailCard>
@@ -181,7 +205,13 @@ const AddMeeting = () => {
  
                 </div>
             </div>
+
+            <div className={styles.notasks}>
+               {tasks.length === 0 ? <h1>No tasks yet.</h1> : ''}
+            </div>
+
         </Fragment>
+        
     );
 }
 
