@@ -1,14 +1,10 @@
 import classes from '../css-components/IntroSection.module.css';
-import {Fragment} from 'react';
-import RegisterForm from '../components/RegisterForm';
 import { Link } from 'react-router-dom';
-import IntroSection from '../components/IntroSection';
+import IntroSection from '../components/Header/IntroSection';
+import RegisterForm from '../components/Forms/RegisterForm';
 
 const Register = () => {
     return(
-
-        <Fragment>
-            
             <IntroSection>
                 <div className={classes.registerdiv}>
                     <h1>Welcome,</h1>
@@ -17,10 +13,6 @@ const Register = () => {
                     <Link to='/login'>Already have an account? Sign in.</Link>
                 </div>
             </IntroSection>
-            
-
-        </Fragment>
-
     );
 };
 

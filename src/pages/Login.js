@@ -1,7 +1,7 @@
 import classes from './pages-css/Login.module.css';
 import {Fragment} from 'react';
-import IntroSection from '../components/IntroSection';
-import LoginForm from '../components/LoginForm';
+import IntroSection from '../components/Header/IntroSection';
+import LoginForm from '../components/Forms/LoginForm';
 import { Link } from 'react-router-dom';
 
 const Login = () => {

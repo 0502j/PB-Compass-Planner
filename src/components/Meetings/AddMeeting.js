@@ -1,12 +1,12 @@
-import classes from '../css-components/Form.module.css';
-import styles from '../css-components/AddMeeting.module.css';
-import btnstyles from '../css-components/FormBtn.module.css';
-import colors from '../css-components/Colors.module.css';
-import Input from '../components/Input';
-import FormBtn from '../components/FormBtn';
-import TimeCard from './TimeCard';
 import { Fragment, useState } from 'react';
-import DaysOfWeek from '../components/DaysOfWeek';
+import classes from '../../css-components/Form.module.css';
+import styles from '../../css-components/AddMeeting.module.css';
+import btnstyles from '../../css-components/FormBtn.module.css';
+import colors from '../../css-components/Colors.module.css';
+import Input from '../Forms/Input';
+import FormBtn from '../Forms/FormBtn';
+import TimeCard from '../Header/TimeCard';
+import DaysOfWeek from '../Header/DaysOfWeek';
 import MeetingDetailCard from './MeetingDetailCard';
 
 const AddMeeting = () => {
@@ -21,7 +21,7 @@ const AddMeeting = () => {
     const [tasks, setTasks] = useState([]);
     const [filteredTasks, setFilteredTasks] = useState([]);
 
-    const addComponent = () => {
+    const addTask = () => {
 
         if(taskInput.enteredTaskDay === '' ||
         taskInput.enteredTaskTime === ''){
@@ -41,6 +41,7 @@ const AddMeeting = () => {
 
     }
 
+    //Getting all user input
     const taskNameChangeHandler = (event) => {
         setTaskInput({
             ...taskInput,
@@ -62,22 +63,21 @@ const AddMeeting = () => {
         })
     };
 
-    //Removing single or all tasks
-    const removeAllComponents = () => {
+    //Removing single or all tasks at once
+    const removeAllTasks = () => {
         setTasks([]);
         setFilteredTasks([]);
     }
 
     const deleteOneTask = (id) => {
         setTasks(tasks.filter((info) => info.id !== id));
-        // setFilteredTasks(tasks.filter((info) => info.id !== id));
     }
 
     const submitHandler = (event) => {
         event.preventDefault();
     }
 
-    //Week days validation
+    //Week days validation & class control
     const [isMondaySelected, setIsMondaySelected] = useState(false);
     const [isTuesdaySelected, setIsTuesdaySelected] = useState(false);
     const [isWednesdaySelected, setIsWednesdaySelected] = useState(false);
@@ -167,8 +167,8 @@ const AddMeeting = () => {
                     <Input onChange={taskTimeChangeHandler} className={`${classes.taskinput} ${classes.taskdateinput}`} type="time"></Input>
 
                     <div className={styles.addtaskbuttons}>
-                        <FormBtn onClick={addComponent} type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>+ Add to calendar</FormBtn>
-                        <FormBtn onClick={removeAllComponents} type="submit" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>- Delete All</FormBtn>
+                        <FormBtn onClick={addTask} type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>+ Add to calendar</FormBtn>
+                        <FormBtn onClick={removeAllTasks} type="submit" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>- Delete All</FormBtn>
                     </div>
                 </div>
             </form>

@@ -1,11 +1,11 @@
 import {useEffect, useState } from 'react';
-import classes from '../css-components/Header.module.css';
-import compassLogo from '../img/compassLogo.svg';
-import arrow from '../img/arrow.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '../store/user-context';
-import TemperatureLogo from '../img/TemperatureLogo.svg';
+import { AuthContext } from '../../store/user-context';
+import classes from '../../css-components/Header.module.css';
+import compassLogo from '../../img/compassLogo.svg';
+import arrow from '../../img/arrow.svg';
+import TemperatureLogo from '../../img/TemperatureLogo.svg';
 
 const Header = () => {
 

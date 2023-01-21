@@ -1,12 +1,12 @@
 import {Fragment, useContext, useEffect, useState} from 'react';
-import Input from '../components/Input';
-import classes from '../css-components/Form.module.css';
-import FormBtn from '../components/FormBtn';
-import btnclasses from '../css-components/FormBtn.module.css';
-import { AuthContext } from '../store/user-context';
+import Input from '../Forms/Input';
+import classes from '../../css-components/Form.module.css';
+import FormBtn from './FormBtn';
+import btnclasses from '../../css-components/FormBtn.module.css';
+import { AuthContext } from '../../store/user-context';
 import { useNavigate } from 'react-router-dom';
-import passwordIcon from '../img/passwordIcon.svg';
-import userIcon from '../img/userIcon.svg';
+import passwordIcon from '../../img/passwordIcon.svg';
+import userIcon from '../../img/userIcon.svg';
 
 const LoginForm = () => {
 
@@ -14,12 +14,12 @@ const LoginForm = () => {
     const [isUserActive, setIsUserActive] = useState(false);
     const [isPassActive, setIsPassActive] = useState(false);
 
-    //getting localstorage object data to validate info
+    //Getting localstorage object data to validate info
     const data = window.localStorage.getItem("userdata");
     localStorage.setItem("userData", JSON.stringify(data));
     const parsedData = JSON.parse(data);
          
-    //storing parsedData into vars
+    //Storing parsedData into vars
     const firstName = parsedData.enteredFirstName.split(' ').join('');
     const lastName = parsedData.enteredLastName.split(' ').join('');
     const email = parsedData.enteredEmail;
@@ -30,18 +30,18 @@ const LoginForm = () => {
     const [enteredPassword, setEnteredPassword] = useState('');
     const [dataMatch, setDataMatch] = useState(true);
 
-    //class control
+    //Class control
     const inputClasses = dataMatch ? classes['forminput'] : classes['inputerror'];
     const userClasses = isUserActive ? classes['iconactive'] : classes['iconinactive'];
     const passwordClasses = isPassActive ? classes['iconactive'] : classes['iconinactive'];
 
-    //get useState data with adequate format
+    //Get useState data with adequate format
     const usernameString = JSON.stringify(enteredUsername);
     const usernameParse = JSON.parse(usernameString);
     const passwordString = JSON.stringify(enteredPassword);
     const passwordParse = JSON.parse(passwordString);
 
-    //useContext validation
+    //UseContext validation
     const {isLogged, setIsLogged} = useContext(AuthContext);
    
 
@@ -52,6 +52,8 @@ const LoginForm = () => {
         }
     },[isLogged, navigate])
 
+
+    //Validation before login
     const submitHandler = (event) => {
         event.preventDefault();
         
@@ -65,6 +67,7 @@ const LoginForm = () => {
     
     }
     
+    //Getting all user input
     const usernameChangeHandler = (event) => {
         setEnteredUsername({
             ...setEnteredUsername,
@@ -79,6 +82,8 @@ const LoginForm = () => {
         })
     };
 
+
+    //Icon animation handlers
     const userActiveHandler = () => {
         setIsUserActive(true);
     }
@@ -86,7 +91,6 @@ const LoginForm = () => {
     const passwordActiveHandler = () => {
         setIsPassActive(true);
     }
-
 
     const inputInactiveHandler = () => {
         if(enteredUsername !== ''){

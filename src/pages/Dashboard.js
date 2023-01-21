@@ -1,13 +1,13 @@
 import classes from './pages-css/Dashboard.module.css';
 import { AuthContext } from '../store/user-context';
 import { useEffect, useContext } from 'react';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import ErrorPage from './ErrorPage';
-import AddMeeting from '../components/AddMeeting';
+import AddMeeting from '../components/Meetings/AddMeeting';
 
 const Dashboard = () => {
 
-    //render different content based on useContext info
+    //Render different content based on useContext info
  
     const {isLogged, setIsLogged} = useContext(AuthContext);
 

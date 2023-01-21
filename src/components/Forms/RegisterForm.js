@@ -1,8 +1,8 @@
-import classes from '../css-components/Form.module.css';
-import btnclasses from '../css-components/FormBtn.module.css';
-import FormBtn from '../components/FormBtn';
+import classes from '../../css-components/Form.module.css';
+import btnclasses from '../../css-components/FormBtn.module.css';
+import FormBtn from './FormBtn';
 import {useEffect, useState} from 'react';
-import { validateEmail, validateName, validateLastName, validatePasword, validateCity } from '../utils/Regex';
+import { validateEmail, validateName, validateLastName, validatePasword, validateCity } from '../../utils/Regex';
 import {useNavigate} from 'react-router-dom';
 import Input from './Input';
 
