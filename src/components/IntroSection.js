@@ -9,7 +9,7 @@ const IntroSection = (props) => {
                 {props.children}
             </div>
             <div className={classes.registerimg}>
-                <img src={img}/>
+                <img alt="A laptop" src={img}/>
             </div>
         </div>
     );

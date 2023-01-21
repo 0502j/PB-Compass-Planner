@@ -4,7 +4,6 @@ import classes from '../css-components/Form.module.css';
 import FormBtn from '../components/FormBtn';
 import btnclasses from '../css-components/FormBtn.module.css';
 import { AuthContext } from '../store/user-context';
-import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import passwordIcon from '../img/passwordIcon.svg';
 import userIcon from '../img/userIcon.svg';
@@ -51,14 +50,14 @@ const LoginForm = () => {
             localStorage.setItem("IsLoggedIn", true);
             navigate('/dashboard');
         }
-    },[isLogged])
+    },[isLogged, navigate])
 
     const submitHandler = (event) => {
         event.preventDefault();
         
-        if((fullname == usernameParse.enteredUsername ||
+        if((fullname === usernameParse.enteredUsername ||
             usernameParse.enteredUsername === email) &&
-            password == passwordParse.enteredPassword){
+            password === passwordParse.enteredPassword){
             setIsLogged(true);
         }else{
             setDataMatch(false);
@@ -90,13 +89,13 @@ const LoginForm = () => {
 
 
     const inputInactiveHandler = () => {
-        if(enteredUsername != ''){
+        if(enteredUsername !== ''){
             setIsUserActive(true); 
         }else{
             setIsUserActive(false);
         }
         
-        if(enteredPassword != ''){
+        if(enteredPassword !== ''){
             setIsPassActive(true); 
         }else{
             
@@ -112,11 +111,11 @@ const LoginForm = () => {
                     <h3 className={classes.logintitle}>Login</h3>
                     <div className={classes.inputdiv}>
                         <Input onBlur={inputInactiveHandler} onFocus={userActiveHandler} onChange={usernameChangeHandler} className={inputClasses} type="text" id="username" placeholder="username"/>
-                        <img className={userClasses} src={userIcon}/>
+                        <img alt="User logo" className={userClasses} src={userIcon}/>
                     </div>
                     <div className={classes.inputdiv}>
                         <Input onBlur={inputInactiveHandler} onFocus={passwordActiveHandler} onChange={passwordChangeHandler} className={inputClasses} type="password" id="password" placeholder="password"/>
-                        <img className={passwordClasses} src={passwordIcon}/>
+                        <img alt="User logo" className={passwordClasses} src={passwordIcon}/>
                     </div>
                     {!dataMatch ? <div className={classes.loginfail}>
                         <p>Wow, invalid username or password.</p>

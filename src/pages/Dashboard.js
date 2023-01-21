@@ -1,6 +1,6 @@
 import classes from './pages-css/Dashboard.module.css';
 import { AuthContext } from '../store/user-context';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import Header from '../components/Header';
 import ErrorPage from './ErrorPage';
 import AddMeeting from '../components/AddMeeting';
@@ -13,7 +13,7 @@ const Dashboard = () => {
 
     useEffect(()=>{
         setIsLogged(localStorage.getItem("IsLoggedIn"));
-    },[]);
+    },[setIsLogged]);
 
     useEffect(()=>{
         localStorage.setItem("IsLoggedIn", isLogged);

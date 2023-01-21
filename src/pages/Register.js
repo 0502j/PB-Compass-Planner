@@ -1,5 +1,4 @@
 import classes from '../css-components/IntroSection.module.css';
-import img from '../img/background.png';
 import {Fragment} from 'react';
 import RegisterForm from '../components/RegisterForm';
 import { Link } from 'react-router-dom';

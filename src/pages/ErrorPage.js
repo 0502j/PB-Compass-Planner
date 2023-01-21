@@ -5,7 +5,7 @@ const ErrorPage = () => {
     return(
             <div className={classes.errorcontent}>
                 <div className={classes.errorimg}>
-                    <img src={uolLogo}/>
+                    <img alt="UOL logo" src={uolLogo}/>
                 </div>
                 <div className={classes.errortext}>
                     <h1>Oops!</h1>

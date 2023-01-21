@@ -5,7 +5,7 @@ import colors from '../css-components/Colors.module.css';
 import Input from '../components/Input';
 import FormBtn from '../components/FormBtn';
 import TimeCard from './TimeCard';
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import DaysOfWeek from '../components/DaysOfWeek';
 import MeetingDetailCard from './MeetingDetailCard';
 
@@ -188,7 +188,7 @@ const AddMeeting = () => {
             <div className={styles.scroll}>
                 <div className={styles.taskscontainer}>
 
-                    {filteredTasks.map((item)=>{
+                    {tasks.length > 0 ? filteredTasks.map((item)=>{
                             return(
                                 <div className={styles.addedtasksdiv} key={item.id}>
                                 <div>
@@ -201,13 +201,9 @@ const AddMeeting = () => {
                                             </div>
                                         );
                                     })
-                    }
+                    : ''}
  
                 </div>
-            </div>
-
-            <div className={styles.notasks}>
-               {tasks.length === 0 ? <h1>No tasks yet.</h1> : ''}
             </div>
 
         </Fragment>

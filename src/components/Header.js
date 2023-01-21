@@ -1,25 +1,17 @@
-import { Fragment, useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import classes from '../css-components/Header.module.css';
 import compassLogo from '../img/compassLogo.svg';
 import arrow from '../img/arrow.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../store/user-context';
 import TemperatureLogo from '../img/TemperatureLogo.svg';
 
 const Header = () => {
 
-    //Fetch month name instead of number
-    Date.prototype.getMonthName = function(){
-        var monthNames = ["January", "February","March","April","May",
-    "June","July","August", "September", "October", "November", "December"];
-
-        return monthNames[this.getMonth()];
-    }
-
+    
     //Adding suffix on day number
-    const suffix = (day) => {
+    const DaySuffix = (day) => {
         if(day>3 && day<21){
             return 'th';
         }
@@ -31,16 +23,24 @@ const Header = () => {
         }
     }
 
+    //Fetch month name instead of number
+    Date.prototype.getMonthName = function(){
+        var monthNames = ["January", "February","March","April","May",
+    "June","July","August", "September", "October", "November", "December"];
+
+        return monthNames[this.getMonth()];
+    }
+
     //Update time every 1 minute
     const [time, setTime] = useState(new Date().toLocaleTimeString().slice(0,-3));
     let month = new Date().getMonthName();
     let day = new Date().getDate();
     let year = new Date().getFullYear();
-    let fulldate = month + " " + day + suffix(day) + ", " + year;
+    let fulldate = month + " " + day + DaySuffix(day) + ", " + year;
 
     useEffect(()=>{
         const timer = setInterval(()=>{
-            setTime(new Date().toLocaleTimeString().slice(0,-3));
+            setTime(new Date().toLocaleTimeString());
             
         },60*1000);
         return () => {
@@ -70,7 +70,7 @@ const Header = () => {
 
     useEffect(()=>{
         weatherAPIData();
-    },[]);
+    },[weatherAPIData]);
     
     //UseContext 
     const navigate = useNavigate();
@@ -110,7 +110,7 @@ const Header = () => {
                         <div className={classes.fulltemperature}>
                         {city ? <h4>{city} - {country}</h4> : <h4>City not found.</h4>}
                         <div className={classes.temperature}>
-                            <img src={TemperatureLogo}/>
+                            <img alt="Temperature logo" src={TemperatureLogo}/>
                             <h1 key={id}>{weatherData.main?.temp.toFixed(0)}</h1>
                             <h1>º</h1>
                         </div>
@@ -121,9 +121,9 @@ const Header = () => {
             </div>
 
             <div className={classes.logoutdiv}>
-                <div><a href="https://compass.uol/en/home/"><img src={compassLogo}/></a></div>
+                <div><a href="https://compass.uol/en/home/"><img alt="Compass Logo" src={compassLogo}/></a></div>
                 <div className={classes.logoutcontent}>
-                    <Link onClick={logoutHandler} to='/login'><img src={arrow}/></Link>
+                    <Link onClick={logoutHandler} to='/login'><img alt="Arrow pointing to left" src={arrow}/></Link>
                     <h3>Logout</h3>
                 </div>
             </div>
