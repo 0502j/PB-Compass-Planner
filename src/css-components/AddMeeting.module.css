@@ -13,11 +13,13 @@
 
 .addtaskbtn{
     background: #00BA88;
+    cursor: pointer;
 }
 
 .deletealltasksbtn{
-    background: red;
+    background: #FF3D1F;
     margin-left: 1em;
+    cursor: pointer;
 }
 
 .addedtasksdiv{
@@ -58,3 +60,17 @@
     width: 20%;
     
 }
+
+.confirmdeletion{
+    display: flex;
+    padding: auto;
+    margin: auto;
+    margin-top: 1em;
+    width: fit-content;
+}
+
+.confirmdeletion > *{
+    padding: 1em;
+}
+
+

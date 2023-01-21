@@ -8,6 +8,7 @@ import FormBtn from '../Forms/FormBtn';
 import TimeCard from '../Header/TimeCard';
 import DaysOfWeek from '../Header/DaysOfWeek';
 import MeetingDetailCard from './MeetingDetailCard';
+import ConfirmDeletion from '../UI/ConfirmDeletion';
 
 const AddMeeting = () => {
 
@@ -20,6 +21,7 @@ const AddMeeting = () => {
 
     const [tasks, setTasks] = useState([]);
     const [filteredTasks, setFilteredTasks] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
     const addTask = () => {
 
@@ -67,10 +69,20 @@ const AddMeeting = () => {
     const removeAllTasks = () => {
         setTasks([]);
         setFilteredTasks([]);
+        setShowModal(false);
     }
 
     const deleteOneTask = (id) => {
         setTasks(tasks.filter((info) => info.id !== id));
+    }
+
+    //Confirm Deletion modal
+    const modalClose = () => {
+        setShowModal(false);
+    }
+
+    const modalOpen = () => {
+        setShowModal(true);
     }
 
     const submitHandler = (event) => {
@@ -150,6 +162,19 @@ const AddMeeting = () => {
 
     return(
         <Fragment>
+    
+
+            {showModal &&
+                <ConfirmDeletion>
+                    <h3>Are you sure you want to delete all tasks?</h3>
+                    <h3>This cannot be undone!</h3>
+                    <div className={styles.confirmdeletion}>
+                        <FormBtn  className={`${classes.confirminputs} ${classes.confirm}`} onClick={removeAllTasks}>Delete</FormBtn>
+                        <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>Cancel</FormBtn>
+                    </div>
+                </ConfirmDeletion>
+        }
+            
             <form onSubmit={submitHandler}>
                 <div className={classes.taskaddingdiv}>
                     <Input onChange={taskNameChangeHandler} className={`${classes.taskinput} ${classes.tasknameinput}`} type="text" id="taskname" placeholder="Task or issue"/>
@@ -168,7 +193,7 @@ const AddMeeting = () => {
 
                     <div className={styles.addtaskbuttons}>
                         <FormBtn onClick={addTask} type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>+ Add to calendar</FormBtn>
-                        <FormBtn onClick={removeAllTasks} type="submit" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>- Delete All</FormBtn>
+                        <FormBtn onClick={modalOpen} type="submit" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>- Delete All</FormBtn>
                     </div>
                 </div>
             </form>

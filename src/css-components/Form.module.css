@@ -157,3 +157,19 @@ form > *{
     width: 15em;
 }
 
+.confirminputs{
+    padding: 1em;
+    border-radius: 0.8em;
+    color: white;
+    font-weight: bolder;
+    width: 8em;
+}
+
+.confirm{
+    background-color: #FF0024;
+}
+
+.cancel{
+    background-color: #282828;
+}
+

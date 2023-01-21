@@ -40,7 +40,7 @@ const Header = () => {
 
     useEffect(()=>{
         const timer = setInterval(()=>{
-            setTime(new Date().toLocaleTimeString());
+            setTime(new Date().toLocaleTimeString().slice(0,-3));
             
         },60*1000);
         return () => {
