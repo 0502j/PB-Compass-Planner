@@ -8,13 +8,23 @@ import AddMeeting from '../components/AddMeeting';
 const Dashboard = () => {
 
     //render different content based on useContext info
+ 
     const {isLogged, setIsLogged} = useContext(AuthContext);
+
+    useEffect(()=>{
+        setIsLogged(localStorage.getItem("IsLoggedIn"));
+    },[]);
+
+    useEffect(()=>{
+        localStorage.setItem("IsLoggedIn", isLogged);
+    },[isLogged]);
+
     const loggedcontent = (<div>
-            <Header/>
-            <AddMeeting/>
-            </div>);
+        <Header/>
+        <AddMeeting/>
+        </div>);
     const errorcontent = (<ErrorPage/>);
-    const content = isLogged ? loggedcontent : errorcontent
+    const content = (isLogged ? loggedcontent : errorcontent);
 
     return(
         <div className={classes.dashboardcontent}>

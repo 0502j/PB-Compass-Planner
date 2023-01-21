@@ -75,15 +75,20 @@ const Header = () => {
     //UseContext 
     const navigate = useNavigate();
     const {isLogged, setIsLogged} = useContext(AuthContext);
-   
+ 
     useEffect(()=>{
-        if(isLogged === false){
-            navigate('/login');
-        }
-    },[isLogged])
+        setIsLogged(localStorage.getItem("IsLoggedIn"));
+    },[])
+
+    useEffect(()=>{
+        localStorage.setItem("IsLoggedIn", isLogged);
+    })
 
     const logoutHandler = () => {
+        localStorage.removeItem('IsLoggedIn');
         setIsLogged(false);
+        // localStorage.setItem("IsLoggedIn", false);
+        navigate('/login');
     }
     
 

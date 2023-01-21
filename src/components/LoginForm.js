@@ -48,6 +48,7 @@ const LoginForm = () => {
 
     useEffect(()=>{
         if(isLogged === true){
+            localStorage.setItem("IsLoggedIn", true);
             navigate('/dashboard');
         }
     },[isLogged])
