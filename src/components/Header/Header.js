@@ -51,7 +51,7 @@ const Header = () => {
     //Weather API fetching
     const [weatherData, setWeatherData] = useState();
     const [weatherIcon, setWeatherIcon] = useState();
-    const KEY = process.env.REACT_APP_API_KEY;
+    const KEY = "89d4cf06d4ad4d7f0bccd1427ecc6075";
    
     const weatherAPIData = async () => {     
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&mode=json&units=metric&appid=${KEY}`)
