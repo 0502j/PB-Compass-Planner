@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import classes from '../../css-components/Form.module.css';
 import styles from '../../css-components/AddMeeting.module.css';
 import btnstyles from '../../css-components/FormBtn.module.css';
@@ -39,9 +39,24 @@ const AddMeeting = () => {
                 [...prevTasks, taskInput]
             );
             
+            // console.log("Task added!");
+            // const allItems = JSON.parse(JSON.stringify(tasks));
+            // allItems.forEach(item => {
+            //     const tasksKeys = Object.keys(tasks);
+            //     console.log(item)
+            //     console.log(item.enteredTaskTime)
+            // });
+
+            const stringify = JSON.stringify(tasks);
+            console.log(stringify);
+
+            
+
         }
 
     }
+
+
 
     //Getting all user input
     const taskNameChangeHandler = (event) => {
@@ -67,9 +82,45 @@ const AddMeeting = () => {
 
     //Removing single or all tasks at once
     const removeAllTasks = () => {
-        setTasks([]);
-        setFilteredTasks([]);
+        // setTasks([]);
+        // setFilteredTasks([]);
         setShowModal(false);
+
+        if(isMondaySelected){
+            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Monday"));
+            setFilteredTasks([]);
+        }
+
+        if(isTuesdaySelected){
+            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Tuesday"));
+            setFilteredTasks([]);
+        }
+
+        if(isWednesdaySelected){
+            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Wednesday"));
+            setFilteredTasks([]);
+        }
+
+        if(isThursdaySelected){
+            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Thursday"));
+            setFilteredTasks([]);
+        }
+
+        if(isFridaySelected){
+            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Friday"));
+            setFilteredTasks([]);
+        }
+
+        if(isSaturdaySelected){
+            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Saturday"));
+            setFilteredTasks([]);
+        }
+
+        if(isSundaySelected){
+            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Sunday"));
+            setFilteredTasks([]);
+        }
+
     }
 
     const deleteOneTask = (id) => {
@@ -160,7 +211,7 @@ const AddMeeting = () => {
         <Fragment>
             {showModal &&
                 <ConfirmDeletion>
-                    <h3>Are you sure you want to delete all tasks?</h3>
+                    <h3>Are you sure you want to delete all tasks of the selected day?</h3>
                     <h3>This cannot be undone!</h3>
                     <div className={styles.confirmdeletion}>
                         <FormBtn  className={`${classes.confirminputs} ${classes.confirm}`} onClick={removeAllTasks}>Delete</FormBtn>
@@ -208,7 +259,7 @@ const AddMeeting = () => {
             <div className={styles.scrollContent}>
                 <div className={styles.taskscontainer}>
 
-                    {tasks.length > 0 ? filteredTasks.map((item)=>{
+                    {filteredTasks ? filteredTasks.map((item)=>{
                             return(
                                 <div className={styles.addedtasksdiv} key={item.id}>
                                 <div>
