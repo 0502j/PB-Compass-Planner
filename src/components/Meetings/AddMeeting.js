@@ -33,27 +33,21 @@ const AddMeeting = () => {
         else{
             setTaskInput({
                 ...taskInput,
-                id: tasks.length+1,
+                id: Math.floor(Math.random() * 100) + 1,
             });
     
             setTasks(prevTasks =>
                 [...prevTasks, taskInput]
             );
+
+
+            console.log("Adicionando uma tarefa");
+            console.log(tasks);
             
         }
 
     }
 
-    useEffect(()=>{
-
-        const ascending = tasks.sort((taskA, taskB) => {
-        return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-  
-      });
-
-      setFilteredTasks(ascending);
-
-    },[tasks]);
 
     //Getting all user input
     const taskNameChangeHandler = (event) => {
@@ -153,6 +147,69 @@ const AddMeeting = () => {
         isSaturdaySelected ? colors['lightyellow'] :
         isSundaySelected ? colors['lighterred'] : ''
     )
+
+    useEffect(()=>{
+
+        if(isMondaySelected){
+            setFilteredTasks(
+            tasks.sort((taskA, taskB) => {
+                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
+              }) && tasks.filter((info) => info.enteredTaskDay === "Monday"));
+
+        }
+
+        if(isTuesdaySelected){
+            setFilteredTasks(
+            tasks.sort((taskA, taskB) => {
+                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
+              }) && tasks.filter((info) => info.enteredTaskDay === "Tuesday"));
+
+        }
+
+        
+        if(isWednesdaySelected){
+            setFilteredTasks(
+            tasks.sort((taskA, taskB) => {
+                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
+              }) && tasks.filter((info) => info.enteredTaskDay === "Wednesday"));
+
+        }
+
+        if(isThursdaySelected){
+            setFilteredTasks(
+            tasks.sort((taskA, taskB) => {
+                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
+              }) && tasks.filter((info) => info.enteredTaskDay === "Thursday"));
+
+        }
+
+        if(isFridaySelected){
+            setFilteredTasks(
+            tasks.sort((taskA, taskB) => {
+                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
+              }) && tasks.filter((info) => info.enteredTaskDay === "Friday"));
+
+        }
+
+        if(isSaturdaySelected){
+            setFilteredTasks(
+            tasks.sort((taskA, taskB) => {
+                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
+              }) && tasks.filter((info) => info.enteredTaskDay === "Saturday"));
+
+        }
+
+        if(isSundaySelected){
+            setFilteredTasks(
+            tasks.sort((taskA, taskB) => {
+                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
+              }) && tasks.filter((info) => info.enteredTaskDay === "Sunday"));
+
+        }
+
+
+    },[tasks]);
+
           
 
     const WeekDaysHandler = (event) => {
@@ -169,6 +226,8 @@ const AddMeeting = () => {
         case "Monday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Monday'));
             setIsMondaySelected(true);
+            console.log("Dias filtrados - segunda");
+            console.log(filteredTasks);
             break;
         case "Tuesday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Tuesday'));
@@ -192,15 +251,12 @@ const AddMeeting = () => {
             break;
         case "Sunday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Sunday'));
-            setIsSaturdaySelected(true);
+            setIsSundaySelected(true);
             break;
    
         }
         
     }
-
-    
-
 
 
     return(
