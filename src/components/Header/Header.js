@@ -1,4 +1,4 @@
-import {useEffect, useState } from 'react';
+import {useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../store/user-context';
@@ -52,13 +52,26 @@ const Header = () => {
     const [weatherData, setWeatherData] = useState();
     const [weatherIcon, setWeatherIcon] = useState();
     const KEY = "89d4cf06d4ad4d7f0bccd1427ecc6075";
-   
-    const weatherAPIData = async () => {     
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&mode=json&units=metric&appid=${KEY}`)
-        .then((response)=>response.json().then((data)=>{
-            setWeatherData(data);
-        }));
-    }
+
+    const [hasError, setHasError] = useState(null);
+
+    const weatherAPIData = useCallback(async () => {
+        setHasError(null);
+        try {
+          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&mode=json&units=metric&appid=${KEY}`);
+          if (!response.ok) {
+            throw new Error('Fetching error');
+          }
+
+          const data = await response.json();
+
+          setWeatherData(data);
+
+        } catch (error) {
+            setHasError(error.message);
+        }
+      }, []);
+
 
     //displaying city & country name
     const data = window.localStorage.getItem("userdata");
@@ -66,7 +79,6 @@ const Header = () => {
     const parsedData = JSON.parse(data);
     const city = parsedData.enteredCity;
     const country = parsedData.enteredCountry;
-
 
     useEffect(()=>{
         weatherAPIData();
@@ -105,6 +117,7 @@ const Header = () => {
             </div>
 
             <div className={classes.weatherdiv}>
+
                 {weatherData && weatherData.weather.map((weather,id)=>{
                     return(
                         <div className={classes.fulltemperature}>
@@ -117,6 +130,8 @@ const Header = () => {
                         </div>
                     );
                 })}
+
+                {hasError ? <p>City data not found.</p> : ''}
                 
             </div>
 
