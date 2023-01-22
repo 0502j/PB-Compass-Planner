@@ -39,10 +39,6 @@ const AddMeeting = () => {
             setTasks(prevTasks =>
                 [...prevTasks, taskInput]
             );
-
-
-            console.log("Adicionando uma tarefa");
-            console.log(tasks);
             
         }
 
@@ -226,8 +222,6 @@ const AddMeeting = () => {
         case "Monday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Monday'));
             setIsMondaySelected(true);
-            console.log("Dias filtrados - segunda");
-            console.log(filteredTasks);
             break;
         case "Tuesday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Tuesday'));

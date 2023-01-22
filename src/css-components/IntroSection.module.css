@@ -1,7 +1,7 @@
 .introtext{
     color: #E0E0E0;
-    width: 60%;
-    padding: 1.5% 8%;
+    width: 60rem;
+    padding: 1.5% 10%;
 }
 
 .introtext h1{
@@ -23,6 +23,15 @@ a{
     justify-content: space-evenly;
 }
 
-.registerdiv{
-    margin: 0em 4em;
+.laptopbackground{
+    background: url('../img/background.png');
+    background-position: 0px 0px;
+    background-size: 100% 100%;
+    width: 60rem;
+    height: 100vh;
+}
+
+.logoimg{
+    width: 25rem;
+    margin: 1em 10em;
 }

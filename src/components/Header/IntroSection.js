@@ -1,5 +1,6 @@
 import classes from '../../css-components/IntroSection.module.css';
 import img from '../../img/background.png';
+import compassWhiteLogo from '../../img/compassWhiteLogo.svg';
 
 const IntroSection = (props) => {
     
@@ -8,8 +9,8 @@ const IntroSection = (props) => {
             <div className={classes.introtext}>
                 {props.children}
             </div>
-            <div className={classes.registerimg}>
-                <img alt="A laptop" src={img}/>
+            <div className={classes.laptopbackground}>
+                <a href="https://compass.uol/en/home/"><img alt="Compass logo" className={classes.logoimg} src={compassWhiteLogo}/></a>
             </div>
         </div>
     );
