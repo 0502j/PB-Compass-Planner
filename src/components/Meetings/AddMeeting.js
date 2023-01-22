@@ -119,51 +119,45 @@ const AddMeeting = () => {
         setIsSaturdaySelected(false);
         setIsSundaySelected(false);
         
-        if(event.currentTarget.id === "Monday"){
+        switch (event.currentTarget.id) {
+        case "Monday":
+            console.log("Monday was selected");
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Monday'));
             setIsMondaySelected(true);
-        }
-
-        if(event.currentTarget.id === "Tuesday"){
+            break;
+        case "Tuesday":
+            console.log("Tuesday was selected");
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Tuesday'));
             setIsTuesdaySelected(true);
-        }
-        
-
-        if(event.currentTarget.id === "Wednesday"){
+            break;
+        case "Wednesday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Wednesday'));
             setIsWednesdaySelected(true);
-        }
-
-        if(event.currentTarget.id === "Thursday"){
+            break;
+        case "Thursday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Thursday'));
             setIsThursdaySelected(true);
-        }
-
-        
-        if(event.currentTarget.id === "Friday"){
+            break;
+        case "Friday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Friday'));
             setIsFridaySelected(true);
-        }
-
-        if(event.currentTarget.id === "Saturday"){
+            break;
+        case "Saturday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Saturday'));
             setIsSaturdaySelected(true);
-        }
-
-        if(event.currentTarget.id === "Sunday"){
+            break;
+        case "Sunday":
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Sunday'));
-            setIsSundaySelected(true);
+            setIsSaturdaySelected(true);
+            break;
+   
         }
-        
         
     }
 
 
     return(
         <Fragment>
-    
-
             {showModal &&
                 <ConfirmDeletion>
                     <h3>Are you sure you want to delete all tasks?</h3>
@@ -210,7 +204,8 @@ const AddMeeting = () => {
             </div>
 
             <TimeCard className={styles.timecard}>Time</TimeCard>
-            <div className={styles.scroll}>
+            
+            <div className={styles.scrollContent}>
                 <div className={styles.taskscontainer}>
 
                     {tasks.length > 0 ? filteredTasks.map((item)=>{
