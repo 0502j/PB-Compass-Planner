@@ -36,4 +36,11 @@ A planner where you can schedule meetings and events, delete them and verify mee
 
 #### Preview:
 
-* Coming soon =)
+* https://react-planner-3ef73.web.app
+
+  
+
+<div style="text-align:center;">
+    <img src="https://user-images.githubusercontent.com/71787801/213941281-96f80e61-a50c-441a-9d1c-8c3f33d20783.gif">
+</div>
+
