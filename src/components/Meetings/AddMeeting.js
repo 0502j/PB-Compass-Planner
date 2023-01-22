@@ -82,8 +82,6 @@ const AddMeeting = () => {
 
     //Removing single or all tasks at once
     const removeAllTasks = () => {
-        // setTasks([]);
-        // setFilteredTasks([]);
         setShowModal(false);
 
         if(isMondaySelected){
@@ -172,12 +170,10 @@ const AddMeeting = () => {
         
         switch (event.currentTarget.id) {
         case "Monday":
-            console.log("Monday was selected");
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Monday'));
             setIsMondaySelected(true);
             break;
         case "Tuesday":
-            console.log("Tuesday was selected");
             setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Tuesday'));
             setIsTuesdaySelected(true);
             break;
