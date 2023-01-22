@@ -10,6 +10,7 @@ import DaysOfWeek from '../Header/DaysOfWeek';
 import MeetingDetailCard from './MeetingDetailCard';
 import ConfirmDeletion from '../UI/ConfirmDeletion';
 
+
 const AddMeeting = () => {
 
     const [taskInput, setTaskInput] = useState({
@@ -39,24 +40,20 @@ const AddMeeting = () => {
                 [...prevTasks, taskInput]
             );
             
-            // console.log("Task added!");
-            // const allItems = JSON.parse(JSON.stringify(tasks));
-            // allItems.forEach(item => {
-            //     const tasksKeys = Object.keys(tasks);
-            //     console.log(item)
-            //     console.log(item.enteredTaskTime)
-            // });
-
-            const stringify = JSON.stringify(tasks);
-            console.log(stringify);
-
-            
-
         }
 
     }
 
+    useEffect(()=>{
 
+        const ascending = tasks.sort((taskA, taskB) => {
+        return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
+  
+      });
+
+      setFilteredTasks(ascending);
+
+    },[tasks]);
 
     //Getting all user input
     const taskNameChangeHandler = (event) => {
@@ -202,6 +199,9 @@ const AddMeeting = () => {
         
     }
 
+    
+
+
 
     return(
         <Fragment>
@@ -269,7 +269,6 @@ const AddMeeting = () => {
                                         );
                                     })
                     : ''}
- 
                 </div>
             </div>
 
