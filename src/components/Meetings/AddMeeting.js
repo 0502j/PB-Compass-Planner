@@ -23,27 +23,7 @@ const AddMeeting = () => {
     const [tasks, setTasks] = useState([]);
     const [filteredTasks, setFilteredTasks] = useState([]);
     const [showModal, setShowModal] = useState(false);
-
-    const addTask = () => {
-
-        if(taskInput.enteredTaskDay === '' ||
-        taskInput.enteredTaskTime === ''){
-            alert("Task information invalid. Please try again!");
-        }
-        else{
-            setTaskInput({
-                ...taskInput,
-                id: Math.floor(Math.random() * 100) + 1,
-            });
-    
-            setTasks(prevTasks =>
-                [...prevTasks, taskInput]
-            );
-            
-        }
-
-    }
-
+    const [weekdaySelected, setWeekdaySelected] = useState('');
 
     //Getting all user input
     const taskNameChangeHandler = (event) => {
@@ -67,44 +47,32 @@ const AddMeeting = () => {
         })
     };
 
+    //Adding a task
+    const addTask = () => {
+
+        if(taskInput.enteredTaskDay === '' ||
+        taskInput.enteredTaskTime === ''){
+            alert("Task information invalid. Please try again!");
+        }
+        else{
+            setTaskInput({
+                ...taskInput,
+                id: Math.floor(Math.random() * 100) + 1,
+            });
+    
+            setTasks(prevTasks =>
+                [...prevTasks, taskInput]
+            );
+            
+        }
+
+    }
+
     //Removing single or all tasks at once
     const removeAllTasks = () => {
         setShowModal(false);
-
-        if(isMondaySelected){
-            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Monday"));
-            setFilteredTasks([]);
-        }
-
-        if(isTuesdaySelected){
-            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Tuesday"));
-            setFilteredTasks([]);
-        }
-
-        if(isWednesdaySelected){
-            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Wednesday"));
-            setFilteredTasks([]);
-        }
-
-        if(isThursdaySelected){
-            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Thursday"));
-            setFilteredTasks([]);
-        }
-
-        if(isFridaySelected){
-            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Friday"));
-            setFilteredTasks([]);
-        }
-
-        if(isSaturdaySelected){
-            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Saturday"));
-            setFilteredTasks([]);
-        }
-
-        if(isSundaySelected){
-            setTasks(tasks.filter((info) => info.enteredTaskDay !== "Sunday"));
-            setFilteredTasks([]);
-        }
+        setTasks(tasks.filter((info) => info.enteredTaskDay !== weekdaySelected));
+        setFilteredTasks([]);
 
     }
 
@@ -126,130 +94,32 @@ const AddMeeting = () => {
     }
 
     //Week days validation & class control
-    const [isMondaySelected, setIsMondaySelected] = useState(false);
-    const [isTuesdaySelected, setIsTuesdaySelected] = useState(false);
-    const [isWednesdaySelected, setIsWednesdaySelected] = useState(false);
-    const [isThursdaySelected, setIsThursdaySelected] = useState(false);
-    const [isFridaySelected, setIsFridaySelected] = useState(false);
-    const [isSaturdaySelected, setIsSaturdaySelected] = useState(false);
-    const [isSundaySelected, setIsSundaySelected] = useState(false);
-
     let DayClasses = (
-        isMondaySelected ? colors['redblock'] : 
-        isTuesdaySelected ? colors['orangeblock'] : 
-        isWednesdaySelected ? colors['yellowblock'] :
-        isThursdaySelected ? colors['lightred'] :
-        isFridaySelected ? colors['lightorange'] :
-        isSaturdaySelected ? colors['lightyellow'] :
-        isSundaySelected ? colors['lighterred'] : ''
+        weekdaySelected === "Monday" ? colors['redblock'] : 
+        weekdaySelected === "Tuesday" ? colors['orangeblock'] : 
+        weekdaySelected === "Wednesday" ? colors['yellowblock'] : 
+        weekdaySelected === "Thursday" ? colors['lightred'] : 
+        weekdaySelected === "Friday" ? colors['lightorange'] : 
+        weekdaySelected === "Saturday" ? colors['lightyellow'] : 
+        weekdaySelected === "Sunday" ? colors['lighterred'] : ''
     )
 
     useEffect(()=>{
 
-        if(isMondaySelected){
             setFilteredTasks(
             tasks.sort((taskA, taskB) => {
                 return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-              }) && tasks.filter((info) => info.enteredTaskDay === "Monday"));
-
-        }
-
-        if(isTuesdaySelected){
-            setFilteredTasks(
-            tasks.sort((taskA, taskB) => {
-                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-              }) && tasks.filter((info) => info.enteredTaskDay === "Tuesday"));
-
-        }
-
-        
-        if(isWednesdaySelected){
-            setFilteredTasks(
-            tasks.sort((taskA, taskB) => {
-                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-              }) && tasks.filter((info) => info.enteredTaskDay === "Wednesday"));
-
-        }
-
-        if(isThursdaySelected){
-            setFilteredTasks(
-            tasks.sort((taskA, taskB) => {
-                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-              }) && tasks.filter((info) => info.enteredTaskDay === "Thursday"));
-
-        }
-
-        if(isFridaySelected){
-            setFilteredTasks(
-            tasks.sort((taskA, taskB) => {
-                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-              }) && tasks.filter((info) => info.enteredTaskDay === "Friday"));
-
-        }
-
-        if(isSaturdaySelected){
-            setFilteredTasks(
-            tasks.sort((taskA, taskB) => {
-                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-              }) && tasks.filter((info) => info.enteredTaskDay === "Saturday"));
-
-        }
-
-        if(isSundaySelected){
-            setFilteredTasks(
-            tasks.sort((taskA, taskB) => {
-                return  taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-              }) && tasks.filter((info) => info.enteredTaskDay === "Sunday"));
-
-        }
-
+              }) && tasks.filter((info) => info.enteredTaskDay === weekdaySelected));
 
     },[tasks]);
 
           
-
     const WeekDaysHandler = (event) => {
 
-        setIsMondaySelected(false);
-        setIsTuesdaySelected(false);
-        setIsWednesdaySelected(false);
-        setIsThursdaySelected(false);
-        setIsFridaySelected(false);
-        setIsSaturdaySelected(false);
-        setIsSundaySelected(false);
+        setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === event.currentTarget.id));
+        setWeekdaySelected(event.currentTarget.id);
         
-        switch (event.currentTarget.id) {
-        case "Monday":
-            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Monday'));
-            setIsMondaySelected(true);
-            break;
-        case "Tuesday":
-            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Tuesday'));
-            setIsTuesdaySelected(true);
-            break;
-        case "Wednesday":
-            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Wednesday'));
-            setIsWednesdaySelected(true);
-            break;
-        case "Thursday":
-            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Thursday'));
-            setIsThursdaySelected(true);
-            break;
-        case "Friday":
-            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Friday'));
-            setIsFridaySelected(true);
-            break;
-        case "Saturday":
-            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Saturday'));
-            setIsSaturdaySelected(true);
-            break;
-        case "Sunday":
-            setFilteredTasks(tasks.filter((info) => info.enteredTaskDay === 'Sunday'));
-            setIsSundaySelected(true);
-            break;
-   
-        }
-        
+       
     }
 
 
@@ -290,14 +160,13 @@ const AddMeeting = () => {
             </form>
 
             <div className={styles.weekdaysdiv}>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Monday" className={`${classes.dayblock} ${colors.redblock}`}>Monday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Tuesday" className={`${classes.dayblock} ${colors.orangeblock}`}>Tuesday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Wednesday" className={`${classes.dayblock} ${colors.yellowblock}`}>Wednesday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Thursday" className={`${classes.dayblock} ${colors.lightred}`}>Thursday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Friday" className={`${classes.dayblock} ${colors.lightorange}`}>Friday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Saturday" className={`${classes.dayblock} ${colors.lightyellow}`}>Saturday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Sunday" className={`${classes.dayblock} ${colors.lighterred}`}>Sunday</DaysOfWeek>
-            
+            <DaysOfWeek onClick={WeekDaysHandler} id="Monday" className={colors.redblock}>Monday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Tuesday" className={colors.orangeblock}>Tuesday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Wednesday" className={colors.yellowblock}>Wednesday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Thursday" className={colors.lightred}>Thursday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Friday" className={colors.lightorange}>Friday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Saturday" className={colors.lightyellow}>Saturday</DaysOfWeek>
+            <DaysOfWeek onClick={WeekDaysHandler} id="Sunday" className={colors.lighterred}>Sunday</DaysOfWeek>
             </div>
 
             <TimeCard className={styles.timecard}>Time</TimeCard>
