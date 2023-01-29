@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import { AuthContext } from './store/user-context';
 import { useState, useMemo } from 'react';
+import NotFound from './pages/NotFound';
 
 function App() {
 
@@ -27,9 +28,10 @@ function App() {
   return (
     <AuthContext.Provider value={{isLogged, setIsLogged}}>
       <Routes>
-          <Route path="/" element={<Register/>} />
-          <Route path="/login" element={<Login/>} />
+          <Route path="/" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="*" element={<NotFound/>}></Route>
       </Routes>
     </AuthContext.Provider>
   );

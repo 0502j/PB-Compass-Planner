@@ -10,9 +10,10 @@ const Dashboard = () => {
     //Render different content based on useContext info
  
     const {isLogged, setIsLogged} = useContext(AuthContext);
+    let loginHandler;
 
     useEffect(()=>{
-        setIsLogged(localStorage.getItem("IsLoggedIn"));
+        loginHandler = setIsLogged(localStorage.getItem("IsLoggedIn"));
     },[setIsLogged]);
 
     useEffect(()=>{
@@ -24,7 +25,7 @@ const Dashboard = () => {
         <AddMeeting/>
         </div>);
     const errorcontent = (<ErrorPage/>);
-    const content = (isLogged ? loggedcontent : errorcontent);
+    const content = (loginHandler ? loggedcontent : errorcontent);
 
     return(
         <div className={classes.dashboardcontent}>
