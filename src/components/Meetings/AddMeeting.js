@@ -9,7 +9,7 @@ import TimeCard from '../Header/TimeCard';
 import DaysOfWeek from '../Header/DaysOfWeek';
 import MeetingDetailCard from './MeetingDetailCard';
 import ConfirmDeletion from '../UI/ConfirmDeletion';
-
+import DaySelect from '../Forms/DaySelect';
 
 const AddMeeting = () => {
 
@@ -139,19 +139,8 @@ const AddMeeting = () => {
             <form onSubmit={submitHandler}>
                 <div className={classes.taskaddingdiv}>
                     <Input onChange={taskNameChangeHandler} className={`${classes.taskinput} ${classes.tasknameinput}`} type="text" id="taskname" placeholder="Task or issue"/>
-                    <select onChange={taskDayChangeHandler} className={`${classes.taskinput} ${classes.taskdayinput}`}>
-                        <option selected disabled>Task day</option>
-                        <option>Monday</option>
-                        <option>Tuesday</option>
-                        <option>Wednesday</option>
-                        <option>Thursday</option>
-                        <option>Friday</option>
-                        <option>Saturday</option>
-                        <option>Sunday</option>
-                    </select>
-
-                    <Input onChange={taskTimeChangeHandler} className={`${classes.taskinput} ${classes.taskdateinput}`} type="time"></Input>
-
+                    <DaySelect onChange={taskDayChangeHandler} className={`${classes.taskinput} ${classes.taskdayinput}`}/>
+                    <Input onChange={taskTimeChangeHandler} className={`${classes.taskinput} ${classes.taskdateinput}`} type="time"/>
                     <div className={styles.addtaskbuttons}>
                         <FormBtn onClick={addTask} type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>+ Add to calendar</FormBtn>
                         <FormBtn onClick={modalOpen} type="submit" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>- Delete All</FormBtn>
@@ -160,13 +149,13 @@ const AddMeeting = () => {
             </form>
 
             <div className={styles.weekdaysdiv}>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Monday" className={colors.redblock}>Monday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Tuesday" className={colors.orangeblock}>Tuesday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Wednesday" className={colors.yellowblock}>Wednesday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Thursday" className={colors.lightred}>Thursday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Friday" className={colors.lightorange}>Friday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Saturday" className={colors.lightyellow}>Saturday</DaysOfWeek>
-            <DaysOfWeek onClick={WeekDaysHandler} id="Sunday" className={colors.lighterred}>Sunday</DaysOfWeek>
+                <DaysOfWeek onClick={WeekDaysHandler} id="Monday" className={colors.redblock}>Monday</DaysOfWeek>
+                <DaysOfWeek onClick={WeekDaysHandler} id="Tuesday" className={colors.orangeblock}>Tuesday</DaysOfWeek>
+                <DaysOfWeek onClick={WeekDaysHandler} id="Wednesday" className={colors.yellowblock}>Wednesday</DaysOfWeek>
+                <DaysOfWeek onClick={WeekDaysHandler} id="Thursday" className={colors.lightred}>Thursday</DaysOfWeek>
+                <DaysOfWeek onClick={WeekDaysHandler} id="Friday" className={colors.lightorange}>Friday</DaysOfWeek>
+                <DaysOfWeek onClick={WeekDaysHandler} id="Saturday" className={colors.lightyellow}>Saturday</DaysOfWeek>
+                <DaysOfWeek onClick={WeekDaysHandler} id="Sunday" className={colors.lighterred}>Sunday</DaysOfWeek>
             </div>
 
             <TimeCard className={styles.timecard}>Time</TimeCard>
