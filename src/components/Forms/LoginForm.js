@@ -20,11 +20,11 @@ const LoginForm = () => {
     const parsedData = JSON.parse(data);
          
     //Storing parsedData into vars
-    const firstName = parsedData.enteredFirstName.split(' ').join('');
-    const lastName = parsedData.enteredLastName.split(' ').join('');
-    const email = parsedData.enteredEmail;
-    const password = parsedData.enteredPassword;
-    const fullname = firstName + lastName;
+    const firstName = parsedData ? parsedData.enteredFirstName.split(' ').join('') : '';
+    const lastName = parsedData ? parsedData.enteredLastName.split(' ').join('') : '';
+    const email = parsedData ? parsedData.enteredEmail : '';
+    const password = parsedData ? parsedData.enteredPassword : '';
+    const fullname = parsedData ? firstName + lastName : '';
    
     const [enteredUsername, setEnteredUsername] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');

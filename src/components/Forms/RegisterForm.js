@@ -46,7 +46,7 @@ const Form = () => {
         }else if(userInput.enteredPassword !== userInput.enteredPasswordConfirm){
             alert("Passwords do not match.");
         }else{
-            navigate('/login');
+            navigate('/');
         }
 
     };

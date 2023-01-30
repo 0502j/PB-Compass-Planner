@@ -138,7 +138,7 @@ const Header = () => {
             <div className={classes.logoutdiv}>
                 <div><a href="https://compass.uol/en/home/"><img alt="Compass Logo" src={compassLogo}/></a></div>
                 <div className={classes.logoutcontent}>
-                    <Link onClick={logoutHandler} to='/login'><img alt="Arrow pointing to left" src={arrow}/></Link>
+                    <Link onClick={logoutHandler} to='/'><img alt="Arrow pointing to left" src={arrow}/></Link>
                     <h3>Logout</h3>
                 </div>
             </div>
