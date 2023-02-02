@@ -1,76 +1,77 @@
-.addtaskbuttons{
-    display: flex;
-    margin-left: 32%;
+.addtaskbuttons {
+  display: flex;
+  margin-left: 32%;
 }
 
-.taskbtn{
-    border-radius: 0.6rem;
-    padding:0.8em;
-    width: 15em;
-    color: white;
-    font-weight: bolder;
+.taskbtn {
+  border-radius: 0.6rem;
+  padding: 0.8em;
+  width: 15em;
+  color: white;
+  font-weight: bolder;
 }
 
-.addtaskbtn{
-    background: #00BA88;
-    cursor: pointer;
+.addtaskbtn {
+  background: #00ba88;
+  cursor: pointer;
 }
 
-.deletealltasksbtn{
-    background: #FF3D1F;
-    margin-left: 1em;
-    cursor: pointer;
+.deletealltasksbtn {
+  background: #ff3d1f;
+  margin-left: 1em;
+  cursor: pointer;
 }
 
-.addedtasksdiv{
-    display: flex;
-    padding: 2em 0.1em;
-    width: max-content;
-    height: max-content;
+.addedtasksdiv {
+  display: flex;
+  padding: 2em 0.1em;
+  width: max-content;
+  height: max-content;
 }
 
-.taskscontainer{
-    display: flex;
-    flex-direction: column;
+.taskscontainer {
+  display: flex;
+  flex-direction: column;
 }
 
-.timecard{
-    background-color: white;
+.meetingscontainer {
+  display: flex;
 }
 
-.scrollContent{
-    height: 300px;
-    white-space: nowrap;
-    position: relative;
-    overflow-x: auto;
-    overflow-y: auto;
+.timecard {
+  background-color: white;
 }
 
-.weekdaysdiv{
-    display: flex;
-    margin-left: 7em;
-    margin-right: 3em;
-    margin-bottom: 1em;
-    cursor: pointer;
+.scrollContent {
+  height: 300px;
+  white-space: nowrap;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
-.notasks{
-    margin: auto;
-    text-align: center;
-    width: 20%;
-    
+.weekdaysdiv {
+  display: flex;
+  margin-left: 7em;
+  margin-right: 3em;
+  margin-bottom: 1em;
+  cursor: pointer;
 }
 
-.confirmdeletion{
-    display: flex;
-    padding: auto;
-    margin: auto;
-    margin-top: 1em;
-    width: fit-content;
+.notasks {
+  margin: auto;
+  text-align: center;
+  width: 20%;
 }
 
-.confirmdeletion > *{
-    padding: 1em;
+.confirmdeletion {
+  display: flex;
+  padding: auto;
+  margin: auto;
+  margin-top: 1em;
+  width: fit-content;
 }
 
-
+.confirmdeletion > * {
+  padding: 1em;
+}
