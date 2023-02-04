@@ -30,7 +30,7 @@
 }
 
 .taskscontainer {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
 }
 
@@ -43,11 +43,12 @@
 }
 
 .scrollContent {
-  height: 300px;
+  height: 350px;
+  width: 100%;
   white-space: nowrap;
   position: relative;
-  overflow-x: auto;
-  overflow-y: auto;
+  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
 .weekdaysdiv {
