@@ -1,4 +1,4 @@
-import { createRef, Fragment, useEffect, useRef, useState } from "react";
+import { createRef, Fragment, useEffect, useState } from "react";
 import classes from "../../css-components/Form.module.css";
 import styles from "../../css-components/AddMeeting.module.css";
 import btnstyles from "../../css-components/FormBtn.module.css";
@@ -144,16 +144,10 @@ const AddMeeting = () => {
           </h3>
           <h3>This cannot be undone!</h3>
           <div className={styles.confirmdeletion}>
-            <FormBtn
-              className={`${classes.confirminputs} ${classes.confirm}`}
-              onClick={removeAllTasks}
-            >
+            <FormBtn className={`${classes.confirminputs} ${classes.confirm}`} onClick={removeAllTasks}>
               Delete
             </FormBtn>
-            <FormBtn
-              className={`${classes.confirminputs} ${classes.cancel}`}
-              onClick={modalClose}
-            >
+            <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
               Cancel
             </FormBtn>
           </div>
@@ -169,28 +163,17 @@ const AddMeeting = () => {
             id="taskname"
             placeholder="Task or issue"
           />
-          <DaySelect
-            ref={dayRef}
-            className={`${classes.taskinput} ${classes.taskdayinput}`}
-          />
+          <DaySelect ref={dayRef} className={`${classes.taskinput} ${classes.taskdayinput}`}/>
           <Input
             ref={timeRef}
             className={`${classes.taskinput} ${classes.taskdateinput}`}
             type="time"
           />
           <div className={styles.addtaskbuttons}>
-            <FormBtn
-              onClick={addTask}
-              type="submit"
-              className={`${styles.taskbtn} ${styles.addtaskbtn}`}
-            >
+            <FormBtn onClick={addTask} type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>
               + Add to calendar
             </FormBtn>
-            <FormBtn
-              onClick={modalOpen}
-              type="button"
-              className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}
-            >
+            <FormBtn onClick={modalOpen} type="button" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>
               - Delete All
             </FormBtn>
           </div>
@@ -198,53 +181,25 @@ const AddMeeting = () => {
       </form>
 
       <div className={styles.weekdaysdiv}>
-        <DaysOfWeek
-          onClick={WeekDaysHandler}
-          id="Monday"
-          className={colors.redblock}
-        >
+        <DaysOfWeek onClick={WeekDaysHandler} id="Monday"className={colors.redblock}>
           Monday
         </DaysOfWeek>
-        <DaysOfWeek
-          onClick={WeekDaysHandler}
-          id="Tuesday"
-          className={colors.orangeblock}
-        >
+        <DaysOfWeek onClick={WeekDaysHandler} id="Tuesday" className={colors.orangeblock}>
           Tuesday
         </DaysOfWeek>
-        <DaysOfWeek
-          onClick={WeekDaysHandler}
-          id="Wednesday"
-          className={colors.yellowblock}
-        >
+        <DaysOfWeek onClick={WeekDaysHandler} id="Wednesday" className={colors.yellowblock}>
           Wednesday
         </DaysOfWeek>
-        <DaysOfWeek
-          onClick={WeekDaysHandler}
-          id="Thursday"
-          className={colors.lightred}
-        >
+        <DaysOfWeek onClick={WeekDaysHandler} id="Thursday" className={colors.lightred}>
           Thursday
         </DaysOfWeek>
-        <DaysOfWeek
-          onClick={WeekDaysHandler}
-          id="Friday"
-          className={colors.lightorange}
-        >
+        <DaysOfWeek onClick={WeekDaysHandler} id="Friday" className={colors.lightorange}>
           Friday
         </DaysOfWeek>
-        <DaysOfWeek
-          onClick={WeekDaysHandler}
-          id="Saturday"
-          className={colors.lightyellow}
-        >
+        <DaysOfWeek onClick={WeekDaysHandler} id="Saturday" className={colors.lightyellow}>
           Saturday
         </DaysOfWeek>
-        <DaysOfWeek
-          onClick={WeekDaysHandler}
-          id="Sunday"
-          className={colors.lighterred}
-        >
+        <DaysOfWeek onClick={WeekDaysHandler} id="Sunday" className={colors.lighterred}>
           Sunday
         </DaysOfWeek>
       </div>
@@ -256,50 +211,25 @@ const AddMeeting = () => {
           {filteredTasks
             ? filteredTasks.map((item) => {
                 return (
-                  <div
-                    className={
-                      item.enteredTaskName.length > 1
-                        ? styles.conflictscontainer
-                        : styles.meetingscontainer
-                    }
-                  >
+                  <div className={ item.enteredTaskName.length > 1 ? styles.conflictscontainer : styles.meetingscontainer}>
                     <div className={styles.addedtasksdiv} key={item.id}>
                       <div>
-                        <TimeCard
-                          className={
-                            item.enteredTaskName.length > 1
-                              ? colors.conflicted
-                              : DayClasses
-                          }
-                        >
+                        <TimeCard className={item.enteredTaskName.length > 1 ? colors.conflicted : DayClasses}>
                           {item.enteredTaskTime}
                         </TimeCard>
                       </div>
 
-                      {/* todo: conflicting line */}
                       {item.enteredTaskName.map((info, index) => (
-                        <div
-                          className={
-                            item.enteredTaskName.length > 1
-                              ? styles.conflicted
-                              : styles.meetingct
-                          }
-                        >
-                          <MeetingDetailCard
-                            className={
-                              item.enteredTaskName.length > 1
-                                ? colors.conflicted
-                                : DayClasses
-                            }
-                          >
-                            <h3>{info}</h3>
-                            <FormBtn
-                              onClick={() => deleteOneTask(item.id, index)}
-                              className={btnstyles.deleteallbtn}
-                              type="button"
-                            >
-                              Delete
-                            </FormBtn>
+                        <div className={item.enteredTaskName.length > 1 ? styles.conflicted : styles.meetingct}>
+                          <MeetingDetailCard className={item.enteredTaskName.length > 1 ? colors.conflicted : DayClasses}>
+                              <h3>{info}</h3>
+                              <FormBtn
+                                onClick={() => deleteOneTask(item.id, index)}
+                                className={btnstyles.deleteallbtn}
+                                type="button"
+                              >
+                                Delete
+                              </FormBtn>
                           </MeetingDetailCard>
                         </div>
                       ))}
