@@ -27,7 +27,6 @@ const AddMeeting = () => {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [weekdaySelected, setWeekdaySelected] = useState("");
-  const [taskTime, setTaskTime] = useState("");
 
   //Adding a task
   const addTask = (name, day, time) => {
@@ -40,7 +39,7 @@ const AddMeeting = () => {
       newTasks[findTasks].enteredTaskName.push(name);
     } else {
       newTasks.push({
-        id: Math.floor(Math.random() * 100) + 1,
+        id: Math.floor(Math.random() * 1000) + 1,
         enteredTaskName: [name],
         enteredTaskDay: day,
         enteredTaskTime: time,
@@ -64,9 +63,13 @@ const AddMeeting = () => {
     const taskPosition = tasksArr.findIndex((info) => {
       return info.id === id;
     });
+
+    //if there's only one task take its position and remove it
     if (tasksArr[taskPosition].enteredTaskName.length === 1) {
       tasksArr.splice(taskPosition, 1);
-    } else {
+    }
+    //if there are conflicting tasks, at the index position remove 1 item
+    else {
       tasksArr[taskPosition].enteredTaskName.splice(index, 1);
     }
 
@@ -253,26 +256,52 @@ const AddMeeting = () => {
           {filteredTasks
             ? filteredTasks.map((item) => {
                 return (
-                  <div className={styles.meetingscontainer}>
+                  <div
+                    className={
+                      item.enteredTaskName.length > 1
+                        ? styles.conflictscontainer
+                        : styles.meetingscontainer
+                    }
+                  >
                     <div className={styles.addedtasksdiv} key={item.id}>
                       <div>
-                        <TimeCard className={DayClasses}>
+                        <TimeCard
+                          className={
+                            item.enteredTaskName.length > 1
+                              ? colors.conflicted
+                              : DayClasses
+                          }
+                        >
                           {item.enteredTaskTime}
                         </TimeCard>
                       </div>
 
                       {/* todo: conflicting line */}
                       {item.enteredTaskName.map((info, index) => (
-                        <MeetingDetailCard className={DayClasses}>
-                          <h3>{info}</h3>
-                          <FormBtn
-                            onClick={() => deleteOneTask(item.id, index)}
-                            className={btnstyles.deleteallbtn}
-                            type="button"
+                        <div
+                          className={
+                            item.enteredTaskName.length > 1
+                              ? styles.conflicted
+                              : ""
+                          }
+                        >
+                          <MeetingDetailCard
+                            className={
+                              item.enteredTaskName.length > 1
+                                ? colors.conflicted
+                                : DayClasses
+                            }
                           >
-                            Delete
-                          </FormBtn>
-                        </MeetingDetailCard>
+                            <h3>{info}</h3>
+                            <FormBtn
+                              onClick={() => deleteOneTask(item.id, index)}
+                              className={btnstyles.deleteallbtn}
+                              type="button"
+                            >
+                              Delete
+                            </FormBtn>
+                          </MeetingDetailCard>
+                        </div>
                       ))}
                     </div>
                   </div>

@@ -1,29 +1,32 @@
-
-.redblock{
-    background-color: #FF0024;
+.redblock {
+  background-color: #ff0024;
 }
 
-.orangeblock{
-    background-color: #FF8000;
+.orangeblock {
+  background-color: #ff8000;
 }
 
-
-.yellowblock{
-    background-color: #FFCE00;
+.yellowblock {
+  background-color: #ffce00;
 }
 
-.lightred{
-    background-color: rgba(255, 0, 36, 0.7);
+.lightred {
+  background-color: rgba(255, 0, 36, 0.7);
 }
 
-.lightorange{
-    background-color: rgba(255, 128, 0, 0.7);
+.lightorange {
+  background-color: rgba(255, 128, 0, 0.7);
 }
 
-.lightyellow{
-    background-color: rgba(255, 206, 0, 0.7);
+.lightyellow {
+  background-color: rgba(255, 206, 0, 0.7);
 }
 
-.lighterred{
-    background: rgba(255, 0, 36, 0.5);
+.lighterred {
+  background: rgba(255, 0, 36, 0.5);
+}
+
+.conflicted {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
 }
