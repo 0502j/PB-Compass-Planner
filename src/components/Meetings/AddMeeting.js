@@ -282,7 +282,7 @@ const AddMeeting = () => {
                           className={
                             item.enteredTaskName.length > 1
                               ? styles.conflicted
-                              : ""
+                              : styles.meetingct
                           }
                         >
                           <MeetingDetailCard

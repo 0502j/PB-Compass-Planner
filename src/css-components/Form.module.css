@@ -1,175 +1,168 @@
-.inputdiv{
-    display: flex;
+.inputdiv {
+  display: flex;
 }
 
-form label{
-    line-height: 50px;
-    color: #E0E0E0;
-    width: 20%;
+form label {
+  line-height: 50px;
+  color: #e0e0e0;
+  width: 20%;
 }
 
-form{
-    display: block;
-    margin-top: 1.4em;
+form {
+  display: block;
+  margin-top: 1.4em;
 }
 
-
-form > *{
-    margin-bottom: 0.2em;
+form > * {
+  margin-bottom: 0.2em;
 }
 
-.selectform{
-    color: #E0E0E0;
-    border: 1px solid white;
-    background: transparent;
-    width: 22em;
-    height: 3.5em;
-    padding: 1em;
-    margin: 0.5em;
-    border-radius: 3.125rem;
-    appearance: none;
+.selectform {
+  color: #e0e0e0;
+  border: 1px solid white;
+  background: transparent;
+  width: 22em;
+  height: 3.5em;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 3.125rem;
+  appearance: none;
 }
 
-.inputerror{
-    border: 1px solid #FFCE00;
-    color: #E0E0E0;
-    background: transparent;
-    width: 22em;
-    height: 3.5em;
-    padding: 1em;
-    margin: 0.5em;
-    border-radius: 3.125rem;
-    
+.inputerror {
+  border: 1px solid #ffce00;
+  color: #e0e0e0;
+  background: transparent;
+  width: 22em;
+  height: 3.5em;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 3.125rem;
 }
 
-
-.forminput{
-    color: #E0E0E0;
-    border: 1px solid white;
-    background: transparent;
-    width: 22em;
-    height: 3.5em;
-    padding: 1em;
-    margin: 0.5em;
-    border-radius: 3.125rem;
+.forminput {
+  color: #e0e0e0;
+  border: 1px solid white;
+  background: transparent;
+  width: 22em;
+  height: 3.5em;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 3.125rem;
 }
 
-.selecterror{
-    color: #E0E0E0;
-    border: 1px solid #FFCE00;
-    background: transparent;
-    width: 22em;
-    height: 3.5em;
-    padding: 1em;
-    margin: 0.5em;
-    border-radius: 3.125rem;
-    appearance: none;
+.selecterror {
+  color: #e0e0e0;
+  border: 1px solid #ffce00;
+  background: transparent;
+  width: 22em;
+  height: 3.5em;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 3.125rem;
+  appearance: none;
 }
 
-::placeholder{
-    color: #E0E0E0;
+::placeholder {
+  color: #e0e0e0;
 }
 
-.logintitle{
-    font-size: 2rem;
-    margin-bottom: 1em;
+.logintitle {
+  font-size: 2rem;
+  margin-bottom: 1em;
 }
 
-@keyframes inputOpen{
-    0%{
-        opacity: 0;
-    }
+@keyframes inputOpen {
+  0% {
+    opacity: 0;
+  }
 
-    50%{
-        opacity: 1;
-    }
+  50% {
+    opacity: 1;
+  }
 
-    100%{
-        opacity: 1;
-    }
+  100% {
+    opacity: 1;
+  }
 }
 
-@keyframes inputClose{
-    0%{
-        opacity: 0;
-    }
+@keyframes inputClose {
+  0% {
+    opacity: 0;
+  }
 
-    50%{
-        opacity: 1;
-    }
+  50% {
+    opacity: 1;
+  }
 
-    100%{
-        opacity: 1;
-    }
+  100% {
+    opacity: 1;
+  }
 }
 
-.iconactive{
-    animation-name: inputOpen;
-    animation-duration: 2s;
-    position: relative;
-    right: 2.5em;
-
+.iconactive {
+  animation-name: inputOpen;
+  animation-duration: 2s;
+  position: relative;
+  right: 2.5em;
 }
 
-.iconinactive{
-    animation-name: inputClose;
-    animation-duration: 2s;
-
+.iconinactive {
+  animation-name: inputClose;
+  animation-duration: 2s;
 }
 
 .loginfail {
-    color: #FFCE00;
-    text-align: center;
-    padding-top: 1em;
-    position: relative;
-    right: 6em;
+  color: #ffce00;
+  text-align: center;
+  padding-top: 1em;
+  position: relative;
+  right: 6em;
 }
 
-.inputinvalid{
-    color: #FFCE00;
-    text-align: center;
-    padding-top: 0.20em;
-    padding-bottom: 0.20em;
-
+.inputinvalid {
+  color: #ffce00;
+  text-align: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }
 
-.taskaddingdiv{
-    padding: 2em;
-    display:flex;
+.taskaddingdiv {
+  padding: 2em;
+  display: flex;
 }
 
-.taskaddingdiv > *{
-    margin: 0.1em;
+.taskaddingdiv > * {
+  margin: 0.1em;
 }
 
-.taskinput{
-    border: 1px solid #FFCE00;
-    padding: 0.5em;
-    border-radius: 0.6rem;  
-    line-height: 2em;  
+.taskinput {
+  border: 1px solid #ffce00;
+  padding: 0.5em;
+  border-radius: 0.6rem;
+  line-height: 2em;
 }
 
-.tasknameinput{
-    width: 20em;
+.tasknameinput {
+  width: 20em;
 }
 
-.taskdayinput{
-    width: 15em;
+.taskdayinput {
+  width: 15em;
 }
 
-.confirminputs{
-    padding: 1em;
-    border-radius: 0.8em;
-    color: white;
-    font-weight: bolder;
-    width: 8em;
+.confirminputs {
+  padding: 1em;
+  border-radius: 0.8em;
+  color: white;
+  font-weight: bolder;
+  width: 8em;
 }
 
-.confirm{
-    background-color: #FF0024;
+.confirm {
+  background-color: #ff0024;
 }
 
-.cancel{
-    background-color: #282828;
+.cancel {
+  background-color: #282828;
 }
-

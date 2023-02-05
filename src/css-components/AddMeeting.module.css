@@ -24,7 +24,7 @@
 
 .addedtasksdiv {
   display: flex;
-  padding: 2em 0.1em;
+  padding: 0.1em 0em;
   width: max-content;
   height: max-content;
 }
@@ -40,6 +40,10 @@
 
 .timecard {
   background-color: white;
+}
+
+.meetingct {
+  padding: 1em;
 }
 
 .scrollContent {
@@ -59,12 +63,6 @@
   cursor: pointer;
 }
 
-.notasks {
-  margin: auto;
-  text-align: center;
-  width: 20%;
-}
-
 .confirmdeletion {
   display: flex;
   padding: auto;
@@ -79,19 +77,20 @@
 
 .conflicted {
   position: relative;
+  padding: 1em 1em;
 }
 
 .conflicted:nth-child(2):before {
-  width: 2em;
-  height: 2em;
+  width: 1.8em;
+  height: 1.8em;
   position: absolute;
   z-index: 10;
-  top: 40%;
-  right: 90%;
+  top: 45%;
+  right: 90.5%;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 50%;
   content: "";
-  transform: translateX(-2.5rem);
+  transform: translateX(-1.5rem);
 }
 
 .conflicted::after {

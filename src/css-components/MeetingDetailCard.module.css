@@ -1,34 +1,33 @@
-.detailcard{
-    padding: 2em;
-    margin-top: 0.8em;
-    background: white;
-    border-top-right-radius: 0.9em;
-    border-bottom-right-radius: 0.9em;
-    min-width: 32em;
-    height: 5.5em;
-    display: flex;
-
+.detailcard {
+  padding: 2em;
+  margin-top: 0.8em;
+  background: white;
+  border-top-right-radius: 0.9em;
+  border-bottom-right-radius: 0.9em;
+  min-width: 32em;
+  height: 5.5em;
+  display: flex;
 }
 
-.detailcard > :nth-child(2){
-    position: relative;
-    bottom: 1em;
+.detailcard > :nth-child(2) {
+  position: relative;
+  bottom: 1em;
 }
 
-.detailcard > :nth-child(1){
-    width: 90%;
+.detailcard > :nth-child(1) {
+  width: 90%;
 }
 
-.fulldetailcard{
-    display: flex;
-    filter: drop-shadow(0.2rem 0.3rem 0.3rem rgba(0, 0, 0, 0.2));
+.fulldetailcard {
+  display: flex;
+  filter: drop-shadow(0.2rem 0.3rem 0.3rem rgba(0, 0, 0, 0.2));
 }
 
-.detailcardaccent{
-    width:1em;
-    height: 5.5em;
-    padding: 2em 0.1em;
-    margin-top: 0.8em;
-    border-top-left-radius: 2em;
-    border-bottom-left-radius: 2em;
+.detailcardaccent {
+  width: 1em;
+  height: 5.5em;
+  padding: 2em 0.1em;
+  margin-top: 0.8em;
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
 }
