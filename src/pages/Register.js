@@ -7,8 +7,10 @@ const Register = () => {
     return(
             <IntroSection>
                 <div className={classes.registerdiv}>
-                    <h1>Welcome,</h1>
-                    <h2>Please, register to continue</h2>
+                    <div className={classes.registertxt}>
+                        <h1>Welcome,</h1>
+                        <h2>Please, register to continue</h2>
+                    </div>
                     <RegisterForm/>
                     <Link to='/'>Already have an account? Sign in.</Link>
                 </div>
