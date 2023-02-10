@@ -1,4 +1,4 @@
-import classes from "./pages-css/Dashboard.module.css";
+import classes from "./Dashboard.module.css";
 import { AuthContext } from "../store/user-context";
 import { useEffect, useContext } from "react";
 import Header from "../components/Header/Header";

@@ -1,5 +1,5 @@
 .dashboardcontent{
-    background: url('../../img/DashboardBackground.png') fixed no-repeat;
+    background: url('../img/DashboardBackground.png') fixed no-repeat;
     background-size: 100%;
     background-position: center;
     height: 100vh;

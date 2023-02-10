@@ -1,4 +1,4 @@
-import classes from '../../css-components/TimeCard.module.css';
+import classes from './TimeCard.module.css';
 
 const TimeCard = (props) => {
     return(

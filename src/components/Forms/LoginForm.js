@@ -1,8 +1,8 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import Input from "../Forms/Input";
-import classes from "../../css-components/Form.module.css";
+import classes from "./Form.module.css";
 import FormBtn from "./FormBtn";
-import btnclasses from "../../css-components/FormBtn.module.css";
+import btnclasses from "./FormBtn.module.css";
 import { AuthContext } from "../../store/user-context";
 import { useNavigate } from "react-router-dom";
 import passwordIcon from "../../img/passwordIcon.svg";

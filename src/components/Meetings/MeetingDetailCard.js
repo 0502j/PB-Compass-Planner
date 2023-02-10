@@ -1,4 +1,4 @@
-import classes from '../../css-components/MeetingDetailCard.module.css';
+import classes from './MeetingDetailCard.module.css';
 
 const MeetingDetailCard = (props) => {
     return(

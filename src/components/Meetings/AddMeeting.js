@@ -1,12 +1,12 @@
 import { createRef, Fragment, useEffect, useState } from "react";
-import classes from "../../css-components/Form.module.css";
-import styles from "../../css-components/AddMeeting.module.css";
-import btnstyles from "../../css-components/FormBtn.module.css";
-import colors from "../../css-components/Colors.module.css";
+import classes from "../Forms/Form.module.css";
+import styles from "./AddMeeting.module.css";
+import btnstyles from "../Forms/FormBtn.module.css";
+import colors from "../UI/Colors.module.css";
 import Input from "../Forms/Input";
 import FormBtn from "../Forms/FormBtn";
-import TimeCard from "../Header/TimeCard";
 import DaysOfWeek from "../Header/DaysOfWeek";
+import TimeCard from "./TimeCard";
 import MeetingDetailCard from "./MeetingDetailCard";
 import ConfirmDeletion from "../UI/ConfirmDeletion";
 import DaySelect from "../Forms/DaySelect";

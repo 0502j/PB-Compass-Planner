@@ -1,4 +1,4 @@
-import classes from '../../css-components/DaysOfWeek.module.css';
+import classes from './DaysOfWeek.module.css';
 
 const DaysOfWeek = (props) => {
     

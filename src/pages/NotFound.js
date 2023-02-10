@@ -1,4 +1,4 @@
-import classes from './pages-css/Protection.module.css';
+import classes from './Protection.module.css';
 import uolLogo from '../img/uolLogo.png';
 import { Link } from 'react-router-dom';
 

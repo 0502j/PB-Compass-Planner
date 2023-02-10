@@ -1,5 +1,4 @@
-import classes from '../../css-components/IntroSection.module.css';
-import img from '../../img/background.png';
+import classes from './IntroSection.module.css';
 import compassWhiteLogo from '../../img/compassWhiteLogo.svg';
 
 const IntroSection = (props) => {

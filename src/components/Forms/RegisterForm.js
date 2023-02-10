@@ -1,5 +1,5 @@
-import classes from "../../css-components/Form.module.css";
-import btnclasses from "../../css-components/FormBtn.module.css";
+import classes from "./Form.module.css";
+import btnclasses from "./FormBtn.module.css";
 import FormBtn from "./FormBtn";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -166,17 +166,14 @@ const Form = () => {
       </div>
 
       <div className={classes.inputdiv}>
-        <label htmlFor="countries">country</label>
-        <select
+        <label htmlFor="country">country</label>
+        <Input
           onChange={countryChangeHandler}
-          id="countries"
-          className={selectClasses}
-        >
-          <option value="Your Country" selected disabled>
-            Your Country
-          </option>
-          <option value="Brasil">Brasil</option>
-        </select>
+          className={inputClasses}
+          type="text"
+          id="country"
+          placeholder="Your country"
+        />
       </div>
 
       <div className={classes.inputdiv}>

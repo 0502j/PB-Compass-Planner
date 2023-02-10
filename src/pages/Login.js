@@ -1,4 +1,4 @@
-import classes from './pages-css/Login.module.css';
+import classes from './Login.module.css';
 import {Fragment} from 'react';
 import IntroSection from '../components/Header/IntroSection';
 import LoginForm from '../components/Forms/LoginForm';

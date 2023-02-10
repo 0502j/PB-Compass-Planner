@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import ReactDOM from "react-dom" ;
-import classes from "../../css-components/Modal.module.css";
+import classes from "./Modal.module.css";
 
 const Overlay = (props) => {
     return(
