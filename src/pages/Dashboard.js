@@ -6,8 +6,8 @@ import ErrorPage from "./ErrorPage";
 import AddMeeting from "../components/Meetings/AddMeeting";
 
 const Dashboard = () => {
-  //Render different content based on useContext info
 
+  //Render different content based on useContext info
   const { isLogged, setIsLogged } = useContext(AuthContext);
 
   useEffect(() => {

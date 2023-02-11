@@ -8,6 +8,7 @@ import {
   validateLastName,
   validatePasword,
   validateCity,
+  validateCountry
 } from "../../utils/Regex";
 import { useNavigate } from "react-router-dom";
 import Input from "./Input";
@@ -41,15 +42,16 @@ const Form = () => {
       !validateEmail.test(userInput.enteredEmail) ||
       !validatePasword.test(userInput.enteredPassword) ||
       !validateCity.test(userInput.enteredCity) ||
+      !validateCountry.test(userInput.enteredCountry) ||
       userInput.enteredCity === "" ||
       userInput.enteredBirth === "" ||
       userInput.enteredCountry === ""
     ) {
       alert(
-        "Hint:" +
+        "Hints:" +
           "\n" +
           "\n - Name and city must not have numbers" +
-          "\n - Date and country must not be empty" +
+          "\n - Country must not be empty & in english" +
           "\n - E-mail must contain @ and ." +
           "\n - Password must contain at least 8 chars and 1 number"
       );

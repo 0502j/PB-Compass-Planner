@@ -20,6 +20,11 @@ export const validateCity = new RegExp(
     
 );
 
+export const validateCountry = new RegExp(
+    /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/
+    
+);
+
 
 
 
