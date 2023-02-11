@@ -43,6 +43,7 @@ const Header = () => {
     return monthNames[this.getMonth()];
   };
 
+
   //Update time every 1 minute
   const [time, setTime] = useState(
     new Date().toLocaleTimeString().slice(0, -3)
@@ -74,12 +75,22 @@ const Header = () => {
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&mode=json&units=metric&appid=${KEY}`
       );
       if (!response.ok) {
-        throw new Error("Fetching error");
-      }
+        throw new Error("Failed loading city data");
+      }else{
+        const data = await response.json();
 
-      const data = await response.json();
+        //Check if the country given by the api matches user input
+        const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
+        const converted = regionNamesInEnglish.of(data.sys.country);
+        if(converted === country){
+          setWeatherData(data); 
+        }else{
+          setHasError("Failed loading country data");
+        }
 
-      setWeatherData(data);
+      } 
+
+
     } catch (error) {
       setHasError(error.message);
     }
@@ -114,6 +125,7 @@ const Header = () => {
     navigate("/");
   };
 
+
   return (
     <div className={classes.mainct}>
       <div className={classes.headertitle}>
@@ -135,8 +147,9 @@ const Header = () => {
                   <h4>
                     {city} - {country}
                   </h4>
+                  
                 ) : (
-                  <h4>City not found.</h4>
+                  <h4></h4>
                 )}
                 <div className={classes.temperature}>
                   <img alt="Temperature logo" src={TemperatureLogo} />
@@ -147,7 +160,7 @@ const Header = () => {
             );
           })}
 
-        {hasError ? <p>City data not found.</p> : ""}
+        {hasError ? <p>{hasError}</p> : ""}
       </div>
 
       <div className={classes.logoutdiv}>
