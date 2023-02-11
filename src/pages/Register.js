@@ -1,6 +1,6 @@
-import classes from '../components/Header/IntroSection.module.css';
+import classes from './IntroSection.module.css';
 import { Link } from 'react-router-dom';
-import IntroSection from '../components/Header/IntroSection';
+import IntroSection from './IntroSection';
 import RegisterForm from '../components/Forms/RegisterForm';
 
 const Register = () => {

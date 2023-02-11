@@ -1,6 +1,6 @@
 import classes from './Login.module.css';
 import {Fragment} from 'react';
-import IntroSection from '../components/Header/IntroSection';
+import IntroSection from './IntroSection';
 import LoginForm from '../components/Forms/LoginForm';
 import { Link } from 'react-router-dom';
 
