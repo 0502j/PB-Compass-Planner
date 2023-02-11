@@ -159,9 +159,9 @@ const Form = () => {
         <Input
           onChange={birthChangeHandler}
           className={inputClasses}
-          type="date"
           id="date"
-          placeholder="MM/DD/YY"
+          type="date"
+          placeholder="MM/DD/YYYY"
         />
       </div>
 
