@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "./Input";
 import { AuthContext } from "../../store/user-context";
 import ConfirmModal from "../UI/ConfirmModal";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const Form = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Form = () => {
   });
 
   const [inputValid, setInputValid] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState({
       title:"",
       description:"",
@@ -41,6 +43,8 @@ const Form = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    setLoading(true);
 
     //validation
     if(!validateName.test(userInput.firstName) ||
@@ -53,12 +57,14 @@ const Form = () => {
     userInput.birthDate === "" ||
     userInput.country === ""){
       setInputValid(true);
+      setLoading(false);
       setHasError({
         title: "Invalid credentials, please try again.",
         description: "Hints: fields can't be empty, password must contain at least 8 chars and a number."
       });
-      setShowModal(true);     setShowModal(true);
+      setShowModal(true);
     }else if (userInput.password !== userInput.confirmPassword) {
+      setLoading(false);
       setHasError({title: "Passwords do not match.", description: ""});
       setShowModal(true);
     }else {
@@ -81,6 +87,8 @@ const Form = () => {
         }else{
           navigate("/");
         }
+        setLoading(false);
+        setUserInput(null);
       })
       
     }
@@ -148,10 +156,6 @@ const Form = () => {
     setShowModal(false);
   };
 
-  //Adding data to localstorage
-  useEffect(() => {
-    localStorage.setItem("userdata", JSON.stringify(userInput));
-  }, [userInput]);
 
   //Class control
   const inputClasses = inputValid
@@ -180,6 +184,8 @@ const Form = () => {
       </ConfirmModal>
     )}
 
+    {loading ? <Fragment><LoadingSpinner/><br/></Fragment> :
+    
     <form onSubmit={submitHandler}>
         <div className={classes.inputdiv}>
           <label htmlFor="firstname">first name</label>
@@ -281,6 +287,8 @@ const Form = () => {
           Register Now
         </FormBtn>
       </form>
+    }
+
    </Fragment>
 
     

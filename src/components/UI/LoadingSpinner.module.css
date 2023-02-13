@@ -1,0 +1,25 @@
+.fullct{
+    padding: 2em;
+}
+
+.spinnerct{
+    padding: 2em;
+}
+
+@keyframes loading {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+.spinnerload{
+    width: 5em;
+    height: 5em;
+    border: 5px solid #FC8001;
+    border-top: 4px solid #FDCC01;
+    border-radius: 50%;
+    animation: loading 1s linear infinite;
+}
