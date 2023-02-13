@@ -1,6 +1,6 @@
 import Modal from './Modal';
 
-const ConfirmDeletion = (props) => {
+const ConfirmModal = (props) => {
     return(
         <Modal className={props.className}>
             {props.children}
@@ -8,4 +8,4 @@ const ConfirmDeletion = (props) => {
     );
 }
 
-export default ConfirmDeletion;
+export default ConfirmModal;

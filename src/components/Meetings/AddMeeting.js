@@ -8,7 +8,7 @@ import FormBtn from "../Forms/FormBtn";
 import DaysOfWeek from "../Header/DaysOfWeek";
 import TimeCard from "./TimeCard";
 import MeetingDetailCard from "./MeetingDetailCard";
-import ConfirmDeletion from "../UI/ConfirmDeletion";
+import ConfirmModal from "../UI/ConfirmModal";
 import DaySelect from "../Forms/DaySelect";
 
 const AddMeeting = () => {
@@ -138,7 +138,7 @@ const AddMeeting = () => {
   return (
     <Fragment>
       {showModal && (
-        <ConfirmDeletion>
+        <ConfirmModal>
           <h3>
             Are you sure you want to delete all tasks of the selected day?
           </h3>
@@ -151,7 +151,7 @@ const AddMeeting = () => {
               Cancel
             </FormBtn>
           </div>
-        </ConfirmDeletion>
+        </ConfirmModal>
       )}
 
       <form onSubmit={submitHandler}>

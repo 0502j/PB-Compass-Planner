@@ -1,7 +1,8 @@
 import classes from "./Form.module.css";
+import styles from "../Meetings/AddMeeting.module.css";
 import btnclasses from "./FormBtn.module.css";
 import FormBtn from "./FormBtn";
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import {
   validateEmail,
   validateName,
@@ -13,6 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Input from "./Input";
 import { AuthContext } from "../../store/user-context";
+import ConfirmModal from "../UI/ConfirmModal";
 
 const Form = () => {
   const navigate = useNavigate();
@@ -20,103 +22,130 @@ const Form = () => {
   setIsLogged(false);
 
   const [userInput, setUserInput] = useState({
-    enteredFirstName: "",
-    enteredLastName: "",
-    enteredBirth: "",
-    enteredCountry: "",
-    enteredCity: "",
-    enteredEmail: "",
-    enteredPassword: "",
-    enteredPasswordConfirm: "",
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    city: "",
+    country: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [inputValid, setInputValid] = useState(true);
+  const [hasError, setHasError] = useState({
+      title:"",
+      description:"",
+  });
+  const [showModal, setShowModal] = useState(false);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
     //validation
-    if (
-      !validateName.test(userInput.enteredFirstName) ||
-      !validateLastName.test(userInput.enteredLastName) ||
-      !validateEmail.test(userInput.enteredEmail) ||
-      !validatePasword.test(userInput.enteredPassword) ||
-      !validateCity.test(userInput.enteredCity) ||
-      !validateCountry.test(userInput.enteredCountry) ||
-      userInput.enteredCity === "" ||
-      userInput.enteredBirth === "" ||
-      userInput.enteredCountry === ""
-    ) {
-      alert(
-        "Hints:" +
-          "\n" +
-          "\n - Name and city must not have numbers" +
-          "\n - Country must not be empty & in english" +
-          "\n - E-mail must contain @ and ." +
-          "\n - Password must contain at least 8 chars and 1 number"
-      );
-      setInputValid(false);
-    } else if (userInput.enteredPassword !== userInput.enteredPasswordConfirm) {
-      alert("Passwords do not match.");
-    } else {
-      navigate("/");
-    }
-  };
+    if(!validateName.test(userInput.firstName) ||
+    !validateLastName.test(userInput.lastName) ||
+    !validateEmail.test(userInput.email) ||
+    !validatePasword.test(userInput.password) ||
+    !validateCity.test(userInput.city) ||
+    !validateCountry.test(userInput.country) ||
+    userInput.city === "" ||
+    userInput.birthDate === "" ||
+    userInput.country === ""){
+      setInputValid(true);
+      setHasError({
+        title: "Invalid credentials, please try again.",
+        description: "Hints: fields can't be empty, password must contain at least 8 chars and a number."
+      });
+      setShowModal(true);     setShowModal(true);
+    }else if (userInput.password !== userInput.confirmPassword) {
+      setHasError({title: "Passwords do not match.", description: ""});
+      setShowModal(true);
+    }else {
+      //required body for post request
+      const postOpts = {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(userInput)
+      };
 
+      fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-up', postOpts)
+      .then(async response => {
+        const data = await response.json();
+        //checking response errors
+        if(!response.ok){
+          setHasError({title: data});
+          setShowModal(true);
+        }else{
+          navigate("/");
+        }
+      })
+      
+    }
+  }
+
+  //gathering user input
   const nameChangeHandler = (event) => {
     setUserInput({
       ...userInput,
-      enteredFirstName: event.target.value,
+      firstName: event.target.value,
     });
   };
 
   const lastNameChangeHandler = (event) => {
     setUserInput({
       ...userInput,
-      enteredLastName: event.target.value,
+      lastName: event.target.value,
     });
   };
 
   const birthChangeHandler = (event) => {
     setUserInput({
       ...userInput,
-      enteredBirth: event.target.value,
+      birthDate: event.target.value,
     });
   };
 
   const countryChangeHandler = (event) => {
     setUserInput({
       ...userInput,
-      enteredCountry: event.target.value,
+      country: event.target.value,
     });
   };
 
   const cityChangeHandler = (event) => {
     setUserInput({
       ...userInput,
-      enteredCity: event.target.value,
+      city: event.target.value,
     });
   };
 
   const emailChangeHandler = (event) => {
     setUserInput({
       ...userInput,
-      enteredEmail: event.target.value,
+      email: event.target.value,
     });
   };
 
   const passwordChangeHandler = (event) => {
     setUserInput({
       ...userInput,
-      enteredPassword: event.target.value,
+      password: event.target.value,
     });
   };
 
   const passwordConfirmChangeHandler = (event) => {
     setUserInput({
       ...userInput,
-      enteredPasswordConfirm: event.target.value,
+      confirmPassword: event.target.value,
     });
+  };
+
+  //closing error modal control
+  const modalClose = () => {
+    setShowModal(false);
   };
 
   //Adding data to localstorage
@@ -133,107 +162,128 @@ const Form = () => {
     : classes["selecterror"];
 
   return (
+
+   <Fragment>
+     {showModal && (
+      <ConfirmModal>
+        <h3>
+          Registration error!
+        </h3>
+        <br/>
+        <h4>{hasError.title}</h4>
+        <h4>{hasError.description}</h4>
+        <div className={styles.confirmdeletion}>
+          <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
+            OK
+          </FormBtn>
+        </div>
+      </ConfirmModal>
+    )}
+
     <form onSubmit={submitHandler}>
-      <div className={classes.inputdiv}>
-        <label htmlFor="firstname">first name</label>
-        <Input
-          onChange={nameChangeHandler}
-          className={inputClasses}
-          type="text"
-          id="firstname"
-          placeholder="Your first name"
-        />
-      </div>
+        <div className={classes.inputdiv}>
+          <label htmlFor="firstname">first name</label>
+          <Input
+            onChange={nameChangeHandler}
+            className={inputClasses}
+            type="text"
+            id="firstname"
+            placeholder="Your first name"
+          />
+        </div>
 
-      <div className={classes.inputdiv}>
-        <label htmlFor="lastname">last name</label>
-        <Input
-          onChange={lastNameChangeHandler}
-          className={inputClasses}
-          type="text"
-          id="lastname"
-          placeholder="Your last name"
-        />
-      </div>
+        <div className={classes.inputdiv}>
+          <label htmlFor="lastname">last name</label>
+          <Input
+            onChange={lastNameChangeHandler}
+            className={inputClasses}
+            type="text"
+            id="lastname"
+            placeholder="Your last name"
+          />
+        </div>
 
-      <div className={classes.inputdiv}>
-        <label htmlFor="date">birth date</label>
-        <Input
-          onChange={birthChangeHandler}
-          className={inputClasses}
-          id="date"
-          type="date"
-          placeholder="MM/DD/YYYY"
-        />
-      </div>
+        <div className={classes.inputdiv}>
+          <label htmlFor="date">birth date</label>
+          <Input
+            onChange={birthChangeHandler}
+            className={inputClasses}
+            id="date"
+            type="date"
+            placeholder="MM/DD/YYYY"
+          />
+        </div>
 
-      <div className={classes.inputdiv}>
-        <label htmlFor="country">country</label>
-        <Input
-          onChange={countryChangeHandler}
-          className={inputClasses}
-          type="text"
-          id="country"
-          placeholder="Your country"
-        />
-      </div>
+        <div className={classes.inputdiv}>
+          <label htmlFor="country">country</label>
+          <Input
+            onChange={countryChangeHandler}
+            className={inputClasses}
+            type="text"
+            id="country"
+            placeholder="Your country"
+          />
+        </div>
 
-      <div className={classes.inputdiv}>
-        <label htmlFor="city">city</label>
-        <Input
-          onChange={cityChangeHandler}
-          className={inputClasses}
-          type="text"
-          id="city"
-          placeholder="Your city"
-        />
-      </div>
+        <div className={classes.inputdiv}>
+          <label htmlFor="city">city</label>
+          <Input
+            onChange={cityChangeHandler}
+            className={inputClasses}
+            type="text"
+            id="city"
+            placeholder="Your city"
+          />
+        </div>
 
-      <div className={classes.inputdiv}>
-        <label htmlFor="email">e-mail</label>
-        <Input
-          onChange={emailChangeHandler}
-          className={inputClasses}
-          type="email"
-          id="email"
-          placeholder="A valid e-mail here"
-        />
-      </div>
+        <div className={classes.inputdiv}>
+          <label htmlFor="email">e-mail</label>
+          <Input
+            onChange={emailChangeHandler}
+            className={inputClasses}
+            type="email"
+            id="email"
+            placeholder="A valid e-mail here"
+          />
+        </div>
 
-      <div className={classes.inputdiv}>
-        <label htmlFor="password">password</label>
-        <Input
-          onChange={passwordChangeHandler}
-          className={inputClasses}
-          type="password"
-          id="password"
-          placeholder="Your password"
-        />
-      </div>
+        <div className={classes.inputdiv}>
+          <label htmlFor="password">password</label>
+          <Input
+            onChange={passwordChangeHandler}
+            className={inputClasses}
+            type="password"
+            id="password"
+            placeholder="Your password"
+          />
+        </div>
 
-      <div className={classes.inputdiv}>
-        <label htmlFor="confirmpass">password</label>
-        <Input
-          onChange={passwordConfirmChangeHandler}
-          className={inputClasses}
-          type="password"
-          id="confirmpass"
-          placeholder="Confirm your password"
-        />
-      </div>
+        <div className={classes.inputdiv}>
+          <label htmlFor="confirmpass">password</label>
+          <Input
+            onChange={passwordConfirmChangeHandler}
+            className={inputClasses}
+            type="password"
+            id="confirmpass"
+            placeholder="Confirm your password"
+          />
+        </div>
 
-      {!inputValid ? (
-        <p className={classes.inputinvalid}>
-          Invalid credentials. Please try again!
-        </p>
-      ) : (
-        ""
-      )}
+        {!inputValid ? (
+          <p className={classes.inputinvalid}>
+            Invalid credentials. Please try again!
+          </p>
+        ) : (
+          ""
+        )}
 
-      <FormBtn className={btnclasses.btn} type="submit">
-        Register Now
-      </FormBtn>
-    </form>
+        <FormBtn className={btnclasses.btn} type="submit">
+          Register Now
+        </FormBtn>
+      </form>
+   </Fragment>
+
+    
   );
 };
 
