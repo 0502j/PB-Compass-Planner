@@ -2,7 +2,7 @@ import classes from "./Form.module.css";
 import styles from "../Meetings/AddMeeting.module.css";
 import btnclasses from "./FormBtn.module.css";
 import FormBtn from "./FormBtn";
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 import {
   validateEmail,
   validateName,
@@ -42,29 +42,39 @@ const Form = () => {
   const [showModal, setShowModal] = useState(false);
 
   const submitHandler = (event) => {
+
     event.preventDefault();
 
-    setLoading(true);
-
     //validation
-    if(!validateName.test(userInput.firstName) ||
+    if(userInput == null){
+      setHasError({
+        title: "Invalid credentials.",
+        description: "Please fill all the fields to register."
+      });
+      setShowModal(true);
+      return;
+    }
+
+    if(userInput.firstName === "" ||
+    userInput.lastName === "" ||
+    userInput.city === "" ||
+    userInput.birthDate === "" ||
+    userInput.country === "" ||
+    !validateName.test(userInput.firstName) ||
     !validateLastName.test(userInput.lastName) ||
     !validateEmail.test(userInput.email) ||
     !validatePasword.test(userInput.password) ||
     !validateCity.test(userInput.city) ||
-    !validateCountry.test(userInput.country) ||
-    userInput.city === "" ||
-    userInput.birthDate === "" ||
-    userInput.country === ""){
+    !validateCountry.test(userInput.country)
+    ){
       setInputValid(true);
-      setLoading(false);
       setHasError({
         title: "Invalid credentials, please try again.",
         description: "Hints: fields can't be empty, password must contain at least 8 chars and a number."
       });
       setShowModal(true);
+      
     }else if (userInput.password !== userInput.confirmPassword) {
-      setLoading(false);
       setHasError({title: "Passwords do not match.", description: ""});
       setShowModal(true);
     }else {
@@ -77,6 +87,8 @@ const Form = () => {
         body:JSON.stringify(userInput)
       };
 
+      setLoading(true);
+
       fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-up', postOpts)
       .then(async response => {
         const data = await response.json();
@@ -84,12 +96,12 @@ const Form = () => {
         if(!response.ok){
           setHasError({title: data});
           setShowModal(true);
+          setLoading(false);
         }else{
           navigate("/");
         }
         setLoading(false);
-        setUserInput(null);
-      })
+      });
       
     }
   }

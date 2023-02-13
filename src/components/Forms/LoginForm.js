@@ -1,38 +1,31 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import Input from "../Forms/Input";
 import classes from "./Form.module.css";
+import styles from "../Meetings/AddMeeting.module.css";
 import FormBtn from "./FormBtn";
 import btnclasses from "./FormBtn.module.css";
 import { AuthContext } from "../../store/user-context";
 import { useNavigate } from "react-router-dom";
 import passwordIcon from "../../img/passwordIcon.svg";
 import userIcon from "../../img/userIcon.svg";
+import ConfirmModal from "../UI/ConfirmModal";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [isUserActive, setIsUserActive] = useState(false);
   const [isPassActive, setIsPassActive] = useState(false);
-
-  //Getting localstorage object data to validate info
-  const data = window.localStorage.getItem("userdata");
-  localStorage.setItem("userData", JSON.stringify(data));
-  const parsedData = JSON.parse(data);
-
-  //Storing parsedData into vars
-  const firstName = parsedData
-    ? parsedData.enteredFirstName.split(" ").join("")
-    : "";
-  const lastName = parsedData
-    ? parsedData.enteredLastName.split(" ").join("")
-    : "";
-  const email = parsedData ? parsedData.enteredEmail : null;
-  const password = parsedData ? parsedData.enteredPassword : null;
-  const fullname = parsedData ? firstName + lastName : null;
-
-  const [enteredUsername, setEnteredUsername] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
+  const [userInputs, setUserInputs] = useState({
+    email: "",
+    password: "",
+  });
   const [dataMatch, setDataMatch] = useState(true);
-
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [hasError, setHasError] = useState({
+      title:"",
+      description:"",
+  });
   //Class control
   const inputClasses = dataMatch ? classes["forminput"] : classes["inputerror"];
   const userClasses = isUserActive
@@ -41,12 +34,6 @@ const LoginForm = () => {
   const passwordClasses = isPassActive
     ? classes["iconactive"]
     : classes["iconinactive"];
-
-  //Get useState data with adequate format
-  const usernameString = JSON.stringify(enteredUsername);
-  const usernameParse = JSON.parse(usernameString);
-  const passwordString = JSON.stringify(enteredPassword);
-  const passwordParse = JSON.parse(passwordString);
 
   //UseContext validation
   const { isLogged, setIsLogged } = useContext(AuthContext);
@@ -57,43 +44,73 @@ const LoginForm = () => {
     }
   }, [setIsLogged, isLogged]);
 
-  //Validation before login
-  const submitHandler = (event) => {
-    event.preventDefault();
-
-    if (email == null || password == null || fullname == null) {
-      localStorage.setItem("IsLoggedIn", false);
-      setIsLogged(false);
-      setDataMatch(false);
-      return;
-    } else if (
-      (fullname === usernameParse.enteredUsername ||
-        usernameParse.enteredUsername === email) &&
-      password === passwordParse.enteredPassword
-    ) {
-      localStorage.setItem("IsLoggedIn", true);
-      setIsLogged(true);
-    } else {
-      localStorage.setItem("IsLoggedIn", false);
-      setDataMatch(false);
-      setIsLogged(false);
-    }
-  };
 
   //Getting all user input
-  const usernameChangeHandler = (event) => {
-    setEnteredUsername({
-      ...setEnteredUsername,
-      enteredUsername: event.target.value,
+  const emailChangeHandler = (event) => {
+    setUserInputs({
+      ...userInputs,
+      email: event.target.value,
     });
   };
 
   const passwordChangeHandler = (event) => {
-    setEnteredPassword({
-      ...setEnteredPassword,
-      enteredPassword: event.target.value,
+    setUserInputs({
+      ...userInputs,
+      password: event.target.value,
     });
   };
+
+
+  //Validation before login
+  const submitHandler = (event) => {
+    event.preventDefault();   
+
+    if(userInputs.email === "" || userInputs.password === ""){
+      setHasError({title: "Fields must not be empty.", description: ""});
+      setShowModal(true);
+      setDataMatch(false);
+    }else{
+      setLoading(true);
+      //body for login post request
+      const postOpts = {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(userInputs)
+      };
+
+      fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-in', postOpts)
+      .then(async response => {
+        const data = await response.json();
+
+        //checking login response errors
+        if(!response.ok){
+          setLoading(false);
+          setIsLogged(false);
+          setDataMatch(false);
+          setHasError({title: data.message,  description: ""});
+          setShowModal(true);
+          return;
+        }else{
+          setDataMatch(true);
+          setIsLogged(true);
+          navigate("/dashboard");
+          setLoading(false);
+        }
+        
+      });
+    }
+
+    
+    
+  }
+
+    //closing error modal control
+    const modalClose = () => {
+      setShowModal(false);
+    };
+  
 
   //Icon animation handlers
   const userActiveHandler = () => {
@@ -105,13 +122,13 @@ const LoginForm = () => {
   };
 
   const inputInactiveHandler = () => {
-    if (enteredUsername !== "") {
+    if (userInputs.email !== "") {
       setIsUserActive(true);
     } else {
       setIsUserActive(false);
     }
 
-    if (enteredPassword !== "") {
+    if (userInputs.password !== "") {
       setIsPassActive(true);
     } else {
       setIsPassActive(false);
@@ -120,14 +137,31 @@ const LoginForm = () => {
 
   return (
     <Fragment>
-      <form onSubmit={submitHandler}>
+        {showModal && (
+        <ConfirmModal>
+          <h3>
+            Login error!
+          </h3>
+          <br/>
+          <h4>{hasError.title}</h4>
+          <h4>{hasError.description}</h4>
+          <div className={styles.confirmdeletion}>
+            <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
+              OK
+            </FormBtn>
+          </div>
+        </ConfirmModal>
+      )}
+
+      {loading ? <LoadingSpinner/> :
+        <form onSubmit={submitHandler}>
         <div className={classes.loginformdiv}>
           <h3 className={classes.logintitle}>Login</h3>
           <div className={classes.inputdiv}>
             <Input
               onBlur={inputInactiveHandler}
               onFocus={userActiveHandler}
-              onChange={usernameChangeHandler}
+              onChange={emailChangeHandler}
               className={inputClasses}
               type="text"
               id="username"
@@ -164,8 +198,10 @@ const LoginForm = () => {
           </FormBtn>
         </div>
       </form>
+    }
     </Fragment>
   );
+
 };
 
 export default LoginForm;
