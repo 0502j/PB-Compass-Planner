@@ -100,8 +100,8 @@ const Header = () => {
   const data = window.localStorage.getItem("userdata");
   localStorage.setItem("userData", JSON.stringify(data));
   const parsedData = JSON.parse(data);
-  const city = parsedData.enteredCity;
-  const country = parsedData.enteredCountry;
+  const city = parsedData ? parsedData.city : '';
+  const country = parsedData ? parsedData.country : '';
 
   useEffect(() => {
     weatherAPIData();

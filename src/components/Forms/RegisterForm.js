@@ -2,7 +2,7 @@ import classes from "./Form.module.css";
 import styles from "../Meetings/AddMeeting.module.css";
 import btnclasses from "./FormBtn.module.css";
 import FormBtn from "./FormBtn";
-import { Fragment, useContext, useRef, useState } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import {
   validateEmail,
   validateName,
@@ -177,6 +177,12 @@ const Form = () => {
   const modalClose = () => {
     setShowModal(false);
   };
+
+  //adding data to localstorage
+   //Adding data to localstorage
+   useEffect(() => {
+    localStorage.setItem("userdata", JSON.stringify(userInput));
+  }, [userInput]);
 
 
   //Class control
