@@ -16,6 +16,8 @@ import Input from "./Input";
 import { AuthContext } from "../../store/user-context";
 import ConfirmModal from "../UI/ConfirmModal";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import {AiOutlineCheckCircle} from 'react-icons/ai';
+import { RiErrorWarningLine } from 'react-icons/ri';
 
 const Form = () => {
   const navigate = useNavigate();
@@ -35,9 +37,10 @@ const Form = () => {
 
   const [inputValid, setInputValid] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [hasError, setHasError] = useState({
+  const [modalMessage, setModalMessage] = useState({
       title:"",
       description:"",
+      isError: false
   });
   const [showModal, setShowModal] = useState(false);
 
@@ -47,7 +50,7 @@ const Form = () => {
 
     //validation
     if(userInput == null){
-      setHasError({
+      setModalMessage({
         title: "Invalid credentials.",
         description: "Please fill all the fields to register."
       });
@@ -68,16 +71,19 @@ const Form = () => {
     !validateCountry.test(userInput.country)
     ){
       setInputValid(true);
-      setHasError({
+      setModalMessage({
         title: "Invalid credentials, please try again.",
-        description: "Hints: fields can't be empty, password must contain at least 8 chars and a number."
+        description: "Hints: fields can't be empty, password must contain at least 8 chars and a number.",
+        isError: true
       });
       setShowModal(true);
       
     }else if (userInput.password !== userInput.confirmPassword) {
-      setHasError({title: "Passwords do not match.", description: ""});
+      setModalMessage({title: "Passwords do not match.", description: "", isError: true});
       setShowModal(true);
     }else {
+
+      setLoading(true);
       //required body for post request
       const postOpts = {
         method: 'POST',
@@ -87,18 +93,22 @@ const Form = () => {
         body:JSON.stringify(userInput)
       };
 
-      setLoading(true);
-
       fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-up', postOpts)
       .then(async response => {
         const data = await response.json();
         //checking response errors
         if(!response.ok){
-          setHasError({title: data});
+          setModalMessage({title:"Registration failed.", description:data, isError: true});
           setShowModal(true);
           setLoading(false);
         }else{
-          navigate("/");
+          setShowModal(true);
+          setModalMessage({title: "Registration success!", description: "Redirecting to login page...", isError: false})
+  
+            setTimeout(()=>{
+                navigate("/");
+            }, 3000)
+         
         }
         setLoading(false);
       });
@@ -182,12 +192,11 @@ const Form = () => {
    <Fragment>
      {showModal && (
       <ConfirmModal>
-        <h3>
-          Registration error!
-        </h3>
+      <div className={styles.descicon}> {modalMessage.isError == true ? <RiErrorWarningLine/> : <AiOutlineCheckCircle/>}</div>
         <br/>
-        <h4>{hasError.title}</h4>
-        <h4>{hasError.description}</h4>
+        <h3>{modalMessage.title}</h3>
+        <h4>{modalMessage.description}</h4>
+        <br/>
         <div className={styles.confirmdeletion}>
           <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
             OK
@@ -196,110 +205,116 @@ const Form = () => {
       </ConfirmModal>
     )}
 
-    {loading ? <Fragment><LoadingSpinner/><br/></Fragment> :
+      <div>
+            {loading ? <Fragment><LoadingSpinner/><br/></Fragment> : 
+            
+            <form onSubmit={submitHandler}>
+              <div className={classes.inputdiv}>
+                <label htmlFor="firstname">first name</label>
+                <Input
+                  onChange={nameChangeHandler}
+                  className={inputClasses}
+                  type="text"
+                  id="firstname"
+                  placeholder="Your first name"
+                />
+              </div>
+
+              <div className={classes.inputdiv}>
+                <label htmlFor="lastname">last name</label>
+                <Input
+                  onChange={lastNameChangeHandler}
+                  className={inputClasses}
+                  type="text"
+                  id="lastname"
+                  placeholder="Your last name"
+                />
+              </div>
+
+              <div className={classes.inputdiv}>
+                <label htmlFor="date">birth date</label>
+                <Input
+                  onChange={birthChangeHandler}
+                  className={inputClasses}
+                  id="date"
+                  type="date"
+                  placeholder="MM/DD/YYYY"
+                />
+              </div>
+
+              <div className={classes.inputdiv}>
+                <label htmlFor="country">country</label>
+                <Input
+                  onChange={countryChangeHandler}
+                  className={inputClasses}
+                  type="text"
+                  id="country"
+                  placeholder="Your country"
+                />
+              </div>
+
+              <div className={classes.inputdiv}>
+                <label htmlFor="city">city</label>
+                <Input
+                  onChange={cityChangeHandler}
+                  className={inputClasses}
+                  type="text"
+                  id="city"
+                  placeholder="Your city"
+                />
+              </div>
+
+              <div className={classes.inputdiv}>
+                <label htmlFor="email">e-mail</label>
+                <Input
+                  onChange={emailChangeHandler}
+                  className={inputClasses}
+                  type="email"
+                  id="email"
+                  placeholder="A valid e-mail here"
+                />
+              </div>
+
+              <div className={classes.inputdiv}>
+                <label htmlFor="password">password</label>
+                <Input
+                  onChange={passwordChangeHandler}
+                  className={inputClasses}
+                  type="password"
+                  id="password"
+                  placeholder="Your password"
+                />
+              </div>
+
+              <div className={classes.inputdiv}>
+                <label htmlFor="confirmpass">password</label>
+                <Input
+                  onChange={passwordConfirmChangeHandler}
+                  className={inputClasses}
+                  type="password"
+                  id="confirmpass"
+                  placeholder="Confirm your password"
+                />
+              </div>
+
+              {!inputValid ? (
+                <p className={classes.inputinvalid}>
+                  Invalid credentials. Please try again!
+                </p>
+              ) : (
+                ""
+              )}
+
+              <FormBtn className={btnclasses.btn} type="submit">
+                Register Now
+              </FormBtn>
+            </form>
+      
+      }
+      </div>
     
-    <form onSubmit={submitHandler}>
-        <div className={classes.inputdiv}>
-          <label htmlFor="firstname">first name</label>
-          <Input
-            onChange={nameChangeHandler}
-            className={inputClasses}
-            type="text"
-            id="firstname"
-            placeholder="Your first name"
-          />
-        </div>
-
-        <div className={classes.inputdiv}>
-          <label htmlFor="lastname">last name</label>
-          <Input
-            onChange={lastNameChangeHandler}
-            className={inputClasses}
-            type="text"
-            id="lastname"
-            placeholder="Your last name"
-          />
-        </div>
-
-        <div className={classes.inputdiv}>
-          <label htmlFor="date">birth date</label>
-          <Input
-            onChange={birthChangeHandler}
-            className={inputClasses}
-            id="date"
-            type="date"
-            placeholder="MM/DD/YYYY"
-          />
-        </div>
-
-        <div className={classes.inputdiv}>
-          <label htmlFor="country">country</label>
-          <Input
-            onChange={countryChangeHandler}
-            className={inputClasses}
-            type="text"
-            id="country"
-            placeholder="Your country"
-          />
-        </div>
-
-        <div className={classes.inputdiv}>
-          <label htmlFor="city">city</label>
-          <Input
-            onChange={cityChangeHandler}
-            className={inputClasses}
-            type="text"
-            id="city"
-            placeholder="Your city"
-          />
-        </div>
-
-        <div className={classes.inputdiv}>
-          <label htmlFor="email">e-mail</label>
-          <Input
-            onChange={emailChangeHandler}
-            className={inputClasses}
-            type="email"
-            id="email"
-            placeholder="A valid e-mail here"
-          />
-        </div>
-
-        <div className={classes.inputdiv}>
-          <label htmlFor="password">password</label>
-          <Input
-            onChange={passwordChangeHandler}
-            className={inputClasses}
-            type="password"
-            id="password"
-            placeholder="Your password"
-          />
-        </div>
-
-        <div className={classes.inputdiv}>
-          <label htmlFor="confirmpass">password</label>
-          <Input
-            onChange={passwordConfirmChangeHandler}
-            className={inputClasses}
-            type="password"
-            id="confirmpass"
-            placeholder="Confirm your password"
-          />
-        </div>
-
-        {!inputValid ? (
-          <p className={classes.inputinvalid}>
-            Invalid credentials. Please try again!
-          </p>
-        ) : (
-          ""
-        )}
-
-        <FormBtn className={btnclasses.btn} type="submit">
-          Register Now
-        </FormBtn>
-      </form>
-    }
+    
+    
 
    </Fragment>
 

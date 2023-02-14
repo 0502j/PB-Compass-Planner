@@ -10,6 +10,7 @@ import passwordIcon from "../../img/passwordIcon.svg";
 import userIcon from "../../img/userIcon.svg";
 import ConfirmModal from "../UI/ConfirmModal";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import { RiErrorWarningLine } from 'react-icons/ri';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -22,9 +23,10 @@ const LoginForm = () => {
   const [dataMatch, setDataMatch] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [hasError, setHasError] = useState({
+  const [modalMessage, setModalMessage] = useState({
       title:"",
-      description:"",
+      description:[],
+      isError: false,
   });
   //Class control
   const inputClasses = dataMatch ? classes["forminput"] : classes["inputerror"];
@@ -65,12 +67,8 @@ const LoginForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();   
 
-    if(userInputs.email === "" || userInputs.password === ""){
-      setHasError({title: "Fields must not be empty.", description: ""});
-      setShowModal(true);
-      setDataMatch(false);
-    }else{
       setLoading(true);
+
       //body for login post request
       const postOpts = {
         method: 'POST',
@@ -86,23 +84,30 @@ const LoginForm = () => {
 
         //checking login response errors
         if(!response.ok){
-          setLoading(false);
-          setIsLogged(false);
-          setDataMatch(false);
-          setHasError({title: data.message,  description: ""});
-          setShowModal(true);
-          return;
-        }else{
-          setDataMatch(true);
-          setIsLogged(true);
-          navigate("/dashboard");
-          setLoading(false);
+          if(userInputs.password.length<=5){
+            setLoading(false);
+            setIsLogged(false);
+            setShowModal(true);
+            setModalMessage({title: 'Login failed. Check your username or password and try again.',  description: "Password must have at least 6 characters.", isError: true});
+            return;
+          }else{
+            setLoading(false);
+            setIsLogged(false);
+            setDataMatch(false);
+            setModalMessage({title: data.message ? data.message : 'Login failed. Check your username or password and try again.',  description: data.errors ? data.errors.join(',') : data.errors, isError: true});
+            setShowModal(true);
+            return;
+          }
         }
+       
+        setDataMatch(true);
+        setIsLogged(true);
+        navigate("/dashboard");
+        setLoading(false);
+        
         
       });
-    }
-
-    
+  
     
   }
 
@@ -139,12 +144,10 @@ const LoginForm = () => {
     <Fragment>
         {showModal && (
         <ConfirmModal>
-          <h3>
-            Login error!
-          </h3>
+          <div className={styles.descicon}> {modalMessage.isError == true ? <RiErrorWarningLine/> : ''}</div>
           <br/>
-          <h4>{hasError.title}</h4>
-          <h4>{hasError.description}</h4>
+          <h3>{modalMessage.title}</h3>
+          <h4>{modalMessage.description}</h4>
           <div className={styles.confirmdeletion}>
             <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
               OK
