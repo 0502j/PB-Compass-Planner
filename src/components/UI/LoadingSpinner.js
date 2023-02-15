@@ -6,7 +6,6 @@ const LoadingSpinner = () => {
     return(
         <Fragment>
            <div className={classes.fullct}>
-           <p>Loading...</p>
             <div className={classes.spinnerct}>
 
                 <div className={classes.spinnerload}>

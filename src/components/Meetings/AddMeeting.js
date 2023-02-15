@@ -2,6 +2,7 @@ import { createRef, Fragment, useEffect, useState } from "react";
 import classes from "../Forms/Form.module.css";
 import styles from "./AddMeeting.module.css";
 import btnstyles from "../Forms/FormBtn.module.css";
+import modalclasses from '../UI/Modal.module.css';
 import colors from "../UI/Colors.module.css";
 import Input from "../Forms/Input";
 import FormBtn from "../Forms/FormBtn";
@@ -10,6 +11,7 @@ import TimeCard from "./TimeCard";
 import MeetingDetailCard from "./MeetingDetailCard";
 import ConfirmModal from "../UI/ConfirmModal";
 import DaySelect from "../Forms/DaySelect";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const AddMeeting = () => {
   const [taskInput, setTaskInput] = useState({
@@ -26,57 +28,44 @@ const AddMeeting = () => {
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState({
+    title:"",
+    description:[],
+    isError: false,
+    isDeletion: false,
+  });
+  const [loading, setLoading] = useState(false);
   const [weekdaySelected, setWeekdaySelected] = useState("");
+  const [hasError, setHasError]=useState({
+    title: '',
+    description:'',
+  })
+  const curToken = localStorage.getItem("TOKEN");
+  let fetchData = [];
 
-  //Adding a task
-  const addTask = (name, day, time) => {
-
-    const curToken = localStorage.getItem("TOKEN");
-
-    const postOpts = {
-
-      method: 'POST',
-      headers:{
+  //Fetching user tasks
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const response = await fetch(`https://latam-challenge-2.deta.dev/api/v1/events?dayOfWeek=${weekdaySelected}`, {headers:{
         'Content-Type': 'application/json',
         Authorization: "Bearer " + curToken
-      },
-      body:JSON.stringify({
-        "description": name.toString(),
-        "dayOfWeek": day,
-      })
-    }
-      fetch('https://latam-challenge-2.deta.dev/api/v1/events', postOpts)
-      .then(async response => {
-        const data = await response.json();
+      },});
+      fetchData = await response.json();
+      if(!response.ok){
+        setLoading(false);
+        setHasError({title: "No tasks found!", description:"Try selecting a filter or reload the page."})
+      }else{
+        //will receive an event object with events descriptions
+        console.log(fetchData);
+        setLoading(false);
+        setHasError({title: "", description:""})
+      }
+      
 
-        console.log(data);
+  })();
 
-        if(!response.ok){
-          return;
-        }
-
-        const findTasks = [...tasks].findIndex((info) => {
-          return info.enteredTaskDay === day && info.enteredTaskTime === time;
-        });
-    
-        const newTasks = [...tasks];
-        if (findTasks >= 0) {
-          newTasks[findTasks].enteredTaskName.push(name);
-        } else {
-          newTasks.push({
-            id: Math.floor(Math.random() * 1000) + 1,
-            enteredTaskName: [name],
-            enteredTaskDay: day,
-            enteredTaskTime: time,
-          });
-        }
-    
-        setTasks(newTasks);
-
-      });
-
-    
-  };
+  }, [weekdaySelected]);
 
   //Removing single or all tasks at once
   const removeAllTasks = () => {
@@ -122,13 +111,63 @@ const AddMeeting = () => {
       dayRef.current.value.length === 0 ||
       timeRef.current.value.length === 0
     ) {
-      alert("Task information invalid. Please try again!");
+      setModalMessage({
+        title: "Task creation fail!",
+        description: "You cannot add a task with empty fields.",
+        isError: true,
+        isDeletion: false
+      })
+      modalOpen();
     } else {
-      addTask(
-        nameRef.current.value,
-        dayRef.current.value,
-        timeRef.current.value
-      );
+      const postOpts = {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization: "Bearer " + curToken
+        },
+        body:JSON.stringify({
+          "description": nameRef.current.value.toString(),
+          "dayOfWeek": dayRef.current.value,
+        })
+      }
+        try{
+          setLoading(true);
+          console.log(loading);
+          setModalMessage({title: "Creating task..."});
+          modalOpen();
+          fetch('https://latam-challenge-2.deta.dev/api/v1/events', postOpts)
+          .then(async response => {
+            const data = await response.json();
+
+            if(!response.ok){
+              throw new Error("Task creation fail!");
+            }
+
+            console.log(data);
+              modalClose();
+              setLoading(false);
+
+              const findTasks = [...tasks].findIndex((info) => {
+                return info.enteredTaskDay === dayRef.current.value && info.enteredTaskTime === timeRef.current.value;
+              });
+          
+              const newTasks = [...tasks];
+              if (findTasks >= 0) {
+                newTasks[findTasks].enteredTaskName.push(nameRef.current.value);
+              } else {
+                newTasks.push({
+                  id: Math.floor(Math.random() * 1000) + 1,
+                  enteredTaskName: [nameRef.current.value],
+                  enteredTaskDay: dayRef.current.value,
+                  enteredTaskTime: timeRef.current.value,
+                });
+              }
+              setTasks(newTasks);
+          });
+        }catch(err){
+          setModalMessage({title: err});
+          modalOpen();
+        }
     }
   };
 
@@ -170,17 +209,29 @@ const AddMeeting = () => {
       {showModal && (
         <ConfirmModal>
           <h3>
-            Are you sure you want to delete all tasks of the selected day?
+            {modalMessage.title}
           </h3>
-          <h3>This cannot be undone!</h3>
-          <div className={styles.confirmdeletion}>
+          <h3>{modalMessage.description}</h3>
+          <div className={modalclasses.loadingwmodal}>
+            {loading ? <LoadingSpinner/> : ''}
+          </div>
+          {modalMessage.isError ? 
+            <div>
+              <br/>
+              <FormBtn className={`${classes.confirminputs} ${classes.confirm}`} onClick={modalClose}>
+                OK
+              </FormBtn>
+            </div>          
+          : ''}
+          {/* <div className={styles.confirmdeletion}>
             <FormBtn className={`${classes.confirminputs} ${classes.confirm}`} onClick={removeAllTasks}>
               Delete
             </FormBtn>
             <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
               Cancel
             </FormBtn>
-          </div>
+          </div> */}
+          
         </ConfirmModal>
       )}
 
@@ -199,8 +250,9 @@ const AddMeeting = () => {
             className={`${classes.taskinput} ${classes.taskdateinput}`}
             type="time"
           />
+
           <div className={styles.addtaskbuttons}>
-            <FormBtn onClick={addTask} type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>
+            <FormBtn  type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>
               + Add to calendar
             </FormBtn>
             <FormBtn onClick={modalOpen} type="button" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>
@@ -238,10 +290,11 @@ const AddMeeting = () => {
 
       <div className={styles.scrollContent}>
         <div className={styles.taskscontainer}>
-          {filteredTasks
-            ? filteredTasks.map((item) => {
+        {loading && <div className={styles.taskloading}><LoadingSpinner/></div>}
+          {fetchData
+            ? fetchData.map((item) => {
                 return (
-                  <div className={ item.enteredTaskName.length > 1 ? styles.conflictscontainer : styles.meetingscontainer}>
+                  <div className={item.events.description.length > 1 ? styles.conflictscontainer : styles.meetingscontainer}>
                     <div className={styles.addedtasksdiv} key={item.id}>
                       <div>
                         <TimeCard className={item.enteredTaskName.length > 1 ? colors.conflicted : DayClasses}>
@@ -267,7 +320,12 @@ const AddMeeting = () => {
                   </div>
                 );
               })
-            : ""}
+            : ''}
+            {!loading && hasError.title.length >= 1 ?
+             <div className={styles.taskserror}>
+              <h2>{hasError.title}</h2>
+              <h3>{hasError.description}</h3>
+            </div> : ''}
         </div>
       </div>
     </Fragment>
