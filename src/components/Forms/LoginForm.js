@@ -100,6 +100,8 @@ const LoginForm = () => {
           }
         }
        
+        console.log(data.token);
+        localStorage.setItem("TOKEN", data.token);
         setDataMatch(true);
         setIsLogged(true);
         navigate("/dashboard");

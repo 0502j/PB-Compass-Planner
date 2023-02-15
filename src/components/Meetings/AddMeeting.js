@@ -30,23 +30,52 @@ const AddMeeting = () => {
 
   //Adding a task
   const addTask = (name, day, time) => {
-    const findTasks = [...tasks].findIndex((info) => {
-      return info.enteredTaskDay === day && info.enteredTaskTime === time;
-    });
 
-    const newTasks = [...tasks];
-    if (findTasks >= 0) {
-      newTasks[findTasks].enteredTaskName.push(name);
-    } else {
-      newTasks.push({
-        id: Math.floor(Math.random() * 1000) + 1,
-        enteredTaskName: [name],
-        enteredTaskDay: day,
-        enteredTaskTime: time,
-      });
+    const curToken = localStorage.getItem("TOKEN");
+
+    const postOpts = {
+
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: "Bearer " + curToken
+      },
+      body:JSON.stringify({
+        "description": name.toString(),
+        "dayOfWeek": day,
+      })
     }
+      fetch('https://latam-challenge-2.deta.dev/api/v1/events', postOpts)
+      .then(async response => {
+        const data = await response.json();
 
-    setTasks(newTasks);
+        console.log(data);
+
+        if(!response.ok){
+          return;
+        }
+
+        const findTasks = [...tasks].findIndex((info) => {
+          return info.enteredTaskDay === day && info.enteredTaskTime === time;
+        });
+    
+        const newTasks = [...tasks];
+        if (findTasks >= 0) {
+          newTasks[findTasks].enteredTaskName.push(name);
+        } else {
+          newTasks.push({
+            id: Math.floor(Math.random() * 1000) + 1,
+            enteredTaskName: [name],
+            enteredTaskDay: day,
+            enteredTaskTime: time,
+          });
+        }
+    
+        setTasks(newTasks);
+
+      });
+
+    
   };
 
   //Removing single or all tasks at once
@@ -87,6 +116,7 @@ const AddMeeting = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+
     if (
       nameRef.current.value.length === 0 ||
       dayRef.current.value.length === 0 ||
@@ -104,19 +134,19 @@ const AddMeeting = () => {
 
   //Week days validation & class control
   let DayClasses =
-    weekdaySelected === "Monday"
+    weekdaySelected === "monday"
       ? colors["redblock"]
-      : weekdaySelected === "Tuesday"
+      : weekdaySelected === "tuesday"
       ? colors["orangeblock"]
-      : weekdaySelected === "Wednesday"
+      : weekdaySelected === "wednesday"
       ? colors["yellowblock"]
-      : weekdaySelected === "Thursday"
+      : weekdaySelected === "thursday"
       ? colors["lightred"]
-      : weekdaySelected === "Friday"
+      : weekdaySelected === "friday"
       ? colors["lightorange"]
-      : weekdaySelected === "Saturday"
+      : weekdaySelected === "saturday"
       ? colors["lightyellow"]
-      : weekdaySelected === "Sunday"
+      : weekdaySelected === "sunday"
       ? colors["lighterred"]
       : "";
 
@@ -181,25 +211,25 @@ const AddMeeting = () => {
       </form>
 
       <div className={styles.weekdaysdiv}>
-        <DaysOfWeek onClick={WeekDaysHandler} id="Monday"className={colors.redblock}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="monday"className={colors.redblock}>
           Monday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="Tuesday" className={colors.orangeblock}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="tuesday" className={colors.orangeblock}>
           Tuesday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="Wednesday" className={colors.yellowblock}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="wednesday" className={colors.yellowblock}>
           Wednesday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="Thursday" className={colors.lightred}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="thursday" className={colors.lightred}>
           Thursday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="Friday" className={colors.lightorange}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="friday" className={colors.lightorange}>
           Friday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="Saturday" className={colors.lightyellow}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="saturday" className={colors.lightyellow}>
           Saturday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="Sunday" className={colors.lighterred}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="sunday" className={colors.lighterred}>
           Sunday
         </DaysOfWeek>
       </div>
