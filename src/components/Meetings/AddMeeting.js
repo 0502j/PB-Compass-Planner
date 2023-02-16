@@ -36,6 +36,11 @@ const AddMeeting = () => {
 
   const curToken = localStorage.getItem("TOKEN");
 
+
+  useEffect(()=>{
+    getTasks();
+  },[weekdaySelected]);
+
   //Removing single or all tasks at once
   const removeAllTasks = () => {
     setShowModal(false);
@@ -180,9 +185,10 @@ const AddMeeting = () => {
           Authorization: "Bearer " + curToken
         },});
         const data = await response.json();
+
         if(!response.ok){
           setLoading(false);
-          setHasError({title: "No tasks found!", description:"Try selecting a day or reloading the page."})
+          setHasError({title: "No tasks here.", description:"Try selecting a day or reloading the page!"})
           return;
         }
           setFetchedTasks(data.events);
@@ -190,9 +196,7 @@ const AddMeeting = () => {
           setHasError({title: "", description:""});
         }
   
-    useEffect(()=>{
-      getTasks();
-    },[weekdaySelected]);
+
 
   //Week days validation & class control
   let DayClasses =
@@ -215,6 +219,8 @@ const AddMeeting = () => {
   const WeekDaysHandler = (event) => {
     setWeekdaySelected(event.currentTarget.id); 
   };
+
+
 
   return (
     <Fragment>

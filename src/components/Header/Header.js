@@ -121,6 +121,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     localStorage.removeItem("IsLoggedIn");
+    localStorage.removeItem("TOKEN");
     setIsLogged(false);
     navigate("/");
   };
