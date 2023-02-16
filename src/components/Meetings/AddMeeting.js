@@ -14,6 +14,7 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import { isArray } from "lodash";
 
 const AddMeeting = () => {
+
   const nameRef = createRef();
   const dayRef = createRef();
   const timeRef = createRef();
@@ -32,6 +33,7 @@ const AddMeeting = () => {
     title: '',
     description:'',
   })
+
   const curToken = localStorage.getItem("TOKEN");
 
   //Removing single or all tasks at once
@@ -58,7 +60,6 @@ const AddMeeting = () => {
                 modalClose();
               }, 3000);
             }
-            
             setModalMessage({title: `Removed all tasks from ${weekdaySelected}.`})
             modalOpen();
             setTimeout(()=>{
@@ -69,24 +70,6 @@ const AddMeeting = () => {
   }
 
   const deleteOneTask = (id) => {
-    //to do: remove based on time conflict
-    // const tasksArr = [...tasks];
-    // //check if there are conflicting cards before deleting
-    // const taskPosition = tasksArr.findIndex((info) => {
-    //   return info.id === id;
-    // });
-
-    // //if there's only one task take its position and remove it
-    // if (tasksArr[taskPosition].enteredTaskName.length === 1) {
-    //   tasksArr.splice(taskPosition, 1);
-    // }
-    // //if there are conflicting tasks, at the index position remove 1 item
-    // else {
-    //   tasksArr[taskPosition].enteredTaskName.splice(index, 1);
-    // }
-
-    // setTasks(tasksArr);
-
     try{
       setLoading(true);
       setModalMessage({title: "Deleting task..."});
@@ -202,17 +185,7 @@ const AddMeeting = () => {
           setHasError({title: "No tasks found!", description:"Try selecting a day or reloading the page."})
           return;
         }
-
-          // console.log(data);
-          // //will receive an event object with events descriptions
-          // console.log("Selected day:");
-          // console.log(weekdaySelected);
-          // console.log("Should get only event entries");
-          // console.log(data.events);
           setFetchedTasks(data.events);
-          // console.log("Fetched tasks useState:");
-          // console.log(fetchedTasks);
-
           setLoading(false);
           setHasError({title: "", description:""});
         }
@@ -220,8 +193,6 @@ const AddMeeting = () => {
     useEffect(()=>{
       getTasks();
     },[weekdaySelected]);
-  
-
 
   //Week days validation & class control
   let DayClasses =
