@@ -2,7 +2,6 @@ import { createRef, Fragment, useEffect, useState } from "react";
 import classes from "../Forms/Form.module.css";
 import styles from "./AddMeeting.module.css";
 import btnstyles from "../Forms/FormBtn.module.css";
-import modalclasses from '../UI/Modal.module.css';
 import colors from "../UI/Colors.module.css";
 import Input from "../Forms/Input";
 import FormBtn from "../Forms/FormBtn";
@@ -15,20 +14,11 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import { isArray } from "lodash";
 
 const AddMeeting = () => {
-  const [taskInput, setTaskInput] = useState({
-    id: "",
-    enteredTaskName: [],
-    enteredTaskDay: "",
-    enteredTaskTime: "",
-  });
-
   const nameRef = createRef();
   const dayRef = createRef();
   const timeRef = createRef();
 
-  const [tasks, setTasks] = useState([]);
   const [fetchedTasks, setFetchedTasks] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState({
     title:"",
@@ -131,7 +121,7 @@ const AddMeeting = () => {
   };
 
   const modalOpenDeletion = () => {
-    setModalMessage({title: `Are you sure you want to remove ALL tasks of the ${weekdaySelected}?`, description: "This cannot be undone!", isError: false, isDeletion:true})
+    setModalMessage({title: `Are you sure you want to remove ALL tasks of ${weekdaySelected}?`, description: "This cannot be undone!", isError: false, isDeletion:true})
     setShowModal(true);
   }
 
@@ -200,8 +190,6 @@ const AddMeeting = () => {
     }
   };
 
-  let placeholder = []; 
-
   const getTasks = async() => {
         setLoading(true);
         const response = await fetch(`https://latam-challenge-2.deta.dev/api/v1/events?dayOfWeek=${weekdaySelected}`, {headers:{
@@ -228,7 +216,7 @@ const AddMeeting = () => {
           setLoading(false);
           setHasError({title: "", description:""});
         }
-        
+  
     useEffect(()=>{
       getTasks();
     },[weekdaySelected]);
@@ -253,18 +241,7 @@ const AddMeeting = () => {
       ? colors["lighterred"]
       : "";
 
-  useEffect(() => {
-    setFilteredTasks(
-      tasks.sort((taskA, taskB) => {
-        return taskA.enteredTaskTime > taskB.enteredTaskTime ? 1 : -1;
-      }) && tasks.filter((info) => info.enteredTaskDay === weekdaySelected)
-    );
-  }, [tasks]);
-
   const WeekDaysHandler = (event) => {
-    setFilteredTasks(
-      tasks.filter((info) => info.enteredTaskDay === event.currentTarget.id)
-    );
     setWeekdaySelected(event.currentTarget.id); 
   };
 
