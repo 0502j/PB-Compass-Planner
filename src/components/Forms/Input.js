@@ -11,6 +11,7 @@ const Input = forwardRef((props, ref) => {
         className={props.className}
         type={props.type}
         id={props.id}
+        disabled={props.disabled}
         placeholder={props.placeholder}
       />
     </div>
