@@ -3,16 +3,16 @@ export const validateEmail = new RegExp(
 );
 
 export const validateName = new RegExp(
-    /^[a-zA-Z ]{2,30}$/
+    /^[a-zA-Z ]{5,30}$/
 );
 
 
 export const validateLastName = new RegExp(
-    /^[a-zA-Z ]{2,30}$/
+    /^[a-zA-Z ]{5,30}$/
 );
 
 export const validatePasword = new RegExp(
-    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 );
 
 export const validateCity = new RegExp(

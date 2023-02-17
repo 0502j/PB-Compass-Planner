@@ -18,6 +18,7 @@ import ConfirmModal from "../UI/ConfirmModal";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import {AiOutlineCheckCircle} from 'react-icons/ai';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import { isArray } from "lodash";
 
 const Form = () => {
   const navigate = useNavigate();
@@ -49,39 +50,6 @@ const Form = () => {
     event.preventDefault();
 
     //validation
-    if(userInput == null){
-      setModalMessage({
-        title: "Invalid credentials.",
-        description: "Please fill all the fields to register."
-      });
-      setShowModal(true);
-      return;
-    }
-
-    if(userInput.firstName === "" ||
-    userInput.lastName === "" ||
-    userInput.city === "" ||
-    userInput.birthDate === "" ||
-    userInput.country === "" ||
-    !validateName.test(userInput.firstName) ||
-    !validateLastName.test(userInput.lastName) ||
-    !validateEmail.test(userInput.email) ||
-    !validatePasword.test(userInput.password) ||
-    !validateCity.test(userInput.city) ||
-    !validateCountry.test(userInput.country)
-    ){
-      setInputValid(true);
-      setModalMessage({
-        title: "Invalid credentials, please try again.",
-        description: "Hints: fields can't be empty, password must contain at least 8 chars and a number.",
-        isError: true
-      });
-      setShowModal(true);
-      
-    }else if (userInput.password !== userInput.confirmPassword) {
-      setModalMessage({title: "Passwords do not match.", description: "", isError: true});
-      setShowModal(true);
-    }else {
 
       setLoading(true);
       //required body for post request
@@ -96,24 +64,51 @@ const Form = () => {
       fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-up', postOpts)
       .then(async response => {
         const data = await response.json();
+
         //checking response errors
         if(!response.ok){
-          setModalMessage({title:"Registration failed.", description:data, isError: true});
-          setShowModal(true);
+
+          if(
+            !validateName.test(userInput.firstName) ||
+            !validateLastName.test(userInput.lastName) ||
+            !validateEmail.test(userInput.email) ||
+            !validateCity.test(userInput.city) || 
+            !validateCountry.test(userInput.country)
+            ){
+              setInputValid(true);
+              setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
+              setShowModal(true);
+              setLoading(false);
+              setUserInput(null);
+              return;
+        } 
+        if(userInput.password !== userInput.confirmPassword || !validatePasword.test(userInput.password)) {
+          setModalMessage({title: "Registration failed.", description: "Passwords need to match & have at least 6 chars with a number.", isError: true});
           setLoading(false);
-        }else{
           setShowModal(true);
-          setModalMessage({title: "Registration success!", description: "Redirecting to login page...", isError: false})
-  
-            setTimeout(()=>{
-                navigate("/");
-            }, 3000)
-         
+          return;
         }
+
+        setInputValid(true);
+        setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
+        setShowModal(true);
         setLoading(false);
+        return;
+
+      }
+      else{
+        setShowModal(true);
+        setModalMessage({title: "Registration success!", description: "Redirecting to login page...", isError: false})
+
+          setTimeout(()=>{
+              navigate("/");
+          }, 3000)
+
+        setLoading(false);
+      }
+          
       });
       
-    }
   }
 
   //gathering user input
