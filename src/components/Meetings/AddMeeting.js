@@ -54,9 +54,7 @@ const AddMeeting = () => {
             if(data.deletedEvents && data.deletedEvents.length == 0){
               setModalMessage({title: `Could not delete tasks of ${weekdaySelected}.`, description: 'There are no tasks to delete!'})
               modalOpen();
-              setTimeout(()=>{
-                modalClose();
-              }, 3000);
+              modalTimeout();
               return;
             }
 
@@ -71,9 +69,7 @@ const AddMeeting = () => {
 
               setModalMessage({title: `Removed all tasks from ${weekdaySelected}.`})
               modalOpen();
-              setTimeout(()=>{
-              modalClose();
-              }, 3000);
+              modalTimeout();
               getTasks();
 
       });
@@ -91,7 +87,10 @@ const AddMeeting = () => {
       },})
       .then(async response => {
         if(!response.ok){
-          throw new Error("Task deletion fail! Please try again.");
+          setModalMessage({title: "Unable to delete task.", description: "Please try again later!", isError:true})
+          modalOpen();
+          getTasks();
+          return;
         }
           modalClose();
           setLoading(false);
@@ -112,6 +111,12 @@ const AddMeeting = () => {
   const modalOpen = () => {
     setShowModal(true);
   };
+
+  const modalTimeout = () => {
+    setTimeout(()=>{
+      modalClose();
+    },3000)
+  }
 
   const modalOpenDeletion = () => {
     setModalMessage({title: `Are you sure you want to remove ALL tasks of ${weekdaySelected}?`, description: "This cannot be undone!", isError: false, isDeletion:true})
@@ -153,9 +158,7 @@ const AddMeeting = () => {
             if(!response.ok){
               setModalMessage({title: "Unable to create task!", description: data.message});
               modalOpen();
-              setTimeout(()=>{
-                modalClose();
-              },3000)
+              modalTimeout();
               return;
             }
               modalClose();
