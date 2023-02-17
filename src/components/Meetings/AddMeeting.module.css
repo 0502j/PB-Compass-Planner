@@ -32,6 +32,7 @@
 .taskscontainer {
   display: inline-flex;
   flex-direction: column;
+  padding: 0.8em 0em;
 }
 
 .meetingscontainer {
