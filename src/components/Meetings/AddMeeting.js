@@ -36,7 +36,6 @@ const AddMeeting = () => {
 
   const curToken = localStorage.getItem("TOKEN");
 
-
   useEffect(()=>{
     getTasks();
   },[weekdaySelected]);
@@ -51,26 +50,32 @@ const AddMeeting = () => {
         },})
           .then(async response => {
             const data = await response.json();
-            if(!response.ok){
-              setModalMessage({title: `Could not delete tasks of ${weekdaySelected}.`, description: 'Please try again!'})
-              modalOpen();
-              setTimeout(()=>{
-                modalClose();
-              }, 3000);
-            }
-            if(data.events == ''){
+
+            if(data.deletedEvents && data.deletedEvents.length == 0){
               setModalMessage({title: `Could not delete tasks of ${weekdaySelected}.`, description: 'There are no tasks to delete!'})
               modalOpen();
               setTimeout(()=>{
                 modalClose();
               }, 3000);
+              return;
             }
-            setModalMessage({title: `Removed all tasks from ${weekdaySelected}.`})
-            modalOpen();
-            setTimeout(()=>{
-            modalClose();
-            }, 3000);
-            getTasks();
+
+            if(!response.ok){
+              setModalMessage({title: `Could not delete tasks of ${weekdaySelected}.`, description: "Please try again later!" })
+              modalOpen();
+              setTimeout(()=>{
+                modalClose();
+              }, 3000);
+              return;
+            }
+
+              setModalMessage({title: `Removed all tasks from ${weekdaySelected}.`})
+              modalOpen();
+              setTimeout(()=>{
+              modalClose();
+              }, 3000);
+              getTasks();
+
       });
   }
 
@@ -196,8 +201,6 @@ const AddMeeting = () => {
           setHasError({title: "", description:""});
         }
   
-
-
   //Week days validation & class control
   let DayClasses =
     weekdaySelected === "monday"
@@ -219,8 +222,6 @@ const AddMeeting = () => {
   const WeekDaysHandler = (event) => {
     setWeekdaySelected(event.currentTarget.id); 
   };
-
-
 
   return (
     <Fragment>
