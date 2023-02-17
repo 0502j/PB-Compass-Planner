@@ -11,6 +11,7 @@ import userIcon from "../../img/userIcon.svg";
 import ConfirmModal from "../UI/ConfirmModal";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import { RiErrorWarningLine } from 'react-icons/ri';
+import { isArray } from "lodash";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -82,19 +83,21 @@ const LoginForm = () => {
       .then(async response => {
         const data = await response.json();
 
+        console.log(data);
+        
         //checking login response errors
         if(!response.ok){
           if(userInputs.password.length<=5){
             setLoading(false);
             setIsLogged(false);
             setShowModal(true);
-            setModalMessage({title: 'Login failed. Check your username or password and try again.',  description: "Password must have at least 6 characters.", isError: true});
+            setModalMessage({title: 'Login failed.',  description: "Password must have at least 6 characters.", isError: true});
             return;
           }else{
             setLoading(false);
             setIsLogged(false);
             setDataMatch(false);
-            setModalMessage({title: data.message ? data.message : 'Login failed. Check your username or password and try again.',  description: data.errors ? data.errors.join(',') : data.errors, isError: true});
+            setModalMessage({title: data.message ? data.message : 'Login failed.',  description: isArray(data.errors) ? data.errors.join(',') : data, isError: true});
             setShowModal(true);
             return;
           }
