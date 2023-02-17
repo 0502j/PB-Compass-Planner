@@ -143,7 +143,6 @@ const AddMeeting = () => {
           "dayOfWeek": dayRef.current.value,
         })
       }
-        try{
           setLoading(true);
           setModalMessage({title: "Creating task..."});
           modalOpen();
@@ -152,7 +151,12 @@ const AddMeeting = () => {
             const data = await response.json();
 
             if(!response.ok){
-              throw new Error("Task creation fail! Please try again.");
+              setModalMessage({title: "Unable to create task!", description: data.message});
+              modalOpen();
+              setTimeout(()=>{
+                modalClose();
+              },3000)
+              return;
             }
               modalClose();
               setLoading(false);
@@ -176,10 +180,7 @@ const AddMeeting = () => {
               // }
               // setFetchedTasks(newTasks);
           });
-        }catch(err){
-          setModalMessage({title: err});
-          modalOpen();
-        }
+        
     }
   };
 
