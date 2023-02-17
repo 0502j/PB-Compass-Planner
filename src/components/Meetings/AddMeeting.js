@@ -1,4 +1,4 @@
-import { createRef, Fragment, useEffect, useState } from "react";
+import { createRef, Fragment, useLayoutEffect, useState } from "react";
 import classes from "../Forms/Form.module.css";
 import styles from "./AddMeeting.module.css";
 import btnstyles from "../Forms/FormBtn.module.css";
@@ -11,7 +11,6 @@ import MeetingDetailCard from "./MeetingDetailCard";
 import ConfirmModal from "../UI/ConfirmModal";
 import DaySelect from "../Forms/DaySelect";
 import LoadingSpinner from "../UI/LoadingSpinner";
-import { isArray } from "lodash";
 
 const AddMeeting = () => {
 
@@ -35,10 +34,68 @@ const AddMeeting = () => {
   })
 
   const curToken = localStorage.getItem("TOKEN");
+  let newTasks = [];
+  
+  //Reloading functions - getting tasks & reloading them
+  const getTasks = async() => {
+    setLoading(true);
+    const response = await fetch(`https://latam-challenge-2.deta.dev/api/v1/events?dayOfWeek=${weekdaySelected}`, {headers:{
+      'Content-Type': 'application/json',
+      Authorization: "Bearer " + curToken
+    },});
+    const data = await response.json();
 
-  useEffect(()=>{
-    getTasks();
-  },[weekdaySelected]);
+    if(!response.ok){
+      setLoading(false);
+      setHasError({title: "No tasks here.", description:"Try selecting a day or reloading the page!"})
+      return;
+    }
+     data.events.map(item => {
+      const taskTimeSliced = new Date(item.createdAt).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+      addTasks({
+          id: item._id,
+          dayOfWeek: item.dayOfWeek,
+          time: taskTimeSliced,
+          desc: item.description
+      })
+    })
+      setLoading(false);
+      setHasError({title: "", description:""});
+    }
+
+    const reloadTasks = () => {
+      newTasks = [];
+      setFetchedTasks([]);
+      getTasks();
+    }
+
+    const WeekDaysHandler = (event) => {
+      setWeekdaySelected(event.currentTarget.id); 
+    };  
+
+    useLayoutEffect(()=>{
+      reloadTasks();
+    },[weekdaySelected]);
+
+  //Modal control
+  const modalClose = () => {
+    setShowModal(false);
+  };
+
+  const modalOpen = () => {
+    setShowModal(true);
+  };
+
+  const modalTimeout = () => {
+    setTimeout(()=>{
+      modalClose();
+    },3000)
+  }
+
+  const modalOpenDeletion = () => {
+    setModalMessage({title: `Are you sure you want to remove ALL tasks of ${weekdaySelected}?`, description: "This cannot be undone!", isError: false, isDeletion:true})
+    setShowModal(true);
+  }
 
   //Removing single or all tasks at once
   const removeAllTasks = () => {
@@ -66,12 +123,10 @@ const AddMeeting = () => {
               }, 3000);
               return;
             }
-
               setModalMessage({title: `Removed all tasks from ${weekdaySelected}.`})
               modalOpen();
               modalTimeout();
-              getTasks();
-
+              reloadTasks();
       });
   }
 
@@ -89,12 +144,12 @@ const AddMeeting = () => {
         if(!response.ok){
           setModalMessage({title: "Unable to delete task.", description: "Please try again later!", isError:true})
           modalOpen();
-          getTasks();
+          reloadTasks();
           return;
         }
           modalClose();
           setLoading(false);
-          getTasks();
+          reloadTasks();
 
       });
     }catch(err){
@@ -103,29 +158,9 @@ const AddMeeting = () => {
     }
   };
 
-  //Modal control
-  const modalClose = () => {
-    setShowModal(false);
-  };
-
-  const modalOpen = () => {
-    setShowModal(true);
-  };
-
-  const modalTimeout = () => {
-    setTimeout(()=>{
-      modalClose();
-    },3000)
-  }
-
-  const modalOpenDeletion = () => {
-    setModalMessage({title: `Are you sure you want to remove ALL tasks of ${weekdaySelected}?`, description: "This cannot be undone!", isError: false, isDeletion:true})
-    setShowModal(true);
-  }
-
+  //Create a new task
   const submitHandler = (event) => {
     event.preventDefault();
-
     if (
       nameRef.current.value.length === 0 ||
       dayRef.current.value.length === 0
@@ -163,49 +198,36 @@ const AddMeeting = () => {
             }
               modalClose();
               setLoading(false);
-              getTasks();
-
-              //to do: time conflict
-              // const findTasks = [...fetchedTasks].findIndex((info) => {
-              //   return info.enteredTaskDay === dayRef.current.value && info.enteredTaskTime === timeRef.current.value;
-              // });
-          
-              // const newTasks = [...fetchedTasks];
-              // if (findTasks >= 0) {
-              //   newTasks[findTasks].enteredTaskName.push(nameRef.current.value);
-              // } else {
-              //   newTasks.push({
-              //     id: Math.floor(Math.random() * 1000) + 1,
-              //     enteredTaskName: [nameRef.current.value],
-              //     enteredTaskDay: dayRef.current.value,
-              //     enteredTaskTime: timeRef.current.value,
-              //   });
-              // }
-              // setFetchedTasks(newTasks);
+              reloadTasks();
           });
-        
     }
   };
 
-  const getTasks = async() => {
-        setLoading(true);
-        const response = await fetch(`https://latam-challenge-2.deta.dev/api/v1/events?dayOfWeek=${weekdaySelected}`, {headers:{
-          'Content-Type': 'application/json',
-          Authorization: "Bearer " + curToken
-        },});
-        const data = await response.json();
+  const addTasks = (tasks) => {
+    const findTasks = newTasks.findIndex((info) => {
+      return info.enteredTaskDay === tasks.dayOfWeek && info.enteredTaskTime === tasks.time;
+    });
 
-        if(!response.ok){
-          setLoading(false);
-          setHasError({title: "No tasks here.", description:"Try selecting a day or reloading the page!"})
-          return;
-        }
-          setFetchedTasks(data.events);
-          setLoading(false);
-          setHasError({title: "", description:""});
-        }
-  
-  //Week days validation & class control
+    if (findTasks >= 0) {
+      newTasks[findTasks].enteredTaskName.push({
+        id: tasks.id,
+        desc: tasks.desc
+      });
+    } else {
+      newTasks.push({
+        id: Math.floor(Math.random() * 1000) + 1 + newTasks.length,
+        enteredTaskName: [{
+          id: tasks.id,
+          desc: tasks.desc
+        }],
+        enteredTaskDay: tasks.dayOfWeek,
+        enteredTaskTime: tasks.time,
+      });
+    }
+    setFetchedTasks(newTasks);
+  }
+
+  //Weekdays class control
   let DayClasses =
     weekdaySelected === "monday"
       ? colors["redblock"]
@@ -222,10 +244,6 @@ const AddMeeting = () => {
       : weekdaySelected === "sunday"
       ? colors["lighterred"]
       : "";
-
-  const WeekDaysHandler = (event) => {
-    setWeekdaySelected(event.currentTarget.id); 
-  };
 
   return (
     <Fragment>
@@ -312,24 +330,23 @@ const AddMeeting = () => {
       <div className={styles.scrollContent}>
         <div className={styles.taskscontainer}>
         {loading && <div className={styles.taskloading}><LoadingSpinner/></div>}
-           
           {fetchedTasks && !loading
             ? fetchedTasks.map((item) => {
                 return (
                   <Fragment key={item._id}>
-                      <div className={item.description?.length > 1 ? styles.conflictscontainer : styles.meetingscontainer}>
+                      <div className={item.enteredTaskName.length > 1 ? styles.conflictscontainer : styles.meetingscontainer}>
                       <div className={styles.addedtasksdiv} key={item.id}>
                         <div>
-                          <TimeCard className={DayClasses}>
-                            {item.createdAt.slice(11,-8)}
+                          <TimeCard className={item.enteredTaskName.length > 1 ? colors.conflicted : DayClasses}>
+                            {item.enteredTaskTime}
                           </TimeCard>
                         </div>
-                        {isArray(item.description) ? item.description.map((info) => (
-                          <div className={item.description.length > 1 ? styles.conflicted : styles.meetingct}>
-                            <MeetingDetailCard className={item.description.length > 1 ? colors.conflicted : DayClasses}>
-                                <h3>{info}</h3>
+                        {item.enteredTaskName.map((info) => (
+                          <div key={info.id} className={item.enteredTaskName.length > 1 ? styles.conflicted : styles.meetingct}>
+                            <MeetingDetailCard className={item.enteredTaskName.length > 1 ? colors.conflicted : DayClasses}>
+                                <h3>{info.desc}</h3>
                                 <FormBtn
-                                  onClick={() => deleteOneTask(item._id)}
+                                  onClick={() => deleteOneTask(info.id)}
                                   className={btnstyles.deleteallbtn}
                                   type="button"
                                 >
@@ -337,18 +354,7 @@ const AddMeeting = () => {
                                 </FormBtn>
                             </MeetingDetailCard>
                           </div>
-                        )) : 
-                        <MeetingDetailCard className={DayClasses}>
-                                <h3>{item.description}</h3>
-                                <FormBtn
-                                  onClick={() => deleteOneTask(item._id)}
-                                  className={btnstyles.deleteallbtn}
-                                  type="button"
-                                >
-                                  Delete
-                                </FormBtn>
-                            </MeetingDetailCard>
-                            }
+                        )) }
                       </div>
                     </div>
                   </Fragment>
