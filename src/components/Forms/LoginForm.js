@@ -69,6 +69,7 @@ const LoginForm = () => {
     event.preventDefault();   
 
       setLoading(true);
+      setDataMatch(true);
 
       //body for login post request
       const postOpts = {
@@ -86,6 +87,7 @@ const LoginForm = () => {
         //checking login response errors
         if(!response.ok){
           if(userInputs.password.length<=5){
+            setDataMatch(false);
             setLoading(false);
             setIsLogged(false);
             setShowModal(true);
@@ -110,10 +112,10 @@ const LoginForm = () => {
     
   }
 
-    //closing error modal control
-    const modalClose = () => {
+  //closing error modal control
+  const modalClose = () => {
       setShowModal(false);
-    };
+  };
   
 
   //Icon animation handlers

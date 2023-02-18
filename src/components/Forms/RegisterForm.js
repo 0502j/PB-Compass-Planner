@@ -48,6 +48,7 @@ const Form = () => {
   const submitHandler = (event) => {
 
     event.preventDefault();
+    setInputValid(true);
 
     //validation
 
@@ -67,7 +68,6 @@ const Form = () => {
 
         //checking response errors
         if(!response.ok){
-
           if(
             !validateName.test(userInput.firstName) ||
             !validateLastName.test(userInput.lastName) ||
@@ -80,12 +80,14 @@ const Form = () => {
               setShowModal(true);
               setLoading(false);
               setUserInput(null);
+              setInputValid(false);
               return;
         } 
         if(userInput.password !== userInput.confirmPassword || !validatePasword.test(userInput.password)) {
           setModalMessage({title: "Registration failed.", description: "Passwords need to match & have at least 6 chars with a number.", isError: true});
           setLoading(false);
           setShowModal(true);
+          setInputValid(false);
           return;
         }
 
@@ -93,6 +95,7 @@ const Form = () => {
         setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
         setShowModal(true);
         setLoading(false);
+        setInputValid(false);
         return;
 
       }
