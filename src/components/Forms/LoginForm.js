@@ -82,8 +82,6 @@ const LoginForm = () => {
       fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-in', postOpts)
       .then(async response => {
         const data = await response.json();
-
-        console.log(data);
         
         //checking login response errors
         if(!response.ok){

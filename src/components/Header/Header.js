@@ -69,27 +69,24 @@ const Header = () => {
   const [hasError, setHasError] = useState(null);
 
   const weatherAPIData = useCallback(async () => {
+
     setHasError(null);
     try {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&mode=json&units=metric&appid=${KEY}`
       );
-      if (!response.ok) {
-        throw new Error("Failed loading city data");
+      const data = await response.json();
+
+      //Check if the country given by the api matches user input
+      const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
+      const enconverted = regionNamesInEnglish.of(data.sys.country);
+
+      if (!response.ok || enconverted !== country) {
+        throw new Error("Failed loading location data");
       }else{
-        const data = await response.json();
-
-        //Check if the country given by the api matches user input
-        const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
-        const converted = regionNamesInEnglish.of(data.sys.country);
-        if(converted === country){
-          setWeatherData(data); 
-        }else{
-          setHasError("Failed loading country data");
-        }
-
-      } 
-
+        setHasError(null);
+        setWeatherData(data);
+      }
 
     } catch (error) {
       setHasError(error.message);
