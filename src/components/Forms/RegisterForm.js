@@ -49,10 +49,8 @@ const Form = () => {
 
     event.preventDefault();
     setInputValid(true);
+    setLoading(true);
 
-    //validation
-
-      setLoading(true);
       //required body for post request
       const postOpts = {
         method: 'POST',
@@ -79,7 +77,6 @@ const Form = () => {
               setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
               setShowModal(true);
               setLoading(false);
-              setUserInput(null);
               setInputValid(false);
               return;
         } 
@@ -91,23 +88,17 @@ const Form = () => {
           return;
         }
 
-        setInputValid(true);
-        setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
-        setShowModal(true);
-        setLoading(false);
-        setInputValid(false);
-        return;
-
       }
       else{
         setShowModal(true);
         setModalMessage({title: "Registration success!", description: "Redirecting to login page...", isError: false})
+        setInputValid(true);
+        setLoading(false);
 
           setTimeout(()=>{
               navigate("/");
           }, 3000)
 
-        setLoading(false);
       }
           
       });
