@@ -1,4 +1,4 @@
-# <img src="https://logospng.org/download/uol/logo-uol-icon-1024.png" height=35> Compass - Planner
+# <img src="https://logospng.org/download/uol/logo-uol-icon-1024.png" height=25> Compass - Planner
 
 <div>
     <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white">
@@ -8,13 +8,13 @@
      <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white">
 </div>
 
-
+<br>
 
 #### About this project
 
 A planner where you can schedule meetings and events, delete a single task or all tasks from selected day and verify meeting conflicts.
 
-
+<br>
 
 #### How to run this project
 
@@ -28,7 +28,7 @@ A planner where you can schedule meetings and events, delete a single task or al
 
 * Done!
 
-  
+<br>
 
 #### Useful links
 
@@ -37,14 +37,13 @@ A planner where you can schedule meetings and events, delete a single task or al
 🔗 Trello: https://bit.ly/3XA1MZU
 
 
+<br>
 
 #### Try it out:
 
 * https://react-planner-3ef73.web.app
 
-  
-
-<div style="text-align:center;">
-    <img src="https://user-images.githubusercontent.com/71787801/219946629-3c80e4af-4b49-4a30-85e6-7b0f95107ea1.gif">
-</div>
+<p align="center">
+  <img width="600" src="https://user-images.githubusercontent.com/71787801/219946629-3c80e4af-4b49-4a30-85e6-7b0f95107ea1.gif">
+</p>
 
