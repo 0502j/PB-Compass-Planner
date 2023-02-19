@@ -74,6 +74,7 @@
 
 .confirmdeletion > * {
   padding: 1em;
+  margin: 1em;
 }
 
 .conflicted {

@@ -1,7 +1,6 @@
 import classes from "./Form.module.css";
 import styles from "../Meetings/AddMeeting.module.css";
 import btnclasses from "./FormBtn.module.css";
-import FormBtn from "./FormBtn";
 import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import {
   validateEmail,
@@ -12,7 +11,6 @@ import {
   validateCountry
 } from "../../utils/Regex";
 import { useNavigate } from "react-router-dom";
-import Input from "./Input";
 import { AuthContext } from "../../store/user-context";
 import ConfirmModal from "../UI/ConfirmModal";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -192,9 +190,9 @@ const Form = () => {
         <h4>{modalMessage.description}</h4>
         <br/>
         <div className={styles.confirmdeletion}>
-          <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
+          <button className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
             OK
-          </FormBtn>
+          </button>
         </div>
       </ConfirmModal>
     )}
@@ -205,7 +203,7 @@ const Form = () => {
             <form onSubmit={submitHandler}>
               <div className={classes.inputdiv}>
                 <label htmlFor="firstname">first name</label>
-                <Input
+                <input
                   onChange={nameChangeHandler}
                   className={inputClasses}
                   type="text"
@@ -216,7 +214,7 @@ const Form = () => {
 
               <div className={classes.inputdiv}>
                 <label htmlFor="lastname">last name</label>
-                <Input
+                <input
                   onChange={lastNameChangeHandler}
                   className={inputClasses}
                   type="text"
@@ -227,7 +225,7 @@ const Form = () => {
 
               <div className={classes.inputdiv}>
                 <label htmlFor="date">birth date</label>
-                <Input
+                <input
                   onChange={birthChangeHandler}
                   className={inputClasses}
                   id="date"
@@ -238,7 +236,7 @@ const Form = () => {
 
               <div className={classes.inputdiv}>
                 <label htmlFor="country">country</label>
-                <Input
+                <input
                   onChange={countryChangeHandler}
                   className={inputClasses}
                   type="text"
@@ -249,7 +247,7 @@ const Form = () => {
 
               <div className={classes.inputdiv}>
                 <label htmlFor="city">city</label>
-                <Input
+                <input
                   onChange={cityChangeHandler}
                   className={inputClasses}
                   type="text"
@@ -260,7 +258,7 @@ const Form = () => {
 
               <div className={classes.inputdiv}>
                 <label htmlFor="email">e-mail</label>
-                <Input
+                <input
                   onChange={emailChangeHandler}
                   className={inputClasses}
                   type="email"
@@ -271,7 +269,7 @@ const Form = () => {
 
               <div className={classes.inputdiv}>
                 <label htmlFor="password">password</label>
-                <Input
+                <input
                   onChange={passwordChangeHandler}
                   className={inputClasses}
                   type="password"
@@ -282,7 +280,7 @@ const Form = () => {
 
               <div className={classes.inputdiv}>
                 <label htmlFor="confirmpass">password</label>
-                <Input
+                <input
                   onChange={passwordConfirmChangeHandler}
                   className={inputClasses}
                   type="password"
@@ -299,9 +297,9 @@ const Form = () => {
                 ""
               )}
 
-              <FormBtn className={btnclasses.btn} type="submit">
+              <button className={btnclasses.btn} type="submit">
                 Register Now
-              </FormBtn>
+              </button>
             </form>
       }
       </div>

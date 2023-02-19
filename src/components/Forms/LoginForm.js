@@ -1,8 +1,6 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import Input from "../Forms/Input";
 import classes from "./Form.module.css";
 import styles from "../Meetings/AddMeeting.module.css";
-import FormBtn from "./FormBtn";
 import btnclasses from "./FormBtn.module.css";
 import { AuthContext } from "../../store/user-context";
 import { useNavigate } from "react-router-dom";
@@ -150,9 +148,9 @@ const LoginForm = () => {
           <h3>{modalMessage.title}</h3>
           <h4>{modalMessage.description}</h4>
           <div className={styles.confirmdeletion}>
-            <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
+            <button className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
               OK
-            </FormBtn>
+            </button>
           </div>
         </ConfirmModal>
       )}
@@ -162,7 +160,7 @@ const LoginForm = () => {
         <div className={classes.loginformdiv}>
           <h3 className={classes.logintitle}>Login</h3>
           <div className={classes.inputdiv}>
-            <Input
+            <input
               onBlur={inputInactiveHandler}
               onFocus={userActiveHandler}
               onChange={emailChangeHandler}
@@ -174,7 +172,7 @@ const LoginForm = () => {
             <img alt="User logo" className={userClasses} src={userIcon} />
           </div>
           <div className={classes.inputdiv}>
-            <Input
+            <input
               onBlur={inputInactiveHandler}
               onFocus={passwordActiveHandler}
               onChange={passwordChangeHandler}
@@ -197,9 +195,9 @@ const LoginForm = () => {
           ) : (
             ""
           )}
-          <FormBtn className={btnclasses.loginbtn} type="submit">
+          <button className={btnclasses.loginbtn} type="submit">
             Log in
-          </FormBtn>
+          </button>
         </div>
       </form>
     }

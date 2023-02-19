@@ -3,8 +3,6 @@ import classes from "../Forms/Form.module.css";
 import styles from "./AddMeeting.module.css";
 import btnstyles from "../Forms/FormBtn.module.css";
 import colors from "../UI/Colors.module.css";
-import Input from "../Forms/Input";
-import FormBtn from "../Forms/FormBtn";
 import DaysOfWeek from "../Header/DaysOfWeek";
 import TimeCard from "./TimeCard";
 import MeetingDetailCard from "./MeetingDetailCard";
@@ -256,18 +254,18 @@ const AddMeeting = () => {
           {modalMessage.isError ? 
             <div>
               <br/>
-              <FormBtn className={`${classes.confirminputs} ${classes.confirm}`} onClick={modalClose}>
+              <button className={`${classes.confirminputs} ${classes.confirm}`} onClick={modalClose}>
                 OK
-              </FormBtn>
+              </button>
             </div>          
           : ''}
           { modalMessage.isDeletion ? <div className={styles.confirmdeletion}>
-            <FormBtn className={`${classes.confirminputs} ${classes.confirm}`} onClick={removeAllTasks}>
+            <button className={`${classes.confirminputs} ${classes.confirm}`} onClick={removeAllTasks}>
               Delete
-            </FormBtn>
-            <FormBtn className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
+            </button>
+            <button className={`${classes.confirminputs} ${classes.cancel}`} onClick={modalClose}>
               Cancel
-            </FormBtn>
+            </button>
           </div> : ''}
           
         </ConfirmModal>
@@ -275,7 +273,7 @@ const AddMeeting = () => {
 
       <form onSubmit={submitHandler}>
         <div className={classes.taskaddingdiv}>
-          <Input
+          <input
             ref={nameRef}
             className={`${classes.taskinput} ${classes.tasknameinput}`}
             type="text"
@@ -283,7 +281,7 @@ const AddMeeting = () => {
             placeholder="Task or issue"
           />
           <DaySelect ref={dayRef} className={`${classes.taskinput} ${classes.taskdayinput}`}/>
-          <Input
+          <input
             ref={timeRef}
             className={`${classes.taskinput} ${classes.taskdateinput}`}
             type="time"
@@ -291,12 +289,12 @@ const AddMeeting = () => {
           />
 
           <div className={styles.addtaskbuttons}>
-            <FormBtn  type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>
+            <button  type="submit" className={`${styles.taskbtn} ${styles.addtaskbtn}`}>
               + Add to calendar
-            </FormBtn>
-            <FormBtn onClick={modalOpenDeletion} type="button" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>
+            </button>
+            <button onClick={modalOpenDeletion} type="button" className={`${styles.taskbtn} ${styles.deletealltasksbtn}`}>
               - Delete All
-            </FormBtn>
+            </button>
           </div>
         </div>
       </form>
@@ -345,13 +343,13 @@ const AddMeeting = () => {
                           <div key={info.id} className={item.enteredTaskName.length > 1 ? styles.conflicted : styles.meetingct}>
                             <MeetingDetailCard className={item.enteredTaskName.length > 1 ? colors.conflicted : DayClasses}>
                                 <h3>{info.desc}</h3>
-                                <FormBtn
+                                <button
                                   onClick={() => deleteOneTask(info.id)}
                                   className={btnstyles.deleteallbtn}
                                   type="button"
                                 >
                                   Delete
-                                </FormBtn>
+                                </button>
                             </MeetingDetailCard>
                           </div>
                         )) }
