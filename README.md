@@ -1,4 +1,4 @@
-# Compass - Planner
+# <img src="https://logospng.org/download/uol/logo-uol-icon-1024.png" height=35> Compass - Planner
 
 <div>
     <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white">
@@ -12,9 +12,23 @@
 
 #### About this project
 
-A planner where you can schedule meetings and events, delete them and verify meeting conflicts.
+A planner where you can schedule meetings and events, delete a single task or all tasks from selected day and verify meeting conflicts.
 
 
+
+#### How to run this project
+
+* Download project .zip
+
+* Navigate to project folder on terminal
+
+* Type "npm install" & "npm start" on terminal
+
+* Access localhost:3000 on browser
+
+* Done!
+
+  
 
 #### Useful links
 
@@ -24,23 +38,13 @@ A planner where you can schedule meetings and events, delete them and verify mee
 
 
 
-#### How to run this project
-
-* Download project .zip
-* Navigate to project folder on terminal
-* Type "npm install" & "npm start" on terminal
-* Access localhost:3000 on browser
-* Done!
-
-
-
-#### Preview:
+#### Try it out:
 
 * https://react-planner-3ef73.web.app
 
   
 
 <div style="text-align:center;">
-    <img src="https://user-images.githubusercontent.com/71787801/213941281-96f80e61-a50c-441a-9d1c-8c3f33d20783.gif">
+    <img src="https://user-images.githubusercontent.com/71787801/219946629-3c80e4af-4b49-4a30-85e6-7b0f95107ea1.gif">
 </div>
 
