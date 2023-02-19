@@ -80,7 +80,7 @@ const Header = () => {
 
       //Check if the country given by the api matches user input
       const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
-      const enconverted = regionNamesInEnglish.of(data.sys.country);
+      const enconverted = country ? regionNamesInEnglish.of(data.sys.country) : '';
 
       if (!response.ok || enconverted !== country) {
         throw new Error("Failed loading location data");
