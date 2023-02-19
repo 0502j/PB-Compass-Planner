@@ -8,6 +8,7 @@ import arrow from "../../img/arrow.svg";
 import TemperatureLogo from "../../img/TemperatureLogo.svg";
 
 const Header = () => {
+
   //Adding suffix on day number
   const DaySuffix = (day) => {
     if (day > 3 && day < 21) return "th";
@@ -104,7 +105,7 @@ const Header = () => {
     weatherAPIData();
   }, [weatherAPIData]);
 
-  //UseContext
+  //Context control
   const navigate = useNavigate();
   const { isLogged, setIsLogged } = useContext(AuthContext);
 

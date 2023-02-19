@@ -168,7 +168,6 @@ const Form = () => {
   };
 
   //adding data to localstorage
-   //Adding data to localstorage
    useEffect(() => {
     localStorage.setItem("userdata", JSON.stringify(userInput));
   }, [userInput]);
@@ -304,16 +303,9 @@ const Form = () => {
                 Register Now
               </FormBtn>
             </form>
-      
       }
       </div>
-    
-    
-    
-
    </Fragment>
-
-    
   );
 };
 
