@@ -204,23 +204,23 @@ const AddMeeting = () => {
 
   const addTasks = (tasks) => {
     const findTasks = newTasks.findIndex((info) => {
-      return info.enteredTaskDay === tasks.dayOfWeek && info.enteredTaskTime === tasks.time;
+      return info.dayOfWeek === tasks.dayOfWeek && info.time === tasks.time;
     });
 
     if (findTasks >= 0) {
-      newTasks[findTasks].enteredTaskName.push({
+      newTasks[findTasks].desc.push({
         id: tasks.id,
         desc: tasks.desc
       });
     } else {
       newTasks.push({
         id: Math.floor(Math.random() * 1000) + 1 + newTasks.length,
-        enteredTaskName: [{
+        desc: [{
           id: tasks.id,
           desc: tasks.desc
         }],
-        enteredTaskDay: tasks.dayOfWeek,
-        enteredTaskTime: tasks.time,
+        dayOfWeek: tasks.dayOfWeek,
+        time: tasks.time,
       });
     }
     setFetchedTasks(newTasks);
@@ -333,16 +333,16 @@ const AddMeeting = () => {
             ? fetchedTasks.map((item) => {
                 return (
                   <Fragment key={item._id}>
-                      <div className={item.enteredTaskName.length > 1 ? styles.conflictscontainer : styles.meetingscontainer}>
+                      <div className={item.desc.length > 1 ? styles.conflictscontainer : styles.meetingscontainer}>
                       <div className={styles.addedtasksdiv} key={item.id}>
                         <div>
-                          <TimeCard className={item.enteredTaskName.length > 1 ? colors.conflicted : DayClasses}>
-                            {item.enteredTaskTime}
+                          <TimeCard className={item.desc.length > 1 ? colors.conflicted : DayClasses}>
+                            {item.time}
                           </TimeCard>
                         </div>
-                        {item.enteredTaskName.map((info) => (
-                          <div key={info.id} className={item.enteredTaskName.length > 1 ? styles.conflicted : styles.meetingct}>
-                            <MeetingDetailCard className={item.enteredTaskName.length > 1 ? colors.conflicted : DayClasses}>
+                        {item.desc.map((info) => (
+                          <div key={info.id} className={item.desc.length > 1 ? styles.conflicted : styles.meetingct}>
+                            <MeetingDetailCard className={item.desc.length > 1 ? colors.conflicted : DayClasses}>
                                 <h3>{info.desc}</h3>
                                 <button
                                   onClick={() => deleteOneTask(info.id)}
