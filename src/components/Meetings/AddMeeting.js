@@ -2,6 +2,7 @@ import { createRef, Fragment, useLayoutEffect, useState } from "react";
 import classes from "../Forms/Form.module.css";
 import styles from "./AddMeeting.module.css";
 import btnstyles from "../Forms/FormBtn.module.css";
+import daystyles from '../Header/DaysOfWeek.module.css';
 import colors from "../UI/Colors.module.css";
 import DaysOfWeek from "../Header/DaysOfWeek";
 import TimeCard from "./TimeCard";
@@ -300,25 +301,25 @@ const AddMeeting = () => {
       </form>
 
       <div className={styles.weekdaysdiv}>
-        <DaysOfWeek onClick={WeekDaysHandler} id="monday"className={colors.redblock}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="monday" className={weekdaySelected == 'monday' ? [colors['redblock'], daystyles['shadow']].join(' ') : [colors['redblock']]}>
           Monday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="tuesday" className={colors.orangeblock}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="tuesday" className={weekdaySelected == 'tuesday' ? [colors['orangeblock'], daystyles['shadow']].join(' ') : [colors['orangeblock']]}>
           Tuesday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="wednesday" className={colors.yellowblock}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="wednesday" className={weekdaySelected == 'wednesday' ? [colors['yellowblock'], daystyles['shadow']].join(' ') : [colors['yellowblock']]}>
           Wednesday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="thursday" className={colors.lightred}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="thursday" className={weekdaySelected == 'thursday' ? [colors['lightred'], daystyles['shadow']].join(' ') : [colors['lightred']]}>
           Thursday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="friday" className={colors.lightorange}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="friday" className={weekdaySelected == 'friday' ? [colors['lightorange'], daystyles['shadow']].join(' ') : [colors['lightorange']]}>
           Friday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="saturday" className={colors.lightyellow}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="saturday" className={weekdaySelected == 'saturday' ? [colors['lightyellow'], daystyles['shadow']].join(' ') : [colors['lightyellow']]}>
           Saturday
         </DaysOfWeek>
-        <DaysOfWeek onClick={WeekDaysHandler} id="sunday" className={colors.lighterred}>
+        <DaysOfWeek onClick={WeekDaysHandler} id="sunday" className={weekdaySelected == 'sunday' ? [colors['lighterred'], daystyles['shadow']].join(' ') : [colors['lighterred']]}>
           Sunday
         </DaysOfWeek>
       </div>
