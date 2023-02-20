@@ -64,34 +64,37 @@ const Form = () => {
 
         //checking response errors
         if(!response.ok){
-          if(
-            !validateName.test(userInput.firstName) ||
-            !validateLastName.test(userInput.lastName) ||
-            !validateEmail.test(userInput.email) ||
-            !validateCity.test(userInput.city) || 
-            !validateCountry.test(userInput.country)
-            ){
-              setInputValid(true);
-              setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
-              setShowModal(true);
-              setLoading(false);
-              setInputValid(false);
-              return;
-        } 
-        if(userInput.password !== userInput.confirmPassword || !validatePasword.test(userInput.password)) {
-          setModalMessage({title: "Registration failed.", description: "Passwords need to match & have at least 6 chars.", isError: true});
-          setLoading(false);
-          setShowModal(true);
-          setInputValid(false);
-          return;
-        }
+            if(
+              !validateName.test(userInput.firstName) ||
+              !validateLastName.test(userInput.lastName) ||
+              !validateEmail.test(userInput.email) ||
+              !validateCity.test(userInput.city) || 
+              !validateCountry.test(userInput.country)
+              ){
+                setInputValid(false);
+                setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : "Please review your information and try again.", isError: true});
+                setShowModal(true);
+                setLoading(false);
+                setInputValid(false);
+                clearInputs();
+                return;
+          } 
+          if(userInput.password !== userInput.confirmPassword || !validatePasword.test(userInput.password)) {
+            setModalMessage({title: "Registration failed.", description: "Passwords need to match & have at least 6 chars.", isError: true});
+            setLoading(false);
+            setShowModal(true);
+            setInputValid(false);
+            clearInputs();
+            return;
+          }
 
-        setInputValid(true);
-        setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
-        setShowModal(true);
-        setLoading(false);
-        setInputValid(false);
-        return;
+          setInputValid(true);
+          setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
+          setShowModal(true);
+          setLoading(false);
+          setInputValid(false);
+          clearInputs();
+          return;
       }
       else{
         setShowModal(true);
@@ -165,6 +168,20 @@ const Form = () => {
       confirmPassword: event.target.value,
     });
   };
+
+  //clear input function
+  const clearInputs = () => {
+    setUserInput({
+      firstName: "",
+      lastName: "",
+      birthDate: "",
+      city: "",
+      country: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+  }
 
   //closing error modal control
   const modalClose = () => {
