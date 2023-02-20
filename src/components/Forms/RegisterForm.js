@@ -79,7 +79,7 @@ const Form = () => {
               return;
         } 
         if(userInput.password !== userInput.confirmPassword || !validatePasword.test(userInput.password)) {
-          setModalMessage({title: "Registration failed.", description: "Passwords need to match & have at least 6 chars with a number.", isError: true});
+          setModalMessage({title: "Registration failed.", description: "Passwords need to match & have at least 6 chars.", isError: true});
           setLoading(false);
           setShowModal(true);
           setInputValid(false);
