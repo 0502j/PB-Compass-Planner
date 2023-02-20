@@ -86,6 +86,12 @@ const Form = () => {
           return;
         }
 
+        setInputValid(true);
+        setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : data, isError: true});
+        setShowModal(true);
+        setLoading(false);
+        setInputValid(false);
+        return;
       }
       else{
         setShowModal(true);
