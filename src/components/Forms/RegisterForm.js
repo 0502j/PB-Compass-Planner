@@ -2,14 +2,6 @@ import classes from "./Form.module.css";
 import styles from "../Meetings/AddMeeting.module.css";
 import btnclasses from "./FormBtn.module.css";
 import { Fragment, useContext, useEffect, useRef, useState } from "react";
-import {
-  validateEmail,
-  validateName,
-  validateLastName,
-  validatePasword,
-  validateCity,
-  validateCountry
-} from "../../utils/Regex";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../store/user-context";
 import ConfirmModal from "../UI/ConfirmModal";
@@ -64,22 +56,8 @@ const Form = () => {
 
         //checking response errors
         if(!response.ok){
-            if(
-              !validateName.test(userInput.firstName) ||
-              !validateLastName.test(userInput.lastName) ||
-              !validateEmail.test(userInput.email) ||
-              !validateCity.test(userInput.city) || 
-              !validateCountry.test(userInput.country)
-              ){
-                setInputValid(false);
-                setModalMessage({title:"Registration failed.", description: isArray(data.errors) ? data.errors[0] : "Please review your information and try again.", isError: true});
-                setShowModal(true);
-                setLoading(false);
-                setInputValid(false);
-                clearInputs();
-                return;
-          } 
-          if(userInput.password !== userInput.confirmPassword || !validatePasword.test(userInput.password)) {
+          
+          if(userInput.password !== userInput.confirmPassword) {
             setModalMessage({title: "Registration failed.", description: "Passwords need to match & have at least 6 chars.", isError: true});
             setLoading(false);
             setShowModal(true);
@@ -95,6 +73,7 @@ const Form = () => {
           setInputValid(false);
           clearInputs();
           return;
+
       }
       else{
         setShowModal(true);
