@@ -39,9 +39,7 @@ A planner where you can schedule meetings and events, delete a single task or al
 
 <br>
 
-#### Try it out:
-
-* https://react-planner-3ef73.web.app
+#### Preview:
 
 <p align="center">
   <img width="600" src="https://user-images.githubusercontent.com/71787801/219946629-3c80e4af-4b49-4a30-85e6-7b0f95107ea1.gif">
